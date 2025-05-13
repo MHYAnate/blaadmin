@@ -22,6 +22,8 @@ import { useGetManufacturers } from "@/services/manufacturers";
 import { Pagination } from "@/components/ui/pagination";
 import { ISupplierCard } from "@/types";
 import SupplierManagementCardSkeleton from "@/components/skeletons/supply-management-card";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 export default function Manufacturers() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -61,6 +63,7 @@ export default function Manufacturers() {
   }, [filter, currentPage]);
   console.log(getManufacturersData?.pagination?.totalItems);
   return (
+        <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Card>
         <CardContent className="p-4 ">
@@ -155,5 +158,6 @@ export default function Manufacturers() {
         </CardContent>
       </Card>
     </section>
+    </Suspense>
   );
 }

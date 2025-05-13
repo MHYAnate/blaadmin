@@ -17,6 +17,8 @@ import { formatNumber } from "@/lib/utils";
 import { TopCustomersChart } from "./top-customers-chart";
 import { TopProductsChart } from "./top-products";
 import { TopOrdersChart } from "./total-orders";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const Dashboard: React.FC = () => {
   const {
@@ -26,6 +28,7 @@ const Dashboard: React.FC = () => {
   } = useGetDashboardInfo({ enabled: true });
 
   return (
+    <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Header
         title="Good morning, Evelyn."
@@ -188,6 +191,7 @@ const Dashboard: React.FC = () => {
         loading={isDashboardInfoLoading || isDashboardInfoLoading}
       />
     </section>
+    </Suspense>
   );
 };
 

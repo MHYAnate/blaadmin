@@ -7,6 +7,8 @@ import { ExportIcon } from "../../../../../../public/icons";
 import FinancialReportCard from "@/components/widgets/financial-report-card";
 import { IFinancialReportCard } from "@/types";
 import LineGraphComponent from "@/app/(admin)/components/line-chart";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const FinancialReport: React.FC = () => {
   const reportlist = [
@@ -33,6 +35,7 @@ const FinancialReport: React.FC = () => {
     },
   ];
   return (
+     <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Card className="bg-white">
         <CardContent className="p-6">
@@ -57,6 +60,7 @@ const FinancialReport: React.FC = () => {
         </CardContent>
       </Card>
     </div>
+    </Suspense>
   );
 };
 

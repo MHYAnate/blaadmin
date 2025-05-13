@@ -12,6 +12,8 @@ import { StackBarComponent } from "./stack-bar";
 import { HorizontalBarComponent } from "./horizontal-bar";
 import Manufacturer from "../shared/manufacturer";
 import { Accordion } from "@/components/ui/accordion";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const InventoryManagement: React.FC = () => {
   const orderlist = [
@@ -33,6 +35,7 @@ const InventoryManagement: React.FC = () => {
   ];
   return (
     <>
+    <Suspense fallback={<LoadingSvg/>}>
       <div className="flex justify-between items-center mb-8">
         <Header title="Inventory" subtext="Total of 5000 items" />
         <div className="flex gap-5">
@@ -63,6 +66,7 @@ const InventoryManagement: React.FC = () => {
         <Manufacturer showLink={true} />
         {/* ))} */}
       </Accordion>
+      </Suspense>
     </>
   );
 };

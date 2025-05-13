@@ -27,6 +27,8 @@ import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import DatePickerWithRange from "@/components/ui/date-picker";
 import { productTypeList } from "@/constant";
 import { capitalizeFirstLetter, showSuccessAlert } from "@/lib/utils";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 interface iProps {
   manufacturerId: string;
 }
@@ -139,6 +141,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
   };
 
   return (
+    <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Card>
         <CardContent className="p-4 ">
@@ -225,6 +228,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
         </DialogContent>
       </Dialog>
     </div>
+    </Suspense>
   );
 };
 

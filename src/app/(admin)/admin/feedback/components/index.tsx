@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/dialog";
 import { ChevronLeft } from "lucide-react";
 import { FeedbackBarComponent } from "./feedback-chart";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const Feedbacks: React.FC = () => {
   const [role, setRole] = useState<string>("");
@@ -34,6 +36,7 @@ const Feedbacks: React.FC = () => {
 
   return (
     <>
+     <Suspense fallback={<LoadingSvg/>}>
       <Card className="bg-white">
         <CardContent className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -79,6 +82,7 @@ const Feedbacks: React.FC = () => {
           <ViewSupport setClose={setIsOpen} />
         </DialogContent>
       </Dialog>
+      </Suspense>
     </>
   );
 };

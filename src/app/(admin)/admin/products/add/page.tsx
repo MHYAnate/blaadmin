@@ -8,6 +8,8 @@ import { Form } from "@/components/ui/form";
 import AddPricing from "./components/pricing";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 export default function AddProductsPage() {
   const [activeTab, setActiveTab] = useState<string>("add-product");
@@ -72,6 +74,7 @@ export default function AddProductsPage() {
     setActiveTab("add-pricing");
   };
   return (
+    <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mb-8 mt-6">
@@ -105,5 +108,6 @@ export default function AddProductsPage() {
         </form>
       </Form>
     </section>
+    </Suspense>
   );
 }

@@ -13,6 +13,8 @@ import { ROUTES } from "@/constant/routes";
 import SettingsGeneral from "./general";
 import Security from "./security";
 import Notifications from "./notifications";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const Settings: React.FC = () => {
   const param = useSearchParams();
@@ -54,6 +56,7 @@ const Settings: React.FC = () => {
 
   return (
     <>
+        <Suspense fallback={<LoadingSvg/>}>
       <div className="flex justify-between items-center mb-6">
         <Header title="Setting" subtext="Admin account settings" />
       </div>
@@ -92,6 +95,7 @@ const Settings: React.FC = () => {
           <CardContent className="p-6 nbg-white">{renderItem()}</CardContent>
         </Card>
       </div>
+      </Suspense>
     </>
   );
 };

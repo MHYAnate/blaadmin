@@ -19,6 +19,8 @@ import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import DeleteContent from "@/app/(admin)/components/delete-content";
 import DatePickerWithRange from "@/components/ui/date-picker";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const Customers: React.FC = () => {
   const {
@@ -75,6 +77,7 @@ const Customers: React.FC = () => {
   ];
 
   return (
+        <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Card className="bg-white">
         <CardContent className="p-6">
@@ -147,6 +150,7 @@ const Customers: React.FC = () => {
         </DialogContent>
       </Dialog>
     </div>
+    </Suspense>
   );
 };
 

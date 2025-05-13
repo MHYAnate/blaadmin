@@ -15,6 +15,8 @@ import ReportCard from "@/components/report-card";
 import { IReportCard } from "@/types";
 import { PieChartComponent } from "@/app/(admin)/components/pie-chart";
 import MultiLineGraphComponent from "./linegraph";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 export default function Reports() {
   const reportlist = [
@@ -58,6 +60,7 @@ export default function Reports() {
     { title: "Sammy", values: 18, fill: "#8C62FF" },
   ];
   return (
+    <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Card className="bg-white mb-8">
         <CardContent className="p-4 flex justify-between items-center">
@@ -97,5 +100,6 @@ export default function Reports() {
       </div>
       <DataTable />
     </section>
+    </Suspense>
   );
 }

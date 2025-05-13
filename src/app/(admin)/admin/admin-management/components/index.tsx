@@ -15,6 +15,8 @@ import { ChevronLeft } from "lucide-react";
 import RoleCard from "./role-card";
 import { useGetAdminRoles, useGetAdmins } from "@/services/admin/index";
 import { RoleData } from "@/types";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 export default function Admins() {
 
@@ -42,6 +44,7 @@ export default function Admins() {
   console.log("saferAdmindata", safeAdminData, "data", adminsData);
 
   return (
+      <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Card className="bg-white mb-8">
         <CardContent className="p-4 flex justify-between items-center">
@@ -91,5 +94,6 @@ export default function Admins() {
         </DialogContent>
       </Dialog>
     </section>
+    </Suspense>
   );
 }
