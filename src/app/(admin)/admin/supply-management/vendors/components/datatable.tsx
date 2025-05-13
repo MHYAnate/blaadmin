@@ -11,6 +11,8 @@ import {
   EditIcon,
   ViewIcon,
 } from "../../../../../../../public/icons";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const DataTable: React.FC = () => {
   const pageSize = 10;
@@ -123,6 +125,7 @@ const DataTable: React.FC = () => {
   };
 
   return (
+     <Suspense fallback={<LoadingSvg/>}>
     <div className="mx-6">
       <h6 className="font-semibold text-lg text-[#111827] mb-6">
         Detailed Vendor Table
@@ -146,6 +149,7 @@ const DataTable: React.FC = () => {
         columnLabels={columnLabels}
       />
     </div>
+    </Suspense>
   );
 };
 

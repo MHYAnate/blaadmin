@@ -24,6 +24,8 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { UploadIcon } from "../../../../../../../public/icons";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 const formSchema = z.object({
   vendorname: z.string().min(5, "Name must be greater 4"),
@@ -92,6 +94,7 @@ const AddVendor: React.FC<iProps> = ({ setClose }) => {
   }
 
   return (
+        <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mb-8">
@@ -306,6 +309,7 @@ const AddVendor: React.FC<iProps> = ({ setClose }) => {
         </form>
       </Form>
     </div>
+    </Suspense>
   );
 };
 
