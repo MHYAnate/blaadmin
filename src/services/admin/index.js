@@ -98,48 +98,48 @@ export const useGetAdminPermissions = ({ enabled = true }) => {
   };
 };
 
-export function useAdminInviteParams() {
-  const [params, setParams] = useState({
-    email: null,
-    userId: null,
-    expires: null,
-    signature: null,
-    isLoading: true,
-    error: null
-  });
+// export function useAdminInviteParams() {
+//   const [params, setParams] = useState({
+//     email: null,
+//     userId: null,
+//     expires: null,
+//     signature: null,
+//     isLoading: true,
+//     error: null
+//   });
 
-  useEffect(() => {
-    // Simulate next.js useSearchParams
-    const searchParams = new URLSearchParams(window.location.search);
-    const email = searchParams.get('email');
-    const userId = searchParams.get('userId');
-    const expires = searchParams.get('expires');
-    const signature = searchParams.get('signature');
+//   useEffect(() => {
+//     // Simulate next.js useSearchParams
+//     const searchParams = new URLSearchParams(window.location.search);
+//     const email = searchParams.get('email');
+//     const userId = searchParams.get('userId');
+//     const expires = searchParams.get('expires');
+//     const signature = searchParams.get('signature');
 
-    // Validate the invite parameters
-    let error = null;
+//     // Validate the invite parameters
+//     let error = null;
     
-    if (!email || !userId || !expires || !signature) {
-      error = 'Invalid invitation link. Missing required parameters.';
-    } else {
-      const expiryTime = parseInt(expires);
-      if (isNaN(expiryTime) || Date.now() > expiryTime) {
-        error = 'This invitation link has expired. Please request a new one.';
-      }
-    }
+//     if (!email || !userId || !expires || !signature) {
+//       error = 'Invalid invitation link. Missing required parameters.';
+//     } else {
+//       const expiryTime = parseInt(expires);
+//       if (isNaN(expiryTime) || Date.now() > expiryTime) {
+//         error = 'This invitation link has expired. Please request a new one.';
+//       }
+//     }
 
-    setParams({
-      email,
-      userId,
-      expires,
-      signature,
-      isLoading: false,
-      error
-    });
-  }, []);
+//     setParams({
+//       email,
+//       userId,
+//       expires,
+//       signature,
+//       isLoading: false,
+//       error
+//     });
+//   }, []);
 
-  return params;
-}
+//   return params;
+// }
 
 export function useRegistrationForm(props) {
   const { email, userId, expires, signature } = props;
