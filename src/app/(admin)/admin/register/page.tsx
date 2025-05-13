@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import SubAdminRegistrationForm from "./SubAdminRegistratuinForm";
+import AdminRegistration from "./SubAdminRegistratuinForm";
 import { Loader2 } from "lucide-react";
 import httpService from "@/services/httpService";
 import { Suspense } from "react";
@@ -64,7 +64,7 @@ export default function AdminRegistrationPage() {
 
   return (
     <Suspense fallback={<LoadingSvg/>}>
-    <SubAdminRegistrationForm />
+    <AdminRegistration />
     </Suspense>
   );
 }
