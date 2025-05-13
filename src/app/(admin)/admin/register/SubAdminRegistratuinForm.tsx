@@ -6,6 +6,8 @@ import { toast } from "sonner"
 import { useRegisterAdmin } from "@/services/admin"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 type FormErrors = {
   firstName?: string
@@ -193,6 +195,7 @@ export default function AdminRegistration() {
   }
 
   return (
+     <Suspense fallback={<LoadingSvg/>}>
     <div className="flex flex-col md:flex-row w-full min-h-screen">
       {/* Left Column */}
       <div className="w-full md:w-1/2 flex flex-col justify-end bg-[#0F3D30]">
@@ -468,6 +471,7 @@ export default function AdminRegistration() {
         </form>
       </div>
     </div>
+    </Suspense>
   )
 }
 

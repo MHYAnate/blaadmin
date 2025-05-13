@@ -14,6 +14,8 @@ import { ChatIcon, EmailIcon } from "../../../../public/icons";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent, useState } from "react";
 import { useSearchParams, usePathname} from "next/navigation";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 
 const Navbar: React.FC = () => {
@@ -25,6 +27,7 @@ const Navbar: React.FC = () => {
 
   const signature = searchParams.get('signature') ?? '';
   return (
+      <Suspense fallback={<LoadingSvg/>}>
     (path === "/admin/register"?<></>:
     <section
       className={cn(
@@ -73,6 +76,7 @@ const Navbar: React.FC = () => {
         </DropdownMenu>
       </div>
     </section>)
+    </Suspense>
   );
 };
 

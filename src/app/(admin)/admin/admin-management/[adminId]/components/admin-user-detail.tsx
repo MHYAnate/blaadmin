@@ -21,6 +21,8 @@ import { useGetAdminInfo } from "./use-admin-detail";
 import PermissionsTab from "./permissions-tab";
 import { useGetAdmins } from "@/services/admin";
 import { AdminData } from "@/types";
+import { Suspense } from "react";
+import LoadingSvg from "@/components/load";
 
 interface AdminUserDetailProps {
   adminId: string;
@@ -59,6 +61,7 @@ const AdminUserDetail: React.FC<AdminUserDetailProps> = ({ adminId, roles }) => 
   // If still loading, show a simple loading state
   if (isLoading) {
     return (
+       <Suspense fallback={<LoadingSvg/>}>
       <div>
         <Header title="Administrator Information" showBack={true} />
         <div className="mt-5">
@@ -71,6 +74,7 @@ const AdminUserDetail: React.FC<AdminUserDetailProps> = ({ adminId, roles }) => 
           </Card>
         </div>
       </div>
+      </Suspense>
     );
   }
 
@@ -86,6 +90,7 @@ const adminPhone = admin?.adminProfile
   const adminEmail = admin?.email || "admin@example.com";
 
   return (
+       <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Header title="Administrator Information" showBack={true} />
       <div className="flex flex-col md:flex-row gap-6 mt-5">
@@ -187,6 +192,7 @@ const adminPhone = admin?.adminProfile
         </Card>
       </div>
     </div>
+    </Suspense>
   );
 };
 
