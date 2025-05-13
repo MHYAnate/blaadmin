@@ -110,7 +110,7 @@ const DataTable: React.FC<iProps> = ({
 
   return (
     <div>
-    <CustomerTableComponent<CustomersData>
+      < CustomerTableComponent<CustomersData>
         tableData={data}
         currentPage={currentPage}
         onPageChange={onPageChange}

@@ -5,7 +5,6 @@ import { CustomersData } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { TableComponent } from "@/components/custom-table";
 import { CustomerTableComponent } from "@/components/custom-table/index2";
 import Link from "next/link";
 import { ViewIcon } from "../../../../../public/icons";
