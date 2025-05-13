@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { AdminData, DataItem, ITableProps,InventoryData } from "@/types";
+import { ITableProps,OrdersData, DataItem } from "@/types";
 import { ReactNode } from "react";
 import { Pagination } from "../ui/pagination";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -18,13 +18,13 @@ import TableSkeleton from "../skeletons/table";
 
 type CellRenderer<T> = (item: T, column: keyof T) => ReactNode;
 
-export interface EnhancedTableProps<T extends InventoryData> extends ITableProps<T> {
+export interface EnhancedTableProps<T extends DataItem> extends ITableProps<T> {
   cellRenderers?:any;
   columnOrder?: (keyof T)[];
   columnLabels?: Partial<Record<keyof T, string>>;
 }
 
-export function InventoryTableComponent<T extends InventoryData>({
+export function OrderTableComponent<T extends  OrdersData>({
   tableData,
   currentPage = 1,
   totalPages = 10,
