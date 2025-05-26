@@ -6,7 +6,7 @@ dotenv.config();
 class HttpService {
   constructor() {
     this.request = useRequest();
-    this.baseUrl ="postgresql://postgres:VzFSoVCwZzjxgiagFCDBEnnmSWYelJYb@junction.proxy.rlwy.net:47831/railway";
+    this.baseUrl = process.env.NEXT_PUBLIC_API_URL;
   }
 
   getServiceUrl(url) {
