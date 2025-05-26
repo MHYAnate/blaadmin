@@ -63,5 +63,32 @@ export const routes = {
 
   registerInvitedAdmin: () => "admin/manage/register",
   createAdmin: () => "admin/manage/create",
+
+  delete: (id) => `admin/${id}`,
+
+   // Financial Reports
+  //  dashboardReports: () => "admin/reports/dashboard",
+  //  financialReports: (params = {}) => {
+  //    const query = new URLSearchParams(params);
+  //    return `admin/reports?${query}`;
+  //  },
+   financialReport: (customerId) => `admin/reports/${customerId}`,
+   deleteFinancialData: (customerId) => `admin/reports/${customerId}`,
  
+  //  financialReports: (params) => {
+  //   const queryParams = new URLSearchParams({
+  //     ...params,
+  //     startDate: params.startDate || '',
+  //     endDate: params.endDate || '',
+  //     customerType: params.customerType || '',
+  //     minAOV: params.minAOV?.toString() || '',
+  //     maxAOV: params.maxAOV?.toString() || '',
+  //     page: params.page?.toString() || '1',
+  //     pageSize: params.pageSize?.toString() || '10'
+  //   });
+    
+  //   return `admin/reports?${queryParams.toString()}`;
+  // },
+  financialReports: () => '/admin/reports',
+  dashboardReports: () => '/admin/dashboard',
 };

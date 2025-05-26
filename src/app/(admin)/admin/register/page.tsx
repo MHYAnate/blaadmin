@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import AdminRegistration from "./SubAdminRegistratuinForm";
+import SubAdminRegistrationForm from "./SubAdminRegistratuinForm";
 import { Loader2 } from "lucide-react";
 import httpService from "@/services/httpService";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
 
 export default function AdminRegistrationPage() {
   const searchParams = useSearchParams();
@@ -34,20 +32,17 @@ export default function AdminRegistrationPage() {
 
   if (loading) {
     return (
-      <Suspense fallback={<LoadingSvg/>}>
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
           <p className="mt-4 text-lg">Verifying your invitation...</p>
         </div>
       </div>
-      </Suspense>
     );
   }
 
   if (error) {
     return (
-      <Suspense fallback={<LoadingSvg/>}>
       <div className="flex items-center justify-center h-screen">
         <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Registration Error</h1>
@@ -57,14 +52,11 @@ export default function AdminRegistrationPage() {
           </p>
         </div>
       </div>
-      </Suspense>
     );
   }
 
 
   return (
-    <Suspense fallback={<LoadingSvg/>}>
-    <AdminRegistration />
-    </Suspense>
+    <SubAdminRegistrationForm />
   );
 }

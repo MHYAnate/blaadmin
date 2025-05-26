@@ -1,11 +1,13 @@
 import { HorizontalDots } from "../../../../../../../public/icons";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft } from "lucide-react";
 import { useUpdateAdminRoles } from "@/services/admin/index";
 import { toast } from "sonner";
 import { AdminsData, RoleData } from "@/types";
+import { useGetAdmins } from "@/services/admin";
+import { useSearchParams } from 'next/navigation';
 
 interface GeneralInfoProps {
   adminData: any;
@@ -14,9 +16,30 @@ interface GeneralInfoProps {
 
 const GeneralInfo: React.FC<GeneralInfoProps> = ({ adminData, roles }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  
   const adminRoles = adminData?.roles || [];
 
   console.log("props role", roles, "inrole", adminRoles, "adminData", adminData);
+
+     const[email, setEmail] = useState("");
+  
+     useEffect(() => {
+      if (typeof window !== "undefined") {
+        const email = localStorage.getItem("userEmail") || 
+                     sessionStorage.getItem("userEmail");
+        // Use the email
+        setEmail(email? email : "")
+      }
+    }, []);
+  
+    const { adminsData, isAdminsLoading } = useGetAdmins({ enabled: true });
+    const admin = adminsData?.find((admin: {email : string }) => admin.email === email);
+  
+    console.log(email, "email", adminsData, "data", admin, "filter" )
+  
+    //super_admin 
+    // admin.roles.role.name !==super_admin
   
   const colors = [
     { bg: "#E7F7EF", color: "#0CAF60" },
@@ -91,6 +114,7 @@ const GeneralInfo: React.FC<GeneralInfoProps> = ({ adminData, roles }) => {
           <h5 className="text-[#111827] font-semibold">Role</h5>
           <div className="flex gap-2">
             <Button 
+            disabled={admin?.roles[0]?.role?.name !=="super_admin"}
               variant="outline" 
               size="sm" 
               onClick={() => setIsEditDialogOpen(true)}

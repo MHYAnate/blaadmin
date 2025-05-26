@@ -16,14 +16,8 @@ import GeneralInfo from "../components/general-info";
 import { useSearchParams } from "next/navigation";
 import { useHandlePush } from "@/hooks/use-handle-push";
 import { ROUTES } from "@/constant/routes";
-import { RoleData } from "@/types";
-import { useGetAdminInfo } from "./use-admin-detail";
 import PermissionsTab from "./permissions-tab";
 import { useGetAdmins } from "@/services/admin";
-import { AdminData } from "@/types";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
-
 interface AdminUserDetailProps {
   adminId: string;
   roles: any;
@@ -33,7 +27,6 @@ const AdminUserDetail: React.FC<AdminUserDetailProps> = ({ adminId, roles }) => 
   const params = useSearchParams();
   const tabParam = params.get("tab");
   const { handlePush } = useHandlePush();
-  const { adminData, isLoading } = useGetAdminInfo(adminId);
 
    const{adminsData, isAdminsLoading,refetchAdmins }= useGetAdmins({ enabled: true });
    console.log(adminId, "id", adminsData);
@@ -59,9 +52,8 @@ const AdminUserDetail: React.FC<AdminUserDetailProps> = ({ adminId, roles }) => 
   ];
 
   // If still loading, show a simple loading state
-  if (isLoading) {
+  if (isAdminsLoading) {
     return (
-       <Suspense fallback={<LoadingSvg/>}>
       <div>
         <Header title="Administrator Information" showBack={true} />
         <div className="mt-5">
@@ -74,23 +66,19 @@ const AdminUserDetail: React.FC<AdminUserDetailProps> = ({ adminId, roles }) => 
           </Card>
         </div>
       </div>
-      </Suspense>
     );
   }
 
   // If we have data, determine the status
   const status =admin?.status && admin?.status;
   const adminRoles = admin?.roles || [];
-  const adminName = admin?.adminProfile
-.username
+  const adminName = admin?.adminProfile?.username
 || "Administrator";
-const adminPhone = admin?.adminProfile
-.phone
+const adminPhone = admin?.adminProfile?.phone
 || "number";
   const adminEmail = admin?.email || "admin@example.com";
 
   return (
-       <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Header title="Administrator Information" showBack={true} />
       <div className="flex flex-col md:flex-row gap-6 mt-5">
@@ -113,20 +101,20 @@ const adminPhone = admin?.adminProfile
                   
                 </p>
                 <p className="text-[#687588] text-sm mb-6 text-center">
-                  @{adminName.toLowerCase().replace(/\s+/g, "_")}
+                  @{adminName?.toLowerCase().replace(/\s+/g, "_")}
                 </p>
                 <div className="flex justify-center">
                   <Badge
                     variant={
-                      status.toLowerCase() === "active"
+                      status?.toLowerCase() === "active"
                         ? "success"
-                        : status.toLowerCase() === "pending"
+                        : status?.toLowerCase() === "pending"
                         ? "tertiary"
                         : "warning"
                     }
                     className="py-1 px-[26px] font-medium"
                   >
-                    {status.toUpperCase()}
+                    {status?.toUpperCase()}
                   </Badge>
                 </div>
               </div>
@@ -192,7 +180,6 @@ const adminPhone = admin?.adminProfile
         </Card>
       </div>
     </div>
-    </Suspense>
   );
 };
 

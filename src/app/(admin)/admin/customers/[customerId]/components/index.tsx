@@ -20,8 +20,6 @@ import { ROUTES } from "@/constant/routes";
 import { useGetCustomerInfo } from "@/services/customers";
 import { useEffect } from "react";
 import { capitalizeFirstLetter, formatDate } from "@/lib/utils";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
 
 export default function CustomerDetail({ customerId }: { customerId: string }) {
   const param = useSearchParams();
@@ -55,7 +53,6 @@ export default function CustomerDetail({ customerId }: { customerId: string }) {
   }, [customerId]);
 
   return (
-    <Suspense fallback={<LoadingSvg/>}>
     <div>
       <Header title="Customer information" showBack={true} />
       <div className="flex gap-6 mt-5">
@@ -189,6 +186,5 @@ export default function CustomerDetail({ customerId }: { customerId: string }) {
         </Card>
       </div>
     </div>
-    </Suspense>
   );
 }

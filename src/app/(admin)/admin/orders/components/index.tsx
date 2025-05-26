@@ -35,8 +35,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import DatePickerWithRange from "@/components/ui/date-picker";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
 
 export default function Orders() {
   const {
@@ -150,7 +148,6 @@ export default function Orders() {
   console.log(getOrdersSummaryData);
 
   return (
-    <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Card className="bg-white">
         <CardContent className="p-4">
@@ -236,6 +233,5 @@ export default function Orders() {
         </DialogContent>
       </Dialog>
     </section>
-    </Suspense>
   );
 }

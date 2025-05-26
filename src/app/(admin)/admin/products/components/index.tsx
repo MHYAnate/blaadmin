@@ -22,8 +22,6 @@ import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { useDeleteProduct, useGetProducts } from "@/services/products";
 import DatePickerWithRange from "@/components/ui/date-picker";
 import { productTypeList } from "@/constant";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
 
 export default function Products() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -61,7 +59,6 @@ export default function Products() {
   }, [filter, status, pageSize]);
 
   return (
-     <Suspense fallback={<LoadingSvg/>}>
     <section>
       <div className="p-4 flex justify-between items-center mb-8">
         <Header title="Products" subtext="Manage Products." />
@@ -168,6 +165,5 @@ export default function Products() {
         </DialogContent>
       </Dialog>
     </section>
-    </Suspense>
   );
 }

@@ -22,8 +22,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {  useInviteAdmin } from "@/services/admin/index";
-import { AdminsData, RoleData } from "@/types";
+import {  RoleData } from "@/types";
 import { toast } from "sonner";
+import { useGetAdmins } from "@/services/admin";
+
 
 
 const formSchema = z.object({
@@ -42,6 +44,24 @@ interface IProps {
 
 const CreateAdmin: React.FC<IProps> = ({ setClose, setUrl, roles = [] }) => {
 
+   const[email, setEmail] = useState("");
+
+   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const email = localStorage.getItem("userEmail") || 
+                   sessionStorage.getItem("userEmail");
+      // Use the email
+      setEmail(email? email : "")
+    }
+  }, []);
+
+  const { adminsData, isAdminsLoading } = useGetAdmins({ enabled: true });
+  const admin = adminsData?.find((admin: {email : string }) => admin.email === email);
+
+  console.log(email, "email", adminsData, "data", admin, "filter" )
+
+  //super_admin 
+  // admin.roles.role.name !==super_admin
  
   const { inviteAdminPayload, inviteAdminIsLoading} = useInviteAdmin((data: any) => {
     toast.success("Admin invitation sent successfully");
@@ -148,7 +168,7 @@ const CreateAdmin: React.FC<IProps> = ({ setClose, setUrl, roles = [] }) => {
               Cancel
             </Button>
             <Button
-              disabled={inviteAdminIsLoading}
+              disabled={inviteAdminIsLoading ||admin?.roles[0]?.role?.name !=="super_admin"}
               variant="warning"
               className="w-auto px-[3rem] py-4 font-bold text-base"
               size="xl"

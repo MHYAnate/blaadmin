@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { ITableProps,OrdersData, DataItem } from "@/types";
+import { DataItem, ITableProps,OrdersData } from "@/types";
 import { ReactNode } from "react";
 import { Pagination } from "../ui/pagination";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";

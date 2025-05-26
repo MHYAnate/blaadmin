@@ -23,8 +23,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/app/(admin)/components/header";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
 
 export default function SetStockLimitPage() {
   const formSchema = z.object({
@@ -63,7 +61,6 @@ export default function SetStockLimitPage() {
 
   return (
     <>
-    <Suspense fallback={<LoadingSvg/>}>
       <Card>
         <CardContent className="p-6">
           <Header
@@ -189,7 +186,6 @@ export default function SetStockLimitPage() {
           </Form>
         </CardContent>
       </Card>
-      </Suspense>
     </>
   );
 }

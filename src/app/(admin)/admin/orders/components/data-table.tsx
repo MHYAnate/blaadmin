@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { DeleteIcon, ViewIcon } from "../../../../../../public/icons";
 import { TableComponent } from "@/components/custom-table";
-import { ProductTableComponent } from "@/components/custom-table/productIndex";
-import { OrderTableComponent } from "@/components/custom-table/OrderIndex";
+import { OrderTableComponent } from "@/components/custom-table/orderIndex";
 
 import { OrdersData } from "@/types";
 import { Badge } from "@/components/ui/badge";

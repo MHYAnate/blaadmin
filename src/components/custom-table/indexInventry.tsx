@@ -18,7 +18,7 @@ import TableSkeleton from "../skeletons/table";
 
 type CellRenderer<T> = (item: T, column: keyof T) => ReactNode;
 
-export interface EnhancedTableProps<T extends InventoryData> extends ITableProps<T> {
+export interface EnhancedTableProps<T extends DataItem> extends ITableProps<T> {
   cellRenderers?:any;
   columnOrder?: (keyof T)[];
   columnLabels?: Partial<Record<keyof T, string>>;

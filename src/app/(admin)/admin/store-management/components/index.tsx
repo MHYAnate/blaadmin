@@ -7,8 +7,6 @@ import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import EmptyState from "@/app/(admin)/components/empty";
 import DataTable from "./data-table";
-import { Suspense } from "react";
-import LoadingSvg from "@/components/load";
 
 export default function StoreManagement() {
   const [role, setRole] = useState<string>("");
@@ -24,7 +22,6 @@ export default function StoreManagement() {
     },
   ];
   return (
-     <Suspense fallback={<LoadingSvg/>}>
     <section>
       <Card>
         <CardContent className="p-4 ">
@@ -56,6 +53,5 @@ export default function StoreManagement() {
         </CardContent>
       </Card>
     </section>
-    </Suspense>
   );
 }
