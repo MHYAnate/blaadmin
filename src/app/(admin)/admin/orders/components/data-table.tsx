@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { DeleteIcon, ViewIcon } from "../../../../../../public/icons";
 import { TableComponent } from "@/components/custom-table";
-import { OrderTableComponent } from "@/components/custom-table/orderIndex";
+// import { OrderTableComponent } from "@/components/custom-table/orderIndex";
 
 import { OrdersData } from "@/types";
 import { Badge } from "@/components/ui/badge";
@@ -141,7 +141,7 @@ const DataTable: React.FC<iProps> = ({
 
   return (
     <>
-      <OrderTableComponent<OrdersData>
+      {/* <OrderTableComponent<OrdersData>
         tableData={data}
         currentPage={currentPage}
         onPageChange={onPageChange}
@@ -150,7 +150,7 @@ const DataTable: React.FC<iProps> = ({
         columnOrder={columnOrder}
         columnLabels={columnLabels}
         isLoading={loading}
-      />
+      /> */}
 
       <Dialog open={isOpen} onOpenChange={() => setIsOpen(!open)}>
         <DialogContent className="right-0 p-8 max-w-[47.56rem] h-screen overflow-scroll">
