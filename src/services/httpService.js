@@ -31,37 +31,68 @@ class HttpService {
   // }
 
 
-  async postData(payload, url) {
-    return this.request.post(this.getServiceUrl(url), payload);
-  }
+  // async postData(payload, url) {
+  //   return this.request.post(this.getServiceUrl(url), payload);
+  // }
+  // async postDataWithoutToken(payload, url) {
+  //   return axios.post(this.getServiceUrl(url), payload);
+  // }
+  // async getData(url) {
+  //   return this.request.get(this.getServiceUrl(url));
+  // }
+  // async getDataWithoutToken(url) {
+  //   return axios.get(this.getServiceUrl(url));  // Fixed parameter usage
+  // }
+
+  // async putData(payload, url) {
+  //   return this.request.put(this.getServiceUrl(url), payload);
+  // }
+
+  // async putDataWithoutToken(payload, url) {
+  //   return axios.put(this.getServiceUrl(url), payload);
+  // }
+
+  // async patchData(payload, url) {
+  //   return this.request.patch(this.getServiceUrl(url), payload);
+  // }
+
+  // async patchDataWithoutToken(payload, url) {
+  //   return axios.patch(this.getServiceUrl(url), payload);
+  // }
+
+  // async deleteData(url) {
+  //   return this.request.delete(this.getServiceUrl(url));
+  // }
+
   async postDataWithoutToken(payload, url) {
-    return axios.post(this.getServiceUrl(url), payload);
+    return axios.post(this.getServiceUrl(url), payload, {
+      withCredentials: true,
+    });
   }
-  async getData(url) {
-    return this.request.get(this.getServiceUrl(url));
-  }
+  
   async getDataWithoutToken(url) {
-    return axios.get(this.getServiceUrl(url));  // Fixed parameter usage
+    return axios.get(this.getServiceUrl(url), {
+      withCredentials: true,
+    });
   }
-
-  async putData(payload, url) {
-    return this.request.put(this.getServiceUrl(url), payload);
-  }
-
+  
   async putDataWithoutToken(payload, url) {
-    return axios.put(this.getServiceUrl(url), payload);
+    return axios.put(this.getServiceUrl(url), payload, {
+      withCredentials: true,
+    });
   }
-
-  async patchData(payload, url) {
-    return this.request.patch(this.getServiceUrl(url), payload);
-  }
-
+  
   async patchDataWithoutToken(payload, url) {
-    return axios.patch(this.getServiceUrl(url), payload);
+    return axios.patch(this.getServiceUrl(url), payload, {
+      withCredentials: true,
+    });
   }
 
-  async deleteData(url) {
+    async deleteData(url) {
     return this.request.delete(this.getServiceUrl(url));
+  }
+    async patchData(payload, url) {
+    return this.request.patch(this.getServiceUrl(url), payload);
   }
 }
 
