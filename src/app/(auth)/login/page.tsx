@@ -95,9 +95,17 @@ export default function LoginPage() {
     }
   }, [form]);
 
-  async function onSubmit(values: FormSchemaType) {
-    loginPayload(values);
-  }
+  // async function onSubmit(values: FormSchemaType) {
+  //   loginPayload(values);
+  // }
+
+  // Login form submit handler
+async function onSubmit(values: FormSchemaType) {
+  await loginPayload({
+    email: values.email,
+    password: values.password
+  });
+}
 
 
   return (

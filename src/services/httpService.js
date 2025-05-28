@@ -9,11 +9,25 @@ class HttpService {
     this.baseUrl = process.env.NEXT_PUBLIC_API_URL;
   }
 
-  getServiceUrl(url) {
-    return `${this.baseUrl}${url}`;
-    // return `${this.baseUrl.replace(/\/$/, "")}/${url.replace(/^\//, "")}`;
-  }
+  // getServiceUrl(url) {
+  //   return `${this.baseUrl}${url}`;
+  //   // return `${this.baseUrl.replace(/\/$/, "")}/${url.replace(/^\//, "")}`;
+  // }
 
+  // httpService.js
+getServiceUrl(url) {
+  // Ensure base URL ends with a slash
+  const base = this.baseUrl.endsWith('/') 
+    ? this.baseUrl 
+    : this.baseUrl + '/';
+  
+  // Remove leading slash from endpoint if present
+  const endpoint = url.startsWith('/') 
+    ? url.substring(1) 
+    : url;
+    
+  return base + endpoint;
+}
   // async postData(payload, url) {
   //   return this.request.post(this.getServiceUrl(url), payload);
   // }
