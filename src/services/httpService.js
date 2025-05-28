@@ -4,11 +4,20 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class HttpService {
+  // constructor() {
+  //   this.request = useRequest();
+  //   this.baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  // }
   constructor() {
-    this.request = useRequest();
     this.baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    this.instance = axios.create({
+      baseURL: this.baseUrl,
+      timeout: 30000, // 30s timeout
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   }
-
   // getServiceUrl(url) {
   //   return `${this.baseUrl}${url}`;
   //   // return `${this.baseUrl.replace(/\/$/, "")}/${url.replace(/^\//, "")}`;
@@ -44,13 +53,23 @@ getServiceUrl(url) {
   //   return axios.get(this.getServiceUrl(service, url));
   // }
 
-
   async postData(payload, url) {
-    return this.request.post(this.getServiceUrl(url), payload);
+    return this.instance.post(url, payload);
   }
+
   async postDataWithoutToken(payload, url) {
-    return axios.post(this.getServiceUrl(url), payload);
+    return axios.post(`${this.baseUrl}${url}`, payload, {
+      timeout: 30000
+    });
   }
+
+
+  // async postData(payload, url) {
+  //   return this.request.post(this.getServiceUrl(url), payload);
+  // }
+  // async postDataWithoutToken(payload, url) {
+  //   return axios.post(this.getServiceUrl(url), payload);
+  // }
   async getData(url) {
     return this.request.get(this.getServiceUrl(url));
   }
