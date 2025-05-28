@@ -89,6 +89,6 @@ export const routes = {
     
   //   return `admin/reports?${queryParams.toString()}`;
   // },
-  financialReports: () => '/admin/reports',
-  dashboardReports: () => '/admin/dashboard',
+  financialReports: () => 'admin/reports',
+  dashboardReports: () => 'admin/dashboard',
 };

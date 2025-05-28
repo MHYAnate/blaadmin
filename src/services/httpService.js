@@ -10,8 +10,8 @@ class HttpService {
   }
 
   getServiceUrl(url) {
-    // return `${this.baseUrl}${url}`;
-    return `${this.baseUrl.replace(/\/$/, "")}/${url.replace(/^\//, "")}`;
+    return `${this.baseUrl}${url}`;
+    // return `${this.baseUrl.replace(/\/$/, "")}/${url.replace(/^\//, "")}`;
   }
 
   // async postData(payload, url) {
