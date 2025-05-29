@@ -38,19 +38,19 @@ class HttpService {
 //   return base + endpoint;
 // }
 
-getServiceUrl(url) {
-  // Ensure base URL ends with a slash
-  const base = this.baseUrl.endsWith('/') 
-    ? this.baseUrl 
-    : this.baseUrl + '/';
+// getServiceUrl(url) {
+//   // Ensure base URL ends with a slash
+//   const base = this.baseUrl.endsWith('/') 
+//     ? this.baseUrl 
+//     : this.baseUrl + '/';
   
-  // Remove leading slash from endpoint
-  const endpoint = url.startsWith('/') 
-    ? url.substring(1) 
-    : url;
+//   // Remove leading slash from endpoint
+//   const endpoint = url.startsWith('/') 
+//     ? url.substring(1) 
+//     : url;
   
-  return base + endpoint;
-}
+//   return base + endpoint;
+// }
   // async postData(payload, url) {
   //   return this.request.post(this.getServiceUrl(url), payload);
   // }
@@ -67,9 +67,9 @@ getServiceUrl(url) {
   //   return axios.get(this.getServiceUrl(service, url));
   // }
 
-  async postData(payload, url) {
-    return this.instance.post(url, payload);
-  }
+  // async postData(payload, url) {
+  //   return this.instance.post(url, payload);
+  // }
 
   // async postDataWithoutToken(payload, url) {
   //   return axios.post(`${this.baseUrl}${url}`, payload, {
@@ -77,28 +77,28 @@ getServiceUrl(url) {
   //   });
   // }
 
-  async postDataWithoutToken(payload, url) {
-    try {
-      const fullUrl = this.getServiceUrl(url);
-      console.log("Request URL:", fullUrl); // For debugging
-      return await axios.post(fullUrl, payload, {
-        timeout: 30000,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    } catch (error) {
-      console.error("Request failed:", error);
-      throw error;
-    }
-  }
-
-  // async postData(payload, url) {
-  //   return this.request.post(this.getServiceUrl(url), payload);
-  // }
   // async postDataWithoutToken(payload, url) {
-  //   return axios.post(this.getServiceUrl(url), payload);
+  //   try {
+  //     const fullUrl = this.getServiceUrl(url);
+  //     console.log("Request URL:", fullUrl); // For debugging
+  //     return await axios.post(fullUrl, payload, {
+  //       timeout: 30000,
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error("Request failed:", error);
+  //     throw error;
+  //   }
   // }
+
+  async postData(payload, url) {
+    return this.request.post(this.getServiceUrl(url), payload);
+  }
+  async postDataWithoutToken(payload, url) {
+    return axios.post(this.getServiceUrl(url), payload);
+  }
   async getData(url) {
     return this.request.get(this.getServiceUrl(url));
   }
