@@ -130,9 +130,27 @@
 // export default new HttpService();
 
 import axios from "axios";
-import { getAccessToken, getRefreshToken, storeTokens } from "@/lib/auth";
+// import { getAccessToken, getRefreshToken, storeTokens } from "@/lib/auth";
 import dotenv from 'dotenv';
 dotenv.config();
+
+const storeTokens = (token, refreshToken) => {
+  if (typeof window === "undefined") return;
+  
+  localStorage.setItem("token", token);
+  localStorage.setItem("refreshToken", refreshToken);
+};
+
+const getAccessToken = () => {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("token");
+};
+
+const getRefreshToken = () => {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("refreshToken");
+};
+
 
 class HttpService {
   constructor() {
