@@ -29,6 +29,43 @@ const formSchema = z.object({
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
+// export default function LoginPage() {
+//   const router = useRouter();  // Initialize router
+  
+//   // Modify success callback to use router
+//   const { loginData, loginIsLoading, loginPayload } = useLogin((res: any) => {
+//     Storage.set("token", res?.data?.token);
+//     // Get email from form values
+//     const email = form.getValues().email;
+//     localStorage.setItem("token", res?.data?.token);
+//     // or sessionStorage.setItem("token", res?.data?.token);
+    
+//     const remember = form.getValues().remember;
+    
+//     // Store email based on remember me preference
+//     if (remember) {
+//       localStorage.setItem("userEmail", email); // Persistent across sessions
+//     } else {
+//       sessionStorage.setItem("userEmail", email); // Only for current session
+//     }
+//     // Push to admin route with email query param
+//     router.push(`/admin?email=${encodeURIComponent(email)}`);
+
+//   });
+
+//   const form = useForm<FormSchemaType>({
+//     resolver: zodResolver(formSchema),
+//     defaultValues: {
+//       email: "",
+//       password: "",
+//       remember: false,
+//     },
+//   });
+
+//   async function onSubmit(values: FormSchemaType) {
+//     loginPayload(values);
+//   }
+
 export default function LoginPage() {
   const router = useRouter();  // Initialize router
   
@@ -37,20 +74,8 @@ export default function LoginPage() {
     Storage.set("token", res?.data?.token);
     // Get email from form values
     const email = form.getValues().email;
-    localStorage.setItem("token", res?.data?.token);
-    // or sessionStorage.setItem("token", res?.data?.token);
-    
-    const remember = form.getValues().remember;
-    
-    // Store email based on remember me preference
-    if (remember) {
-      localStorage.setItem("userEmail", email); // Persistent across sessions
-    } else {
-      sessionStorage.setItem("userEmail", email); // Only for current session
-    }
     // Push to admin route with email query param
     router.push(`/admin?email=${encodeURIComponent(email)}`);
-
   });
 
   const form = useForm<FormSchemaType>({
