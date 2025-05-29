@@ -1,6 +1,7 @@
 export const routes = {
 
   login: () => "auth/login",
+  refresh: () => "auth/refresh",
     forgotPassword: () => `auth/reset`,
     resetPassword: () => "auth/reset-password",
     profile: () => "/api/user/info",
