@@ -29,41 +29,17 @@ const formSchema = z.object({
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-// export default function LoginPage() {
-//   const router = useRouter();  // Initialize router
-  
-//   // Modify success callback to use router
-//   const { loginData, loginIsLoading, loginPayload } = useLogin((res: any) => {
-//     Storage.set("token", res?.data?.token);
-//     // Get email from form values
-//     const email = form.getValues().email;
-//     // Push to admin route with email query param
-//     router.push(`/admin?email=${encodeURIComponent(email)}`);
-//   });
-
-//   const form = useForm<FormSchemaType>({
-//     resolver: zodResolver(formSchema),
-//     defaultValues: {
-//       email: "",
-//       password: "",
-//       remember: false,
-//     },
-//   });
-
-//   async function onSubmit(values: FormSchemaType) {
-//     loginPayload(values);
-//   }
-
 export default function LoginPage() {
-  const router = useRouter();
-
-  // Modify success callback to use storage
+  const router = useRouter();  // Initialize router
+  
+  // Modify success callback to use router
   const { loginData, loginIsLoading, loginPayload } = useLogin((res: any) => {
-    // Store token in localStorage/sessionStorage
+    Storage.set("token", res?.data?.token);
+    // Get email from form values
+    const email = form.getValues().email;
     localStorage.setItem("token", res?.data?.token);
     // or sessionStorage.setItem("token", res?.data?.token);
     
-    const email = form.getValues().email;
     const remember = form.getValues().remember;
     
     // Store email based on remember me preference
@@ -72,8 +48,9 @@ export default function LoginPage() {
     } else {
       sessionStorage.setItem("userEmail", email); // Only for current session
     }
-    
-    router.push(`/admin`);
+    // Push to admin route with email query param
+    router.push(`/admin?email=${encodeURIComponent(email)}`);
+
   });
 
   const form = useForm<FormSchemaType>({
@@ -84,6 +61,43 @@ export default function LoginPage() {
       remember: false,
     },
   });
+
+  async function onSubmit(values: FormSchemaType) {
+    loginPayload(values);
+  }
+
+  
+
+// export default function LoginPage() {
+//   const router = useRouter();
+
+//   // Modify success callback to use storage
+//   const { loginData, loginIsLoading, loginPayload } = useLogin((res: any) => {
+//     // Store token in localStorage/sessionStorage
+//     localStorage.setItem("token", res?.data?.token);
+//     // or sessionStorage.setItem("token", res?.data?.token);
+    
+//     const email = form.getValues().email;
+//     const remember = form.getValues().remember;
+    
+//     // Store email based on remember me preference
+//     if (remember) {
+//       localStorage.setItem("userEmail", email); // Persistent across sessions
+//     } else {
+//       sessionStorage.setItem("userEmail", email); // Only for current session
+//     }
+    
+//     router.push(`/admin`);
+//   });
+
+  // const form = useForm<FormSchemaType>({
+  //   resolver: zodResolver(formSchema),
+  //   defaultValues: {
+  //     email: "",
+  //     password: "",
+  //     remember: false,
+  //   },
+  // });
 
   // Pre-fill email if remembered
   useEffect(() => {
@@ -100,12 +114,12 @@ export default function LoginPage() {
   // }
 
   // Login form submit handler
-async function onSubmit(values: FormSchemaType) {
-  await loginPayload({
-    email: values.email,
-    password: values.password
-  });
-}
+// async function onSubmit(values: FormSchemaType) {
+//   await loginPayload({
+//     email: values.email,
+//     password: values.password
+//   });
+// }
 
 
   return (
