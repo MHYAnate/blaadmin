@@ -21,7 +21,7 @@ interface ErrorResponse {
 
 interface UseLoginResponse {
   loginData: any;
-  loginDataError:any;
+  loginDataError: string;
   loginIsLoading: boolean;
   loginPayload: (requestPayload: any) => Promise<void>;
 }
@@ -40,88 +40,24 @@ interface UseResetPasswordResponse {
   resetPasswordPayload: (requestPayload: any) => Promise<void>;
 }
 
-// export const useLogin = (handleSuccess: HandleSuccess): UseLoginResponse => {
-//   const { data, error, isPending, mutateAsync } = useMutateItem({
-//     mutationFn: (payload: any) =>
-//       httpService.postDataWithoutToken(payload, routes.login()),
-//     queryKeys: ["login"],
-//     onSuccess: (requestParams: any) => {
-//       const resData = requestParams?.data || {};
-//       handleSuccess(resData);
-//       showSuccessAlert(resData?.message);
-//     },
-//     onError: (error: any) => {
-//       showErrorAlert(error?.response?.data?.error || "Something went wrong!");
-//     },
-//   });
-
-//   return {
-//     loginData: data,
-//     loginDataError: ErrorHandler(error) || "An error occured",
-//     loginIsLoading: isPending,
-//     loginPayload: async (requestPayload: any): Promise<void> => {
-//       await mutateAsync(requestPayload);
-//     },
-//   };
-// };
-// Secure token storage
-export const storeTokens = (token: string, refreshToken: string) => {
-  if (typeof window === "undefined") return;
-  
-  localStorage.setItem("token", token);
-  localStorage.setItem("refreshToken", refreshToken);
-};
-
-export const getAccessToken = () => {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem("token");
-};
-
-export const getRefreshToken = () => {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem("refreshToken");
-};
-
-export const clearTokens = () => {
-  if (typeof window === "undefined") return;
-  
-  localStorage.removeItem("token");
-  localStorage.removeItem("refreshToken");
-};
-
 export const useLogin = (handleSuccess: HandleSuccess): UseLoginResponse => {
   const { data, error, isPending, mutateAsync } = useMutateItem({
     mutationFn: (payload: any) =>
       httpService.postDataWithoutToken(payload, routes.login()),
     queryKeys: ["login"],
-    onSuccess: (response: { data: { token: any; refreshToken: any; user: any; }; }) => {
-      const { token, refreshToken, user } = response.data;
-      
-      // Store tokens
-      storeTokens(token, refreshToken);
-      
-      // Store user data
-      localStorage.setItem("user", JSON.stringify(user));
-      
-      handleSuccess(response.data);
-      showSuccessAlert("Login successful!");
+    onSuccess: (requestParams: any) => {
+      const resData = requestParams?.data || {};
+      handleSuccess(resData);
+      showSuccessAlert(resData?.message);
     },
     onError: (error: any) => {
-      let errorMessage = "Login failed";
-      
-      if (error.response) {
-        errorMessage = error.response.data?.error || error.response.data?.message;
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-      
-      showErrorAlert(errorMessage);
+      showErrorAlert(error?.response?.data?.error || "Something went wrong!");
     },
   });
 
   return {
     loginData: data,
-    loginDataError: error ? ErrorHandler(error) : "",
+    loginDataError: ErrorHandler(error) || "An error occured",
     loginIsLoading: isPending,
     loginPayload: async (requestPayload: any): Promise<void> => {
       await mutateAsync(requestPayload);
