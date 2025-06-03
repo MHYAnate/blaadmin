@@ -5,7 +5,7 @@ import { InventoryData } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { InventoryTableComponent } from "@/components/custom-table/indexInventry";
+// import { InventoryTableComponent } from "@/components/custom-table/indexInventry";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import {
   DeleteIcon,
@@ -159,7 +159,7 @@ const DataTable: React.FC<iProps> = ({
             list={roleList}
           />
         </div>
-        <InventoryTableComponent<InventoryData>
+        {/* <InventoryTableComponent<InventoryData>
           tableData={tableData}
           currentPage={currentPage}
           onPageChange={onPageChange}
@@ -167,7 +167,7 @@ const DataTable: React.FC<iProps> = ({
           cellRenderers={cellRenderers}
           columnOrder={columnOrder}
           columnLabels={columnLabels}
-        />
+        /> */}
       </CardContent>
     </Card>
   );

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ProductData, AdminsData } from "@/types";
 import Image from "next/image";
 import { DeleteIcon, EditIcon, ViewIcon } from "../../../../../../public/icons";
-import { ProductTableComponent } from "@/components/custom-table/productIndex";
+// import { ProductTableComponent } from "@/components/custom-table/productIndex";
 
 interface iProps {
   handleEdit: () => void;
@@ -136,7 +136,7 @@ const ProductDataTable: React.FC<iProps> = ({
 
   return (
     <>
-      <ProductTableComponent<ProductData>
+      {/* <ProductTableComponent<ProductData>
         tableData={tableData}
         currentPage={currentPage}
         onPageChange={onPageChange}
@@ -146,7 +146,7 @@ const ProductDataTable: React.FC<iProps> = ({
         columnLabels={columnLabels}
         setFilter={setPageSize}
         isLoading={loading}
-      />
+      /> */}
     </>
   );
 };
