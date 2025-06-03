@@ -86,9 +86,9 @@ const FinancialReport: React.FC = () => {
 								title="Total Revenue"
 								value={dashboardData?.metrics?.revenue?.currentMonth}
 								changePercentage={
-									dashboardData?.metrics?.revenue.changePercentage
+									dashboardData?.metrics?.revenue?.changePercentage
 								}
-								trend={dashboardData.metrics.revenue.trend}
+								trend={dashboardData?.metrics?.revenue?.trend}
 								isCurrency
 							/>
 
@@ -106,9 +106,9 @@ const FinancialReport: React.FC = () => {
 								title="Total Profit"
 								value={dashboardData?.metrics?.profits?.currentMonth}
 								changePercentage={
-									dashboardData.metrics.profits.changePercentage
+									dashboardData?.metrics?.profits?.changePercentage
 								}
-								trend={dashboardData.metrics.profits.trend}
+								trend={dashboardData?.metrics?.profits?.trend}
 								isCurrency
 							/>
               
@@ -116,7 +116,7 @@ const FinancialReport: React.FC = () => {
 					
 					<RevenueChart data={dashboardData} />
       <div className="mt-10 mb-10"/>
-          <CustomerTable data={reportsData.data} refetch={refetch} />
+          <CustomerTable data={reportsData?.data} refetch={refetch} />
 				</CardContent>
 			</Card>}
 			
