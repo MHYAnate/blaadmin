@@ -37,4 +37,56 @@ export const routes = {
   deleteManufacturerProduct: (id) => `admin/manufacturers/${id}`,
   updateManufacturerStatus: (manufacturerId) =>
     `admin/manufacturers/${manufacturerId}/status`,
+// Admin management routes
+admins: (data) => {
+  const params = new URLSearchParams(data);
+  return `admin/manage?${params}`;
+},
+getAdminInfo: (id) => `admin/manage/${id}`,
+adminRoles: () => "admin/manage/roles",
+adminPermissions: () => "admin/manage/permissions",
+inviteAdmin: () => "admin/manage/invite",
+updateAdminRoles: (adminId) => `admin/manage/${adminId}/roles`,
+checkAdminStatus: () => "admin/manage/status",
+deleteAdmin: (id) => `admin/manage/${id}`,
+removeAdmin: () => `admin/manage`,
+// registerInvitedAdmin: (data) =>{  const params = new URLSearchParams(data);
+//   return `admin/manage?${params}`;}, 
+
+// registerInvitedAdmin: ({ email, userId, expires, signature }) => {
+//   const params = new URLSearchParams({ email, userId, expires, signature });
+//   return `admin/manage?${params.toString()}`;  
+// },
+
+
+registerInvitedAdmin: () => "admin/manage/register",
+createAdmin: () => "admin/manage/create",
+
+delete: (id) => `admin/${id}`,
+
+ // Financial Reports
+//  dashboardReports: () => "admin/reports/dashboard",
+//  financialReports: (params = {}) => {
+//    const query = new URLSearchParams(params);
+//    return `admin/reports?${query}`;
+//  },
+ financialReport: (customerId) => `admin/reports/${customerId}`,
+ deleteFinancialData: (customerId) => `admin/reports/${customerId}`,
+
+//  financialReports: (params) => {
+//   const queryParams = new URLSearchParams({
+//     ...params,
+//     startDate: params.startDate || '',
+//     endDate: params.endDate || '',
+//     customerType: params.customerType || '',
+//     minAOV: params.minAOV?.toString() || '',
+//     maxAOV: params.maxAOV?.toString() || '',
+//     page: params.page?.toString() || '1',
+//     pageSize: params.pageSize?.toString() || '10'
+//   });
+  
+//   return `admin/reports?${queryParams.toString()}`;
+// },
+financialReports: () => '/admin/reports',
+dashboardReports: () => '/admin/dashboard',
 };
