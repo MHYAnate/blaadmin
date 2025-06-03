@@ -217,7 +217,8 @@ export default function MultiLineGraphComponent({ salesData }: MultiLineGraphPro
       ]}
     />
   }
-/><Line
+/>
+            <Line
               dataKey="value"
               type="monotone"
               stroke="hsl(var(--chart-1))"

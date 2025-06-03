@@ -12,7 +12,7 @@ import {
 } from "../../../../../../../public/icons";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import GeneralInfo from "../components/general-info";
+import GeneralInfo from "./general-info";
 import { useSearchParams } from "next/navigation";
 import { useHandlePush } from "@/hooks/use-handle-push";
 import { ROUTES } from "@/constant/routes";
