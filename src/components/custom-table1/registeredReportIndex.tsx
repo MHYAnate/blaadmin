@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { DataItem, ITableProps,OrdersData } from "@/types";
+import { RegisteredReportsData, DataItem, ITableProps } from "@/types";
 import { ReactNode } from "react";
 import { Pagination } from "../ui/pagination";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -24,7 +24,7 @@ export interface EnhancedTableProps<T extends DataItem> extends ITableProps<T> {
   columnLabels?: Partial<Record<keyof T, string>>;
 }
 
-export function OrderTableComponent<T extends  OrdersData>({
+export function ReportTableComponent<T extends RegisteredReportsData>({
   tableData,
   currentPage = 1,
   totalPages = 10,
@@ -37,6 +37,8 @@ export function OrderTableComponent<T extends  OrdersData>({
   isLoading = true,
   showPagination = true,
 }: EnhancedTableProps<T>) {
+
+ 
   const columns = columnOrder || (Object.keys(tableData[0]) as (keyof T)[]);
   if (isLoading) return <TableSkeleton columns={columns} />;
   if (tableData.length === 0)
@@ -57,12 +59,20 @@ export function OrderTableComponent<T extends  OrdersData>({
     );
   };
 
+  // const renderCellContent = (item: T, column: keyof T) => {
+  //   if (cellRenderers[column]) {
+  //     return cellRenderers[column]!(item, column);
+  //   }
+
+  //   return String(item[column]);
+  // };
+
   const renderCellContent = (item: T, column: keyof T) => {
     if (cellRenderers[column]) {
       return cellRenderers[column]!(item, column);
     }
-
-    return String(item[column]);
+  
+    return String(item[column]) as React.ReactNode; // Explicit type assertion
   };
 
   const list = [

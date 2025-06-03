@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { DataItem, ITableProps,OrdersData } from "@/types";
+import { StockData, DataItem, ITableProps,ReportsData } from "@/types";
 import { ReactNode } from "react";
 import { Pagination } from "../ui/pagination";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -24,7 +24,7 @@ export interface EnhancedTableProps<T extends DataItem> extends ITableProps<T> {
   columnLabels?: Partial<Record<keyof T, string>>;
 }
 
-export function OrderTableComponent<T extends  OrdersData>({
+export function StockTableComponent<T extends  StockData>({
   tableData,
   currentPage = 1,
   totalPages = 10,
