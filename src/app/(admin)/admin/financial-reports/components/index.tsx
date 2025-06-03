@@ -84,7 +84,7 @@ const FinancialReport: React.FC = () => {
 						
 							<DashboardMetricCard
 								title="Total Revenue"
-								value={dashboardData?.metrics?.revenue.currentMonth}
+								value={dashboardData?.metrics?.revenue?.currentMonth}
 								changePercentage={
 									dashboardData?.metrics?.revenue.changePercentage
 								}
@@ -104,7 +104,7 @@ const FinancialReport: React.FC = () => {
 
 							<DashboardMetricCard
 								title="Total Profit"
-								value={dashboardData.metrics.profits.currentMonth}
+								value={dashboardData?.metrics?.profits?.currentMonth}
 								changePercentage={
 									dashboardData.metrics.profits.changePercentage
 								}
