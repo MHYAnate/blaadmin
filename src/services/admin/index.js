@@ -452,6 +452,34 @@ export const useGetAdmins = ({ enabled = true, filter = {} }) => {
 };
 
 export const useDeleteAdmin = (onSuccess) => {
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  // const [data, setData] = useState(null);
+
+  // const deleteAdminPayload = async (adminId) => {
+  //   setIsLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     const response = await httpService.deleteData(routes.deleteAdmin(adminId));
+  //     setData(response.data);
+  //     if (onSuccess) onSuccess(response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     setError(error);
+  //     throw ErrorHandler(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // return {
+  //   deleteAdminIsLoading: isLoading,
+  //   deleteAdminError: ErrorHandler(error),
+  //   deleteAdminData: data,
+  //   deleteAdminPayload,
+  // };
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -461,7 +489,7 @@ export const useDeleteAdmin = (onSuccess) => {
     setError(null);
 
     try {
-      const response = await httpService.deleteData(routes.deleteAdmin(adminId));
+      const response = await httpService.deleteData(routes.delete(adminId));
       setData(response.data);
       if (onSuccess) onSuccess(response.data);
       return response.data;
@@ -471,14 +499,6 @@ export const useDeleteAdmin = (onSuccess) => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  return {
-    deleteAdminIsLoading: isLoading,
-    deleteAdminError: ErrorHandler(error),
-    deleteAdminData: data,
-    deleteAdminPayload,
-  };
 };
 
 
