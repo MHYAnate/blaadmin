@@ -378,6 +378,7 @@ const CreateAdmin: React.FC<IProps> = ({ setClose, setUrl, roles = [] }) => {
   const { inviteAdminPayload, inviteAdminIsLoading} = useInviteAdmin((data: any) => {
     toast.success("Admin invitation sent successfully");
     console.log(data, "check reg data");
+    console.log(data.data.inviteUrl, "check url");
     setUrl(data.data.inviteUrl)
      // Use the response data passed to onSuccess
     setClose();
