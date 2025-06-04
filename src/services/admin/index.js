@@ -1,3 +1,5 @@
+
+
 // "use client"
 // import { routes } from "../api-routes";
 // import { ErrorHandler } from "../errorHandler";
@@ -452,34 +454,6 @@
 // };
 
 // export const useDeleteAdmin = (onSuccess) => {
-//   // const [isLoading, setIsLoading] = useState(false);
-//   // const [error, setError] = useState(null);
-//   // const [data, setData] = useState(null);
-
-//   // const deleteAdminPayload = async (adminId) => {
-//   //   setIsLoading(true);
-//   //   setError(null);
-
-//   //   try {
-//   //     const response = await httpService.deleteData(routes.deleteAdmin(adminId));
-//   //     setData(response.data);
-//   //     if (onSuccess) onSuccess(response.data);
-//   //     return response.data;
-//   //   } catch (error) {
-//   //     setError(error);
-//   //     throw ErrorHandler(error);
-//   //   } finally {
-//   //     setIsLoading(false);
-//   //   }
-//   // };
-
-//   // return {
-//   //   deleteAdminIsLoading: isLoading,
-//   //   deleteAdminError: ErrorHandler(error),
-//   //   deleteAdminData: data,
-//   //   deleteAdminPayload,
-//   // };
-
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [error, setError] = useState(null);
 //   const [data, setData] = useState(null);
@@ -489,7 +463,7 @@
 //     setError(null);
 
 //     try {
-//       const response = await httpService.deleteData(routes.delete(adminId));
+//       const response = await httpService.deleteData(routes.deleteAdmin(adminId));
 //       setData(response.data);
 //       if (onSuccess) onSuccess(response.data);
 //       return response.data;
@@ -499,8 +473,16 @@
 //     } finally {
 //       setIsLoading(false);
 //     }
+//   };
+
+//   return {
+//     deleteAdminIsLoading: isLoading,
+//     deleteAdminError: ErrorHandler(error),
+//     deleteAdminData: data,
+//     deleteAdminPayload,
+//   };
 // };
-// }
+
 
 // export const useUpdateAdminRoles = (onSuccess) => {
 //   const [isLoading, setIsLoading] = useState(false);
@@ -537,7 +519,6 @@
 //     updateRolesPayload,
 //   };
 // };
-
 
 "use client"
 import { routes } from "../api-routes";
