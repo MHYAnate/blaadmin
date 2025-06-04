@@ -463,6 +463,29 @@ export interface RoleData {
   };
 }
 
+export interface AdminData  extends DataItem   {
+  id:any;
+  email:string;
+  createdAt:any;
+  status:string;
+  profile:any;
+  roles:{
+    role:{
+      id:number;
+      name:string;
+      discription:string;
+    }
+  }
+  name:string;
+  role:string;
+  description:string;
+  date:string;
+  rolecount:string;
+  action:any;
+ 
+
+}
+
 export interface ITableProps<T extends DataItem> {
   tableData: T[];
   currentPage?: number;
