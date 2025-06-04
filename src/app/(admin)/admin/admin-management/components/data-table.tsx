@@ -524,7 +524,7 @@ const DataTable: React.FC = () => {
           />
           <SelectFilter setFilter={setRole} list={roleList} />
         </div>
-        <TableComponent<AdminsData>
+        <TableComponent<any>
           tableData={tableData}
           currentPage={currentPage}
           onPageChange={onPageChange}
