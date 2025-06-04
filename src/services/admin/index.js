@@ -500,7 +500,7 @@ export const useDeleteAdmin = (onSuccess) => {
       setIsLoading(false);
     }
 };
-
+}
 
 export const useUpdateAdminRoles = (onSuccess) => {
   const [isLoading, setIsLoading] = useState(false);
