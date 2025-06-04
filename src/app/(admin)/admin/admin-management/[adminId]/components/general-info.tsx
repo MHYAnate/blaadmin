@@ -220,7 +220,7 @@ const EditRolesDialog: React.FC<EditRolesDialogProps> = ({ adminData, roles, onC
 
           {roles && roles.length > 0 ? (
             <div className="space-y-4">
-              {roles.map((role) => (
+              {roles.map((role:any) => (
                 <div key={role.id} className="flex items-center space-x-3 p-3 border rounded-md">
                   <input
                     type="checkbox"
