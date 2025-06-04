@@ -448,6 +448,21 @@ export interface DataItem {
   id?: string | number;
 }
 
+export interface RoleData {
+  id: number;
+  name: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  permissions: {
+    id: number;
+    name: string;
+  }[];
+  _count: {
+    users: number;
+  };
+}
+
 export interface ITableProps<T extends DataItem> {
   tableData: T[];
   currentPage?: number;
