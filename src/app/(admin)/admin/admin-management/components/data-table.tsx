@@ -1,7 +1,7 @@
 // "use client";
 // import React, { useState, useEffect } from "react";
 // import { Badge } from "@/components/ui/badge";
-// import { AdminsData, RoleData } from "@/types";
+// import { any, RoleData } from "@/types";
 // import Image from "next/image";
 // import { Card, CardContent } from "@/components/ui/card";
 // import {
@@ -53,7 +53,7 @@
 // 	const [statusFilter, setStatusFilter] = useState<string>("");
 // 	const [nameFilter, setNameFilter] = useState<string>("");
 // 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-// 	const [adminToDelete, setAdminToDelete] = useState<null | AdminsData>(null);
+// 	const [adminToDelete, setAdminToDelete] = useState<null | any>(null);
 
 // 	const [email, setEmail] = useState("");
 
@@ -67,12 +67,12 @@
 // 		}
 // 	}, []);
 
-// 	const { adminsData, isAdminsLoading } = useGetAdmins({ enabled: true });
-// 	const admin = adminsData?.find(
+// 	const { any, isAdminsLoading } = useGetAdmins({ enabled: true });
+// 	const admin = any?.find(
 // 		(admin: { email: string }) => admin.email === email
 // 	);
 
-// 	console.log(email, "email", adminsData, "data", admin, "filter");
+// 	console.log(email, "email", any, "data", admin, "filter");
 
 // 	console.log(adminToDelete, "admintodelet", adminData, "filtersearch");
 
@@ -124,7 +124,7 @@
 // 		}
 // 	};
 
-// 	const openDeleteDialog = (admin: AdminsData) => {
+// 	const openDeleteDialog = (admin: any) => {
 // 		setAdminToDelete(admin);
 // 		setDeleteDialogOpen(true);
 // 	};
@@ -198,7 +198,7 @@
 // 				{item.name}
 // 			</div>
 // 		),
-// 		role: (item: AdminsData) => (
+// 		role: (item: any) => (
 // 			<div className="font-medium flex items-center gap-3">
 // 				{item?.role?.toLowerCase().includes("admin") ? (
 // 					<PersonIcon />
@@ -208,16 +208,16 @@
 // 				{item?.role}
 // 			</div>
 // 		),
-// 		description: (item: AdminsData) => (
+// 		description: (item: any) => (
 // 			<span className="font-medium">{item.description}</span>
 // 		),
-// 		date: (item: AdminsData) => (
+// 		date: (item: any) => (
 // 			<div className="font-medium flex items-center gap-3">
 // 				<CalendarIcon />
 // 				{item.date}
 // 			</div>
 // 		),
-// 		status: (item: AdminsData) => (
+// 		status: (item: any) => (
 // 			<Badge
 // 				variant={
 // 					item?.status.toLowerCase() === "active"
@@ -234,7 +234,7 @@
 // 		rolecount: (item: AdminData) => (
 // 			<span className="font-medium">{item?.rolecount}</span>
 // 		),
-// 		action: (item: AdminsData) => (
+// 		action: (item: any) => (
 // 			<div className="flex gap-2.5">
 // 				<Link
 // 					href={`${ROUTES.ADMIN.SIDEBAR.ADMINS}/${item?.id}?tab=general`}
@@ -258,7 +258,7 @@
 // 		),
 // 	};
 
-// 	const columnOrder: (keyof AdminsData)[] = [
+// 	const columnOrder: (keyof any)[] = [
 // 		"name",
 // 		"role",
 // 		"description",
@@ -355,7 +355,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { AdminsData } from "@/types";
+import { any } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -391,7 +391,7 @@ const DataTable: React.FC = () => {
       value: "super-admin",
     },
   ];
-  const tableData: AdminsData[] = [
+  const tableData: any[] = [
     {
       id: 1,
       name: "Jennifer Lawal",
@@ -422,7 +422,7 @@ const DataTable: React.FC = () => {
   ];
 
   const cellRenderers = {
-    name: (item: AdminsData) => (
+    name: (item: any) => (
       <div className="font-medium flex items-center gap-3">
         <Image
           src="/images/user-avatar.png"
@@ -434,22 +434,22 @@ const DataTable: React.FC = () => {
         {item.name}
       </div>
     ),
-    role: (item: AdminsData) => (
+    role: (item: any) => (
       <div className="font-medium flex items-center gap-3">
         {item.role.toLowerCase() === "admin" ? <PersonIcon /> : <RepIcon />}
         {item.role}
       </div>
     ),
-    description: (item: AdminsData) => (
+    description: (item: any) => (
       <span className="font-medium">{item.description}</span>
     ),
-    date: (item: AdminsData) => (
+    date: (item: any) => (
       <div className="font-medium flex items-center gap-3">
         <CalendarIcon />
         {item.date}
       </div>
     ),
-    status: (item: AdminsData) => (
+    status: (item: any) => (
       <Badge
         variant={
           item.status.toLowerCase() === "active"
@@ -463,11 +463,11 @@ const DataTable: React.FC = () => {
         {item.status.toUpperCase()}
       </Badge>
     ),
-    rolecount: (item: AdminsData) => (
+    rolecount: (item: any) => (
       <span className="font-medium">{item.rolecount}</span>
     ),
 
-    action: (item: AdminsData) => (
+    action: (item: any) => (
       <div className="flex gap-2.5">
         <Link
           href={`${ROUTES.ADMIN.SIDEBAR.ADMINS}/${item?.id}?tab=general`}
@@ -485,7 +485,7 @@ const DataTable: React.FC = () => {
     ),
   };
 
-  const columnOrder: (keyof AdminsData)[] = [
+  const columnOrder: (keyof any)[] = [
     "name",
     "role",
     "description",
