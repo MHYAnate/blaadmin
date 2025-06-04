@@ -30,6 +30,18 @@ export default function LoginPage() {
   const { loginData, loginIsLoading, loginPayload } = useLogin((res: any) => {
     Storage.set("token", res?.data?.token);
     window.location.href = "/admin";
+    localStorage.setItem("token", res?.data?.token);
+    // or sessionStorage.setItem("token", res?.data?.token);
+    
+    const email = form.getValues().email;
+    const remember = form.getValues().remember;
+    
+    // Store email based on remember me preference
+    if (remember) {
+      localStorage.setItem("userEmail", email); // Persistent across sessions
+    } else {
+      sessionStorage.setItem("userEmail", email); // Only for current session
+    }
   });
 
   const form = useForm<FormSchemaType>({
