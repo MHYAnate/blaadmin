@@ -355,7 +355,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { any } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
