@@ -13,7 +13,7 @@ interface Customer {
 	name: string | null;
 	email: string;
 	type: "individual" | "business";
-	totalSales: number;
+	totalSpent: number;
 	orderCount?: number;
   
 }
@@ -87,17 +87,17 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
   const filteredData = useMemo(() => {
     return (
       data &&
-      data.filter((customer) => {
+      data?.filter((customer) => {
         const nameMatch =
           !filters.name ||
-          (customer.name?.toLowerCase() ?? "").includes(filters.name.toLowerCase());
+          (customer?.name?.toLowerCase() ?? "").includes(filters?.name?.toLowerCase());
   
         const emailMatch =
           !filters.email ||
-          customer.email?.toLowerCase().includes(filters.email.toLowerCase());
+          customer?.email?.toLowerCase().includes(filters?.email.toLowerCase());
   
         const typeMatch =
-          !filters.type || customer.type?.toLowerCase() === filters.type.toLowerCase();
+          !filters.type || customer.type?.toLowerCase() === filters?.type.toLowerCase();
   
         return nameMatch && emailMatch && typeMatch;
       })
@@ -164,7 +164,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 				<div>
 					<p className="text-xs text-gray-500">Total Sales</p>
 					<p className="text-sm font-medium">
-							₦{customer?.totalSales.toLocaleString()}
+							₦{customer?.totalSpent?.toLocaleString()}
 					</p>
 				</div>
 				<div>
@@ -334,7 +334,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 											</span>
 										</td>
 										<td className="px-4 py-3 text-sm font-medium text-gray-900">
-											₦{customer?.totalSales.toLocaleString()}
+											₦{customer?.totalSpent.toLocaleString()}
 										</td>
 										<td className="px-4 py-3 text-sm text-gray-600">
 											{customer?.orderCount ?? "N/A"}
@@ -453,7 +453,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 							<div>
 								<p className="text-sm text-gray-500">Total Sales</p>
 								<p className="text-base font-medium text-gray-900">
-									₦{selectedCustomer?.totalSales?.toLocaleString()}
+									₦{selectedCustomer?.totalSpent?.toLocaleString()}
 								</p>
 							</div>
 							<div>

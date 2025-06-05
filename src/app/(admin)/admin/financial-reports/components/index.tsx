@@ -12,6 +12,7 @@ import {
 	useGetFinancialReports,
 } from "@/services/reports";
 import RevenueChart from "./chart";
+import { useGetDashboardInfo } from "@/services/dashboard";
 
 import { DowngressIcon, ProgressIcon } from "../../../../../../public/icons";
 import SinglePieComponent from "@/app/(admin)/components/single-pie";
@@ -35,7 +36,15 @@ const FinancialReport: React.FC = () => {
 			},
 		});
 
-	console.log("report data", reportsData, "dashboard data", dashboardData);
+			const {
+				isDashboardInfoLoading,
+				isFetchingDashboardInfo,
+				dashboardData: data,
+				refetchDashboardData,
+			} = useGetDashboardInfo({ enabled: true });
+
+
+	console.log("report data", data?.topPerformers?.customers, "dashboard data", dashboardData);
 
 	const reportlist = [
 		{
@@ -84,39 +93,41 @@ const FinancialReport: React.FC = () => {
 						
 							<DashboardMetricCard
 								title="Total Revenue"
-								value={dashboardData?.metrics?.revenue?.currentMonth}
+								value={data?.metrics?.revenue?.currentMonth}
 								changePercentage={
-									dashboardData?.metrics?.revenue?.changePercentage
+									data?.metrics?.revenue?.changePercentage
 								}
-								trend={dashboardData?.metrics?.revenue?.trend}
+								trend={data?.metrics?.revenue?.trend}
 								isCurrency
 							/>
 
 							<DashboardMetricCard
 								title="Monthly Orders"
-								value={dashboardData?.metrics?.orders?.currentMonth}
+								value={data?.metrics?.orders?.currentMonth}
 								changePercentage={
-									dashboardData?.metrics?.orders?.changePercentage
+									data?.metrics?.orders?.changePercentage
 								}
-								trend={dashboardData?.metrics?.orders?.trend}
+								trend={data?.metrics?.orders?.trend}
 							/>
 							
 
 							<DashboardMetricCard
 								title="Total Profit"
-								value={dashboardData?.metrics?.profits?.currentMonth}
+								value={data?.metrics?.profits?.currentMonth}
 								changePercentage={
-									dashboardData?.metrics?.profits?.changePercentage
+									data?.metrics?.profits?.changePercentage
 								}
-								trend={dashboardData?.metrics?.profits?.trend}
+								trend={data?.metrics?.profits?.trend}
 								isCurrency
 							/>
               
 						</div>
 					
-					<RevenueChart data={dashboardData} />
+					<RevenueChart data={data} />
       <div className="mt-10 mb-10"/>
-          <CustomerTable data={reportsData?.data} refetch={refetch} />
+          <CustomerTable data={data?.topPerformers?.
+customers
+} refetch={refetch} />
 				</CardContent>
 			</Card>}
 			
