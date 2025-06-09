@@ -26,7 +26,7 @@ class HttpService {
   }
 
   async getDataWithoutToken(url) {
-    return axios.get(this.getServiceUrl(service, url));
+    return axios.get(this.getServiceUrl(url));
   }
 
   async putData(payload, url) {
