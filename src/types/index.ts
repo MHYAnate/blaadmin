@@ -140,6 +140,160 @@ export interface EnhancedTableProps<T extends DataItem> extends ITableProps<T> {
   onPageSizeChange: (size: number) => void;
 }
 
+// types/transaction.ts
+export type Transaction = {
+  id: number;
+  amount: number;
+  status: string;
+  reference: string;
+  createdAt: string;
+  order: {
+    id: number;
+    totalPrice: number;
+    status: string;
+    user: {
+      id: number;
+      email: string;
+      type: string;
+      profile?: { fullName: string };
+      businessProfile?: { businessName: string };
+    };
+    shipping?: {
+      distance: number;
+      totalWeight: number;
+      totalShippingFee: number;
+    };
+  };
+};
+
+export type TransactionFilters = {
+  status?: string;
+  minAmount?: number;
+  maxAmount?: number;
+  startDate?: string;
+  endDate?: string;
+  userType?: string;
+};
+
+export type TransactionMetrics = {
+  totalAmount: number;
+  averageAmount: number;
+  statusDistribution: Record<string, number>;
+  userTypeDistribution: Record<string, number>;
+  monthlyTrends: Record<string, number>;
+};
+
+export type TransactionDetails = {
+  id: number;
+  amount: number;
+  status: string;
+  createdAt: string;
+  order: {
+    id: number;
+    totalPrice: number;
+    amountPaid: number;
+    amountDue: number;
+    user: {
+      id: number;
+      email: string;
+      type: string;
+      profile?: { fullName: string };
+      businessProfile?: { businessName: string };
+      referralBonus?: Array<{
+        id: number;
+        bonusType: string;
+        earnedAt: string;
+      }>;
+    };
+    items: Array<{
+      id: number;
+      productId: number;
+      quantity: number;
+      price: number;
+      productName: string;
+    }>;
+    shipping?: {
+      distance: number;
+      totalWeight: number;
+      distanceFee: number;
+      weightFee: number;
+      totalShippingFee: number;
+    };
+    paymentHistory: Array<{
+      id: number;
+      action: string;
+      details: any;
+      createdAt: string;
+    }>;
+  };
+  relatedTransactions: Array<{
+    id: number;
+    amount: number;
+    status: string;
+    createdAt: string;
+    userEmail?: string;
+  }>;
+};
+
+// export type Transaction = {
+//   id: number;
+//   reference: string;
+//   amount: number;
+//   status: 'pending' | 'success' | 'failed';
+//   gateway: string;
+//   createdAt: string;
+//   order: {
+//     id: number;
+//     totalPrice: number;
+//     paymentStatus: 'pending' | 'paid' | 'partially_paid';
+//     user: {
+//       id: number;
+//       email: string;
+//       type: 'individual' | 'business';
+//       profile?: { fullName: string };
+//       businessProfile?: { businessName: string };
+//       referralBonus?: Array<{
+//         bonusType: string;
+//         earnedAt: string;
+//         isUsed: boolean;
+//       }>;
+//     };
+//     items: Array<{
+//       product: {
+//         name: string;
+//         category: { name: string };
+//         manufacturer: { name: string };
+//         options: Array<{
+//           price: number;
+//           unit: string;
+//         }>;
+//       };
+//       quantity: number;
+//       price: number;
+//     }>;
+//     shipping?: {
+//       totalShippingFee: number;
+//       paymentType: 'pay_now' | 'pay_on_delivery';
+//     };
+//     timelines: Array<{
+//       action: string;
+//       details: any;
+//       createdAt: string;
+//     }>;
+//   };
+//   relatedTransactions?: Transaction[];
+// };
+
+// export type TransactionFilters = {
+//   status?: string[];
+//   minAmount?: number;
+//   maxAmount?: number;
+//   dateRange?: [Date?, Date?];
+//   paymentStatus?: string[];
+//   hasShipping?: boolean;
+//   userType?: 'individual' | 'business';
+// };
+
 export type DashboardData = {
   metrics: {
     customers: MetricSummary;

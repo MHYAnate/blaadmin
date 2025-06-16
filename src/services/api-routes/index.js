@@ -435,4 +435,5 @@ delete: (id) => `admin/${id}`,
 // },
 financialReports: () => '/admin/reports',
 dashboardReports: () => '/admin/dashboard',
+paymentManagement:() => 'admin/transactions'
 };

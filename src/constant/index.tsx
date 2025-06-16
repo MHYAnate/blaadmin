@@ -93,6 +93,12 @@ export const adminSidebarList = [
   },
   {
     id: 9,
+    sidebar: "Transaction Management",
+    icon: <FinancialReportIcon />,
+    href: ROUTES.ADMIN.SIDEBAR.TRANSACTIONMANAGEMENT,
+  },
+  {
+    id: 10,
     sidebar: "Support & Feedback",
     icon: <UserIcon />,
     child: [
