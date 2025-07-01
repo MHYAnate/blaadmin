@@ -474,6 +474,7 @@ export interface IOrderItem {
 }
 
 export interface ISupplierCard {
+  products: any;
   status: boolean;
   total: string | number;
   logo: string;
