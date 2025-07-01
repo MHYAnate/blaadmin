@@ -195,6 +195,7 @@ const DataTable: React.FC<iProps> = () => {
             <ViewFeedback setClose={() => setIsOpen(false)} />
           ) : (
             <DeleteContent
+            handleClick={()=>{}}
               handleClose={() => setIsOpen(false)}
               title="Feedback"
             />
