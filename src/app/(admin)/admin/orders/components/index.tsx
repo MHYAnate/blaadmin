@@ -204,6 +204,7 @@ export default function Orders() {
                 />
               </div>
               <DataTable
+              description={""}
                 data={data?.data || []}
                 currentPage={currentPage}
                 onPageChange={onPageChange}
@@ -229,7 +230,7 @@ export default function Orders() {
             </DialogTitle>
           </DialogHeader>
           {/* <CreateCustomer setClose={() => setIsOpen(false)} /> */}
-          <DeleteContent handleClose={() => setIsOpen(false)} title="Order" />
+          <DeleteContent handleClick={()=>{}} handleClose={() => setIsOpen(false)} title="Order" />
         </DialogContent>
       </Dialog>
     </section>
