@@ -195,7 +195,7 @@ const AdminSidebar: React.FC = () => {
                     >
                       <SettingsIcon />
                     </span>
-                    <h5 className="text-sm font-bold">Setting</h5>
+                    <h5 className="text-sm font-bold">Setting and logout</h5>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

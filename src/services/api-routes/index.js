@@ -435,5 +435,7 @@ delete: (id) => `admin/${id}`,
 // },
 financialReports: () => '/admin/reports',
 dashboardReports: () => '/admin/dashboard',
-paymentManagement:() => 'admin/transactions'
+paymentManagement:() => 'admin/transactions',
+deleteManufacturer: (id) => `admin/manufacturers/${id}`,
+createManufacturer: () => 'admin/manufacturers',
 };

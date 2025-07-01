@@ -3,7 +3,6 @@ import { routes } from "../api-routes";
 import { ErrorHandler } from "../errorHandler";
 import httpService from "../httpService";
 import useFetchItem from "../useFetchItem";
-import useMutateItem from "../useMutateItem";
 
 export const useGetProducts = () => {
   const { isLoading, error, data, refetch, setFilter } = useFetchItem({
@@ -22,24 +21,88 @@ export const useGetProducts = () => {
   };
 };
 
-export const useDeleteProduct = (handleSuccess) => {
-  const { data, error, isPending, mutateAsync } = useMutateItem({
-    mutationFn: (id) => httpService.deleteData(routes.deleteProducts(id)),
-    onSuccess: (requestParams) => {
-      const resData = requestParams?.data?.result || {};
-      console.log(requestParams);
-      handleSuccess(resData);
-      //   showSuccessAlert(resData);
-    },
-    onError: (error) => {
-      showErrorAlert("An error occured");
-    },
-  });
+// export const useDeleteProduct = (handleSuccess) => {
+//   const { data, error, isPending, mutateAsync } = useMutateItem({
+//     mutationFn: (id) => httpService.deleteData(routes.deleteProducts(id)),
+//     onSuccess: (requestParams) => {
+//       const resData = requestParams?.data?.result || {};
+//       console.log(requestParams);
+//       handleSuccess(resData);
+//       //   showSuccessAlert(resData);
+//     },
+//     onError: (error) => {
+//       showErrorAlert("An error occured");
+//     },
+//   });
+
+//   return {
+//     deleteProductData: data,
+//     deleteProductDataError: ErrorHandler(error),
+//     deleteProductIsLoading: isPending,
+//     deleteProductPayload: (requestPayload) => mutateAsync(requestPayload),
+//   };
+// };
+
+// import { useMutation } from "@tanstack/react-query";
+
+// export const useDeleteProduct = (onSuccessCallback) => {
+//   const deleteProductMutation = useMutation({
+//     mutationFn: async (id) => {
+//       try {
+//         const response = await httpService.deleteData(
+//           routes.deleteProducts(id)
+//         );
+//         return response.data;
+//       } catch (error) {
+//         throw ErrorHandler(error);
+//       }
+//     },
+//     onSuccess: () => {
+//       showSuccessAlert("Product deleted successfully");
+//       if (onSuccessCallback) onSuccessCallback();
+//     },
+//     onError: (error) => {
+//       showErrorAlert(error.message || "Failed to delete product");
+//     }
+//   });
+
+//   return {
+//     deleteProduct: deleteProductMutation.mutate,
+//     deleteProductIsLoading: deleteProductMutation.isPending,
+//     deleteProductError: deleteProductMutation.error,
+//     deleteProductData: deleteProductMutation.data,
+//   };
+// };
+import { useState } from "react";
+
+export const useDeleteProduct = (onSuccess) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
+
+  const deleteProduct = async (productId) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await httpService.deleteData(
+        `admin/products/${productId}`
+      );
+      setData(response.data);
+      if (onSuccess) onSuccess(response.data);
+      return response.data;
+    } catch (error) {
+      setError(error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return {
-    deleteProductData: data,
-    deleteProductDataError: ErrorHandler(error),
-    deleteProductIsLoading: isPending,
-    deleteProductPayload: (requestPayload) => mutateAsync(requestPayload),
+    deleteProduct,
+    isLoading,
+    error,
+    data
   };
 };

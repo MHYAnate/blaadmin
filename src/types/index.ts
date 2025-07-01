@@ -399,6 +399,7 @@ export interface ProductData extends DataItem {
   productid?: string;
   status: string;
   product?: Record<string | number, string | number> | any;
+  description:any;
 }
 
 export interface ManufacturerData extends DataItem {
@@ -474,6 +475,7 @@ export interface IOrderItem {
 }
 
 export interface ISupplierCard {
+  products: any;
   status: boolean;
   total: string | number;
   logo: string;

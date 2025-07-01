@@ -41,11 +41,11 @@ export default function Products() {
     setProductsFilter,
     refetchProducts,
   } = useGetProducts();
-  const { deleteProductData, deleteProductIsLoading, deleteProductPayload } =
-    useDeleteProduct((res: any) => {
-      refetchProducts();
-      setIsOpen(false);
-    });
+  // const { deleteProductData, deleteProductIsLoading, deleteProductPayload } =
+  //   useDeleteProduct((res: any) => {
+  //     refetchProducts();
+  //     setIsOpen(false);
+  //   });
 
   const payload = {
     // search: filter,
@@ -153,14 +153,15 @@ export default function Products() {
             )}
           </DialogHeader>
           {currentTab === "view" ? (
-            <ViewProduct setClose={() => setIsOpen(false)} />
+            <ViewProduct setClose={() => setIsOpen(false)} productData={undefined} />
           ) : currentTab === "edit" ? (
             <EditProduct setClose={() => setIsOpen(false)} />
           ) : (
             <DeleteContent
-              handleClose={() => setIsOpen(false)}
-              title="Product"
-            />
+                  handleClose={() => setIsOpen(false)}
+                  title="Product" handleClick={function (): void {
+                    throw new Error("Function not implemented.");
+                  } }            />
           )}
         </DialogContent>
       </Dialog>

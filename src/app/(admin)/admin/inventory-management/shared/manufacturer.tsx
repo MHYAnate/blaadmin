@@ -6,12 +6,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constant/routes";
 import Link from "next/link";
+import { useGetManufacturers } from "@/services/manufacturers";
 
 interface iProps {
   showLink?: boolean;
 }
 
 const Manufacturer: React.FC<iProps> = ({ showLink = false }) => {
+  const {
+    getManufacturersData,
+    getManufacturersIsLoading,
+    refetchManufacturers,
+    setManufacturersFilter,
+  } = useGetManufacturers();
+
+  
   return (
     <AccordionItem value={`item-1`} key={1}>
       <AccordionTrigger className="py-4 px-5 text-sm font-medium text-black-neutral  border border-[#E9EAEC] rounded-[10px]">

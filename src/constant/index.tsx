@@ -19,10 +19,10 @@ export const adminSidebarList = [
         sidebar: "Admins",
         href: ROUTES.ADMIN.SIDEBAR.ADMINS,
       },
-      // {
-      //   sidebar: "Roles",
-      //   href: ROUTES.ADMIN.SIDEBAR.ROLES,
-      // },
+      {
+        sidebar: "Roles and  Permissions",
+        href: ROUTES.ADMIN.SIDEBAR.ROLES,
+      },
       // {
       //   sidebar: "Permissions",
       //   href: ROUTES.ADMIN.SIDEBAR.PERMISSIONS,
@@ -33,7 +33,21 @@ export const adminSidebarList = [
     id: 2,
     sidebar: "Customers",
     icon: <UserIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.CUSTOMERS,
+    // href: ROUTES.ADMIN.SIDEBAR.CUSTOMERS,
+    child: [
+      {
+        sidebar: "Business",
+        href: ROUTES.ADMIN.SIDEBAR.CUSTOMERS,
+      },
+      {
+        sidebar: "Individuals",
+        href: ROUTES.ADMIN.SIDEBAR.CUSTOMERS,
+      },
+      // {
+      //   sidebar: "Permissions",
+      //   href: ROUTES.ADMIN.SIDEBAR.PERMISSIONS,
+      // },
+    ],
   },
   {
     id: 3,
@@ -43,62 +57,49 @@ export const adminSidebarList = [
   },
   {
     id: 4,
+    sidebar: "Manufacturers ",
+    icon: <UserIcon />,
+    href: ROUTES.ADMIN.SIDEBAR.MANUFACTURERS,
+  },
+  {
+    id: 5,
     sidebar: "Orders",
     icon: <OrderIcon />,
     href: ROUTES.ADMIN.SIDEBAR.ORDERS,
   },
   {
-    id: 5,
+    id: 6,
     sidebar: "Reports",
     icon: <ReportIcon />,
     child: [
       {
-        sidebar: "Report Metrics",
+        sidebar: "Customer report",
+        href: ROUTES.ADMIN.SIDEBAR.REPORTS,
+      },
+      {
+        sidebar: "Business report",
         href: ROUTES.ADMIN.SIDEBAR.REPORTS,
       },
     ],
   },
   {
-    id: 11,
-    sidebar: "Supply Management",
-    icon: <StoreManagementIcon />,
+    id: 7,
+    sidebar: "Financial and Transaction Reports",
+    icon: <FinancialReportIcon />,
+    // href: ROUTES.ADMIN.SIDEBAR.FINANCIALREPORTS,
     child: [
       {
-        sidebar: "Manufacturers",
-        href: ROUTES.ADMIN.SIDEBAR.SUPPLYMANAGEMENTMANUFACTURERS,
+        sidebar: "Financial Report",
+        href: ROUTES.ADMIN.SIDEBAR.FINANCIALREPORTS,
       },
       {
-        sidebar: "Vendors",
-        href: ROUTES.ADMIN.SIDEBAR.SUPPLYMANAGEMENTVENDORS,
+        sidebar: "Transaction Report",
+        href: ROUTES.ADMIN.SIDEBAR.TRANSACTIONMANAGEMENT,
       },
     ],
   },
   {
-    id: 6,
-    sidebar: "Store Management",
-    icon: <StoreManagementIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.STOREMANAGEMENT,
-  },
-  {
-    id: 7,
-    sidebar: "Inventory Management",
-    icon: <InventoryManagementIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.INVEMTORYMANAGEMENT,
-  },
-  {
     id: 8,
-    sidebar: "Financial Reports",
-    icon: <FinancialReportIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.FINANCIALREPORTS,
-  },
-  {
-    id: 9,
-    sidebar: "Transaction Management",
-    icon: <FinancialReportIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.TRANSACTIONMANAGEMENT,
-  },
-  {
-    id: 10,
     sidebar: "Support & Feedback",
     icon: <UserIcon />,
     child: [
@@ -112,6 +113,55 @@ export const adminSidebarList = [
       },
     ],
   },
+  // {
+  //   id: 9,
+  //   sidebar: "Settings & logout",
+  //   icon: <InventoryManagementIcon />,
+  //   child: [
+  //     {
+  //       sidebar: "Settings",
+  //       href: ROUTES.ADMIN.SIDEBAR.FEEDBACK,
+  //     },
+  //     {
+  //       sidebar: "logout",
+  //       href: ROUTES.ADMIN.SIDEBAR.SUPPORT,
+  //     },
+  //   ],
+  // },
+    // {
+  //   id: 9,
+  //   sidebar: "Transaction Management",
+  //   icon: <FinancialReportIcon />,
+  //   href: ROUTES.ADMIN.SIDEBAR.TRANSACTIONMANAGEMENT,
+  // },
+  // {
+  //   id: 11,
+  //   sidebar: "Supply Management",
+  //   icon: <StoreManagementIcon />,
+  //   child: [
+  //     {
+  //       sidebar: "Manufacturers",
+  //       href: ROUTES.ADMIN.SIDEBAR.SUPPLYMANAGEMENTMANUFACTURERS,
+  //     },
+  //     {
+  //       sidebar: "Vendors",
+  //       href: ROUTES.ADMIN.SIDEBAR.SUPPLYMANAGEMENTVENDORS,
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: 6,
+  //   sidebar: "Store Management",
+  //   icon: <StoreManagementIcon />,
+  //   href: ROUTES.ADMIN.SIDEBAR.STOREMANAGEMENT,
+  // },
+  // {
+  //   id: 7,
+  //   sidebar: "Inventory Management",
+  //   icon: <InventoryManagementIcon />,
+  //   href: ROUTES.ADMIN.SIDEBAR.INVEMTORYMANAGEMENT,
+  // },
+  
 ];
 
 export const productTypeList = [
