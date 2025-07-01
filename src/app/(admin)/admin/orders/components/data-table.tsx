@@ -28,6 +28,7 @@ interface iProps {
   totalPages: number;
   setPageSize: React.Dispatch<React.SetStateAction<string>>;
   loading: boolean;
+  description:any;
 }
 
 const DataTable: React.FC<iProps> = ({
