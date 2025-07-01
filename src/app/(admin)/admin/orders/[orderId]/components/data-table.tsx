@@ -34,6 +34,7 @@ const DataTable: React.FC<iProps> = ({
       quantity: 50,
       productid: "#123456",
       status: "In stock",
+      description:"",
     },
     {
       id: 2,
@@ -42,6 +43,7 @@ const DataTable: React.FC<iProps> = ({
       quantity: 50,
       productid: "#123456",
       status: "Out of stock",
+     description:"",
     },
     {
       id: 3,
@@ -50,6 +52,7 @@ const DataTable: React.FC<iProps> = ({
       quantity: 50,
       productid: "#123456",
       status: "In stock",
+     description:"",
     },
     {
       id: 4,
@@ -58,6 +61,7 @@ const DataTable: React.FC<iProps> = ({
       quantity: 50,
       productid: "#123456",
       status: "Out of stock",
+     description:"",
     },
   ];
 
