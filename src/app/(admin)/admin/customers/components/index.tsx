@@ -141,7 +141,8 @@ const Customers: React.FC = () => {
           </DialogHeader>
           {/* <CreateCustomer setClose={() => setIsOpen(false)} /> */}
           <DeleteContent
-            handleClose={() => setIsOpen(false)}
+          handleClose={()=>{}}
+            handleClick={() => setIsOpen(false)}
             title="Customer"
           />
         </DialogContent>
