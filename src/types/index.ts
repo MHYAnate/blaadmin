@@ -486,6 +486,7 @@ export interface ISupplierCard {
   phone: string;
   createdAt: string;
   updatedAt: string;
+  
 }
 
 export interface IOrderDetails {

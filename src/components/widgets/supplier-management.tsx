@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 interface iProps {
-  item: ISupplierCard;
+  item: any;
   handleUpdateManufacturerStatus?: () => void;
   showToggle?: boolean;
   showOptions?: boolean;
