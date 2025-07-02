@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useHandlePush } from "@/hooks/use-handle-push";
 import { ROUTES } from "@/constant/routes";
-import AdminUserDetail from "../components/admin-user-detail";
+import AdminUserDetail from "./admin-user-detail";
 import { useGetAdminRoles } from "@/services/admin/index";
 
 export default function AdminDetailPage() {

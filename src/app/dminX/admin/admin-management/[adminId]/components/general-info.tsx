@@ -5,13 +5,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { ChevronLeft } from "lucide-react";
 import { useUpdateAdminRoles } from "@/services/admin/index";
 import { toast } from "sonner";
-import { AdminsData, RoleData } from "@/types";
+import { AdminsData } from "@/types";
 import { useGetAdmins } from "@/services/admin";
 import { useSearchParams } from 'next/navigation';
 
 interface GeneralInfoProps {
   adminData: any;
-  roles: RoleData[];
+  roles: any;
 }
 
 const GeneralInfo: React.FC<GeneralInfoProps> = ({ adminData, roles }) => {
@@ -169,7 +169,7 @@ const GeneralInfo: React.FC<GeneralInfoProps> = ({ adminData, roles }) => {
 
 interface EditRolesDialogProps {
   adminData: any;
-  roles: RoleData[];
+  roles: any;
   onClose: () => void;
 }
 
@@ -220,7 +220,7 @@ const EditRolesDialog: React.FC<EditRolesDialogProps> = ({ adminData, roles, onC
 
           {roles && roles.length > 0 ? (
             <div className="space-y-4">
-              {roles.map((role) => (
+              {roles.map((role:any) => (
                 <div key={role.id} className="flex items-center space-x-3 p-3 border rounded-md">
                   <input
                     type="checkbox"

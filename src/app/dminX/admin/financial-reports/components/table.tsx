@@ -13,7 +13,7 @@ interface Customer {
 	name: string | null;
 	email: string;
 	type: "individual" | "business";
-	totalSales: number;
+	totalSpent: number;
 	orderCount?: number;
   
 }
@@ -87,17 +87,17 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
   const filteredData = useMemo(() => {
     return (
       data &&
-      data.filter((customer) => {
+      data?.filter((customer) => {
         const nameMatch =
           !filters.name ||
-          (customer.name?.toLowerCase() ?? "").includes(filters.name.toLowerCase());
+          (customer?.name?.toLowerCase() ?? "").includes(filters?.name?.toLowerCase());
   
         const emailMatch =
           !filters.email ||
-          customer.email?.toLowerCase().includes(filters.email.toLowerCase());
+          customer?.email?.toLowerCase().includes(filters?.email.toLowerCase());
   
         const typeMatch =
-          !filters.type || customer.type?.toLowerCase() === filters.type.toLowerCase();
+          !filters.type || customer.type?.toLowerCase() === filters?.type.toLowerCase();
   
         return nameMatch && emailMatch && typeMatch;
       })
@@ -147,16 +147,16 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 			<div className="flex justify-between items-start mb-3">
 				<div>
 					<h3 className="font-medium text-gray-900">
-						{customer.name ?? "N/A"}
+						{customer?.name ?? "N/A"}
 					</h3>
-					<p className="text-sm text-gray-600">{customer.email}</p>
+					<p className="text-sm text-gray-600">{customer?.email}</p>
 				</div>
 				<span
 					className={`px-2.5 py-1 text-xs font-medium rounded-full border 	${getTypeBadgeClass(
-						customer.type
+						customer?.type
 					)}`}
 				>
-					{customer.type}
+					{customer?.type}
 				</span>
 			</div>
 
@@ -164,12 +164,12 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 				<div>
 					<p className="text-xs text-gray-500">Total Sales</p>
 					<p className="text-sm font-medium">
-							₦{customer.totalSales.toLocaleString()}
+							₦{customer?.totalSpent?.toLocaleString()}
 					</p>
 				</div>
 				<div>
 					<p className="text-xs text-gray-500">Orders</p>
-					<p className="text-sm">{customer.orderCount ?? "N/A"}</p>
+					<p className="text-sm">{customer?.orderCount ?? "N/A"}</p>
 				</div>
 			</div>
 
@@ -221,7 +221,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 						<input
 							type="text"
 							name="name"
-							value={filters.name}
+							value={filters?.name}
 							onChange={handleFilterChange}
 							placeholder="Filter by name"
 							className="pl-10 w-full h-10 px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -235,7 +235,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 						<input
 							type="text"
 							name="email"
-							value={filters.email}
+							value={filters?.email}
 							onChange={handleFilterChange}
 							placeholder="Filter by email"
 							className="pl-10 w-full h-10 px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -248,7 +248,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 						</div>
 						<select
 							name="type"
-							value={filters.type}
+							value={filters?.type}
 							onChange={handleFilterChange}
 							className="pl-10 w-full h-10 px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all pr-10"
 						>
@@ -319,22 +319,22 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 										className="hover:bg-gray-50 transition-colors"
 									>
 										<td className="px-4 py-3 text-sm text-gray-900">
-											{customer.name ?? "N/A"}
+											{customer?.name ?? "N/A"}
 										</td>
 										<td className="px-4 py-3 text-sm text-gray-600 max-w-[200px] truncate">
-											{customer.email}
+											{customer?.email}
 										</td>
 										<td className="px-4 py-3">
 											<span
 												className={`px-2.5 py-1 text-xs font-medium rounded-full border 	${getTypeBadgeClass(
-													customer.type
+													customer?.type
 												)}`}
 											>
 												{customer?.type}
 											</span>
 										</td>
 										<td className="px-4 py-3 text-sm font-medium text-gray-900">
-											₦{customer?.totalSales.toLocaleString()}
+											₦{customer?.totalSpent.toLocaleString()}
 										</td>
 										<td className="px-4 py-3 text-sm text-gray-600">
 											{customer?.orderCount ?? "N/A"}
@@ -453,7 +453,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ data,refetch }) => {
 							<div>
 								<p className="text-sm text-gray-500">Total Sales</p>
 								<p className="text-base font-medium text-gray-900">
-									₦{selectedCustomer?.totalSales.toLocaleString()}
+									₦{selectedCustomer?.totalSpent?.toLocaleString()}
 								</p>
 							</div>
 							<div>

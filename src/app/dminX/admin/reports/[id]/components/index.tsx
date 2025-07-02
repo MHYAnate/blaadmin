@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useHandlePush } from "@/hooks/use-handle-push";
 import { ROUTES } from "@/constant/routes";
-import UserDetail from "../components/customerDetail";
+import UserDetail from "./customerDetail";
 import { useGetAdminRoles } from "@/services/admin/index";
 import { useGetDashboardInfo } from "@/services/dashboard";
 import UserMetricDetail from "./metricDetail";

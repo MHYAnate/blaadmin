@@ -173,8 +173,8 @@ const DashboardMetricCard: React.FC<DashboardMetricCardProps> = ({
   color = "#EC9F01",
 }) => {
   const formattedValue = isCurrency
-    ? `₦${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-    : value.toLocaleString()
+    ? `₦${value?.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    : value?.toLocaleString()
 
   return (
     <Card className="h-full min-w-[200px] max-w-sm w-full">
