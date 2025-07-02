@@ -26,7 +26,7 @@ const DataTable: React.FC<iProps> = ({
   totalPages,
   loading,
 }) => {
-  const tableData: ProductData[] = [
+  const tableData: any[] = [
     {
       id: 1,
       productname: "Rice",
@@ -62,7 +62,7 @@ const DataTable: React.FC<iProps> = ({
   ];
 
   const cellRenderers = {
-    name: (item: ProductData) => (
+    name: (item: any) => (
       <div className="font-medium flex items-center gap-3">
         <Image
           src="/images/user-avatar.png"
@@ -77,18 +77,18 @@ const DataTable: React.FC<iProps> = ({
         </div>
       </div>
     ),
-    price: (item: ProductData) => (
+    price: (item: any) => (
       <div className="font-medium">{formatMoney(Number(item?.price) || 0)}</div>
     ),
-    quantity: (item: ProductData) => (
+    quantity: (item: any) => (
       <span className="font-medium">{item?.quantity}</span>
     ),
-    productid: (item: ProductData) => (
+    productid: (item: any) => (
       <div className="font-medium">{item.product?.id}</div>
     ),
   };
 
-  const columnOrder: (keyof ProductData)[] = [
+  const columnOrder: (keyof any)[] = [
     "name",
     "price",
     "quantity",
@@ -105,7 +105,7 @@ const DataTable: React.FC<iProps> = ({
   return (
     <Card className="bg-white">
       <CardContent className="p-6">
-        <ProductTableComponent<ProductData>
+        <ProductTableComponent<any>
           tableData={data || []}
           currentPage={currentPage}
           onPageChange={onPageChange}
