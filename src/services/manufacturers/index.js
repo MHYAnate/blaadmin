@@ -6,6 +6,7 @@ import httpService from "../httpService";
 import useFetchItem from "../useFetchItem";
 import useMutateItem from "../useMutateItem";
 import { useState } from "react";
+import apiClient from "./apiclient";
 
 export const useGetManufacturers = () => {
   const { isLoading, error, data, refetch, setFilter } = useFetchItem({
@@ -334,13 +335,45 @@ export const useDeleteManufacturer = (onSuccess) => {
 //   return { createManufacturer, isLoading, error, data };
 // }
 
+// export const useCreateManufacturer = (handleSuccess) => {
+//   const { data, error, isPending, mutateAsync } = useMutateItem({
+//     // The mutation function now posts FormData.
+//     // Ensure your httpService.postData can handle FormData
+//     // by not setting the 'Content-Type' header, allowing the browser to set it automatically.
+//     mutationFn: (payload) =>
+//       httpService.postData(payload, routes.createManufacturer()),
+//     onSuccess: (response) => {
+//       const resData = response?.data || {};
+//       if (handleSuccess) {
+//         handleSuccess(resData);
+//       }
+//     },
+//     onError: (error) => {
+//       // Use a more specific error message from the backend if available
+//       const errorMessage = error?.response?.data?.error || "An error occurred while creating the manufacturer.";
+//       showErrorAlert(errorMessage);
+//     },
+//   });
+
+//   return {
+//     createManufacturerData: data,
+//     createManufacturerError: ErrorHandler(error),
+//     createManufacturerIsLoading: isPending,
+//     // This function will be called with the FormData object from the form.
+//     createManufacturerPayload: (requestPayload) => mutateAsync(requestPayload),
+//   };
+// };
+
 export const useCreateManufacturer = (handleSuccess) => {
-  const { data, error, isPending, mutateAsync } = useMutateItem({
-    // The mutation function now posts FormData.
-    // Ensure your httpService.postData can handle FormData
-    // by not setting the 'Content-Type' header, allowing the browser to set it automatically.
+  const { mutateAsync, isPending, error, data } = useMutation({
+    /**
+     * The mutation function now uses the apiClient.
+     * The interceptor will automatically add the Authorization header.
+     * The browser will correctly set the 'Content-Type' for FormData.
+     */
     mutationFn: (payload) =>
-      httpService.postData(payload, routes.createManufacturer()),
+      apiClient.post(routes.createManufacturer(), payload),
+
     onSuccess: (response) => {
       const resData = response?.data || {};
       if (handleSuccess) {
@@ -348,18 +381,18 @@ export const useCreateManufacturer = (handleSuccess) => {
       }
     },
     onError: (error) => {
-      // Use a more specific error message from the backend if available
-      const errorMessage = error?.response?.data?.error || "An error occurred while creating the manufacturer.";
-      showErrorAlert(errorMessage);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "An error occurred while creating the manufacturer.";
+      toast.error(errorMessage);
     },
   });
 
   return {
-    createManufacturerData: data,
-    createManufacturerError: ErrorHandler(error),
-    createManufacturerIsLoading: isPending,
-    // This function will be called with the FormData object from the form.
     createManufacturerPayload: (requestPayload) => mutateAsync(requestPayload),
+    createManufacturerIsLoading: isPending,
+    createManufacturerError: error, // Consider using an ErrorHandler here
+    createManufacturerData: data,
   };
 };
 
