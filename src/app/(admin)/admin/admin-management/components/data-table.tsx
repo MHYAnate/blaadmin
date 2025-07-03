@@ -228,7 +228,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const columnLabels = {
     status: "Role Status",
-    name: "Name",
+    name: "Name & Email",
     role: "Role",
     description: "Description",
     action: "",
