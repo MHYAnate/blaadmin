@@ -259,7 +259,7 @@ export default function Admins() {
 </div>)}
 
       {/* Role cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-8">
         {safeRolesData.map((role: RoleData) => (
           <RoleCard key={role.id} role={role} />
         ))}

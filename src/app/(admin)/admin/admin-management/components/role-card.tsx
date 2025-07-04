@@ -24,7 +24,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ role }) => {
   };
 
   return (
-    <Card className="bg-white flex-1">
+    <Card className={!role.name.includes('admin')? "hidden":"bg-white flex-1"}>
       <CardContent className={`p-6 ${getBgColor()} rounded-t-lg h-[140px]`}>
         <h2 className="font-semibold text-xl text-[#111827] capitalize">
           {role.name.replace(/_/g, ' ')}
