@@ -782,7 +782,7 @@ const CreateAdmin: React.FC<IProps> = ({ setClose, setUrl, roles = [] }) => {
                     </FormControl>
                     <SelectContent>
                       {roles.map((role) => (
-                        <SelectItem key={role.id} value={role.name}>
+                        <SelectItem className={role.name !== "admin" ? "hidden":""} key={role.id} value={role.name}>
                           {role.name.replace(/_/g, " ")}
                         </SelectItem>
                       ))}
