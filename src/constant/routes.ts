@@ -3,7 +3,7 @@ export const ROUTES = {
     SIDEBAR: {
       DASHBOARD: "/admin",
       ADMINS: "/admin/admin-management",
-      ROLES: "/admin/roles",
+      ROLES: "/admin/create-role",
       PERMISSIONS: "/admin/permissions",
       CUSTOMERS: "/admin/customers",
       PRODUCTS: "/admin/products",
@@ -11,7 +11,7 @@ export const ROUTES = {
       MANUFACTURERS: "/admin/manufacturers",
       REPORTS: "/admin/reports",
       STOREMANAGEMENT: "/admin/store-management",
-      INVEMTORYMANAGEMENT: "/admin/inventory-management",
+      INVEMTORYMANAGEMENT: "/admin/inventory",
       FINANCIALREPORTS: "/admin/financial-reports",
       TRANSACTIONMANAGEMENT: "/admin/transaction-management",
       NOTIFICATIONS: "/admin/notifications",

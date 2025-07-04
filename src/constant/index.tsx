@@ -84,6 +84,12 @@ export const adminSidebarList = [
   },
   {
     id: 7,
+    sidebar: "Inventory Management",
+    icon: <InventoryManagementIcon />,
+    href: ROUTES.ADMIN.SIDEBAR.INVEMTORYMANAGEMENT,
+  },
+  {
+    id: 8,
     sidebar: "Financial and Transaction Reports",
     icon: <FinancialReportIcon />,
     // href: ROUTES.ADMIN.SIDEBAR.FINANCIALREPORTS,
@@ -99,7 +105,7 @@ export const adminSidebarList = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     sidebar: "Support & Feedback",
     icon: <UserIcon />,
     child: [
@@ -154,12 +160,6 @@ export const adminSidebarList = [
   //   sidebar: "Store Management",
   //   icon: <StoreManagementIcon />,
   //   href: ROUTES.ADMIN.SIDEBAR.STOREMANAGEMENT,
-  // },
-  // {
-  //   id: 7,
-  //   sidebar: "Inventory Management",
-  //   icon: <InventoryManagementIcon />,
-  //   href: ROUTES.ADMIN.SIDEBAR.INVEMTORYMANAGEMENT,
   // },
   
 ];

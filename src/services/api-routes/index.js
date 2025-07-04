@@ -532,4 +532,5 @@ dashboardReports: () => '/admin/dashboard',
 paymentManagement:() => 'admin/transactions',
 deleteManufacturer: (id) => `admin/manufacturers/${id}`,
 createManufacturer: () => 'admin/manufacturers',
+createAdminRole: () => 'admin/roles',
 };

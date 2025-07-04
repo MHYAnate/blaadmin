@@ -525,7 +525,9 @@ import { routes } from "../api-routes";
 import { ErrorHandler } from "../errorHandler";
 import useFetchItem from "../useFetchItem";
 import httpService from "../httpService";
+import useMutateItem from "../useMutateItem";
 import { useState, useEffect } from "react";
+
 
 
 export const useGetAdminInfo = (adminId) => {
@@ -759,6 +761,36 @@ export function useRegistrationForm(props) {
     isSuccess
   };
 }
+
+// export const useInviteAdmin = (onSuccess) => {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [data, setData] = useState(null);
+
+//   const inviteAdminPayload = async (payload) => {
+//     setIsLoading(true);
+//     setError(null);
+    
+//     try {
+//       const response = await httpService.postData(payload, routes.inviteAdmin());
+//       setData(response.data);
+//       if (onSuccess) onSuccess(response.data);
+//       return response.data;
+//     } catch (error) {
+//       setError(error);
+//       return error;
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   return {
+//     inviteAdminIsLoading: isLoading,
+//     inviteAdminError: ErrorHandler(error),
+//     inviteAdminData: data,
+//     inviteAdminPayload
+//   };
+// };
 
 export const useInviteAdmin = (onSuccess) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -1037,5 +1069,78 @@ export const useUpdateAdminRoles = (onSuccess) => {
     updateRolesError: error,
     updateRolesData: data,
     updateRolesPayload,
+  };
+};
+
+// export const useCreateAdminRole = (onSuccess) => {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [data, setData] = useState(null);
+
+//   /**
+//    * @param {object} roleData - The data for the new role.
+//    * @param {string} roleData.name - The name of the role.
+//    * @param {string} roleData.description - The description of the role.
+//    * @param {number[]} roleData.permissionIds - An array of permission IDs to assign.
+//    */
+//   const createRolePayload = async (roleData) => {
+//     setIsLoading(true);
+//     setError(null);
+
+//     try {
+//       const response = await httpService.postData(
+//         roleData,
+//         routes.createAdminRole()
+//       );
+      
+//       setData(response.data);
+//       if (onSuccess) {
+//         onSuccess(response.data);
+//       }
+//       return response.data;
+//     } catch (err) {
+//       const handledError = ErrorHandler(err);
+//       setError(handledError);
+//       // It's often better to let the calling component handle the error toast
+//       return Promise.reject(handledError);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   return {
+//     createRoleIsLoading: isLoading,
+//     createRoleError: error,
+//     createRoleData: data,
+//     createRolePayload,
+//   };
+// };
+
+export const useCreateAdminRole = (handleSuccess) => {
+  const { data, error, isPending, mutateAsync } = useMutateItem({
+    mutationFn: (payload) =>
+      httpService.postData(payload, routes.createAdminRole()),
+
+    queryKeys: ["create-admin-role"],
+
+    onSuccess: (response) => {
+      const resData = response?.data || {};
+      if (handleSuccess) handleSuccess(resData);
+      showSuccessAlert(resData?.message || "Role created successfully");
+    },
+
+    onError: (err) => {
+      const errorMessage = err?.response?.data?.error || "Failed to create role";
+      showErrorAlert(errorMessage);
+    },
+  });
+
+  return {
+    createRoleData: data,
+    createRoleError: ErrorHandler(error) || "An error occurred",
+    createRoleIsLoading: isPending,
+    createRolePayload: async (payload) => {
+      await mutateAsync(payload);
+    },
   };
 };
