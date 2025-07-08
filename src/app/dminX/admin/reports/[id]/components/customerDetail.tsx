@@ -178,7 +178,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ adminId, roles }) => {
                     className={`w-2/12 flex-col pb-0`}
                     onClick={() =>
                       handlePush(
-                        `${ROUTES.ADMIN.SIDEBAR.REPORTS}/${adminId}?tab=${tab.value}`
+                        `${ROUTES.ADMIN.SIDEBAR.CUSTOMERSREPORTS}/${adminId}?tab=${tab.value}`
                       )
                     }
                   >

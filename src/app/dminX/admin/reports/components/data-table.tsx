@@ -107,7 +107,7 @@ const DataTable: React.FC<DataTableProps> = ({ customers,refetch }) => {
     action: (item: any) => (
       <div className="flex gap-2.5">
         	<Link
-					href={`${ROUTES.ADMIN.SIDEBAR.REPORTS}/${item?.id}?tab=general`}
+					href={`${ROUTES.ADMIN.SIDEBAR.CUSTOMERSREPORTS}/${item?.id}?tab=general`}
 					className="bg-[#27A376] p-2.5 rounded-lg"
 				>
 					<ViewIcon />

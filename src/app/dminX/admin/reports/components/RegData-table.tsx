@@ -114,7 +114,7 @@ const RegDataTable: React.FC<DataTableProps> = ({ customers, refetch }) => {
     action: (item: DATA) => (
       <div className="flex gap-2.5">
       <Link
-                href={`${ROUTES.ADMIN.SIDEBAR.REPORTS}/${item?.id}?tab=general`}
+                href={`${ROUTES.ADMIN.SIDEBAR.CUSTOMERSREPORTS}/${item?.id}?tab=general`}
                 className="bg-[#2F78EE] p-2.5 rounded-lg cursor-pointer"
               >
                 <ViewIcon />
