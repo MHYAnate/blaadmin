@@ -123,7 +123,7 @@ const SupplierManagementCard: React.FC<iProps> = ({
         </div>
         <div className="flex justify-between items-center">
           <h5 className="mb-2.5 font-bold text-xl text-[#111827]">
-            {item?.products?.length || 0} Product(s)
+            {item?._count?.products || 0} Product(s)
           </h5>
         </div>
       </CardContent>
