@@ -995,34 +995,11 @@ const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
   // }
 
 
-  // async function onSubmit(values: FormSchemaType) {
-  //   const formData = new FormData();
-  
-  //   // UPDATED: Changed 'image' to 'logo' to match backend expectation
-  //   formData.append("logo", values.logo); // Field name must be "logo"
-  //   formData.append("name", values.manufacturername);
-  //   formData.append("contactPerson", values.contactperson);
-  //   formData.append("email", values.email);
-  //   formData.append("country", values.country);
-    
-  //   if (values.phonenumber) {
-  //     formData.append("phone", values.phonenumber);
-  //   }
-  
-  //   await createManufacturerPayload(formData);
-  // }
-
   async function onSubmit(values: FormSchemaType) {
-    // Add debug logs to verify file type
-    console.log("Logo file type:", values.logo instanceof File); // Should be true
-    console.log("Logo content:", values.logo);
-  
     const formData = new FormData();
-    
-    // Append the file directly (should be File object)
-    formData.append("logo", values.logo);
-    
-    // Append other fields
+  
+    // UPDATED: Changed 'image' to 'logo' to match backend expectation
+    formData.append("logo", values.logo); // Field name must be "logo"
     formData.append("name", values.manufacturername);
     formData.append("contactPerson", values.contactperson);
     formData.append("email", values.email);
@@ -1034,6 +1011,29 @@ const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
   
     await createManufacturerPayload(formData);
   }
+
+  // async function onSubmit(values: FormSchemaType) {
+  //   // Add debug logs to verify file type
+  //   console.log("Logo file type:", values.logo instanceof File); // Should be true
+  //   console.log("Logo content:", values.logo);
+  
+  //   const formData = new FormData();
+    
+  //   // Append the file directly (should be File object)
+  //   formData.append("logo", values.logo);
+    
+  //   // Append other fields
+  //   formData.append("name", values.manufacturername);
+  //   formData.append("contactPerson", values.contactperson);
+  //   formData.append("email", values.email);
+  //   formData.append("country", values.country);
+    
+  //   if (values.phonenumber) {
+  //     formData.append("phone", values.phonenumber);
+  //   }
+  
+  //   await createManufacturerPayload(formData);
+  // }
   const apiError = form.formState.errors.root?.message;
 
   return (

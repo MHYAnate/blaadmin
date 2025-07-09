@@ -3,6 +3,7 @@ import { routes } from "../api-routes";
 import { ErrorHandler } from "../errorHandler";
 import httpService from "../httpService";
 import useFetchItem from "../useFetchItem";
+import { toast } from "sonner";
 
 export const useGetProducts = () => {
   const { isLoading, error, data, refetch, setFilter } = useFetchItem({
@@ -89,9 +90,10 @@ export const useDeleteProduct = (onSuccess) => {
         `admin/products/${productId}`
       );
       setData(response.data);
-      if (onSuccess) onSuccess(response.data);
+      if (onSuccess){ toast.error(response.message)}
       return response.data;
     } catch (error) {
+      toast.error(error.message);
       setError(error);
       throw error;
     } finally {

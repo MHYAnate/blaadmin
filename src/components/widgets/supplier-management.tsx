@@ -27,11 +27,11 @@ interface iProps {
 const SupplierManagementCard: React.FC<iProps> = ({
   item,
   handleUpdateManufacturerStatus,
-  showToggle = false,
-  showOptions = false,
+  showToggle,
+  showOptions,
   setTab,
   setOpen,
-  loading = false,
+  loading,
 }) => {
 
   return (
@@ -44,7 +44,7 @@ const SupplierManagementCard: React.FC<iProps> = ({
               height={76}
               className="object-cover"
               alt="Supplier image"
-              src={item?.logo && item?.logo !== "logo" && !item.logo.includes("placehold.co") ?item.logo:"/images/bladmin-login.jpg"}
+              src={item?.logo && item.logo.includes("res.cloudinary.com") ?item.logo:"/images/bladmin-login.jpg"}
               // img=item.logo ||
             />
           </div>

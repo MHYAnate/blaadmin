@@ -70,7 +70,7 @@ export const useDeleteManufacturerProduct = (handleSuccess) => {
       const resData = requestParams?.data?.result || {};
       console.log(requestParams);
       handleSuccess(resData);
-      //   showSuccessAlert(resData);
+        showSuccessAlert(resData);
     },
     onError: (error) => {
       showErrorAlert("An error occured");
@@ -223,6 +223,8 @@ import { useMutation } from "@tanstack/react-query";
 //   };
 // };
 
+import { toast } from "sonner";
+
 export const useDeleteManufacturer = (onSuccess) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -243,6 +245,7 @@ export const useDeleteManufacturer = (onSuccess) => {
     } catch (error) {
       // Enhanced error parsing
       let errorMessage = 'Failed to delete manufacturer';
+      toast.error(errorMessage);
       
       if (error.response?.status === 400) {
         errorMessage = error.response.data.error || errorMessage;

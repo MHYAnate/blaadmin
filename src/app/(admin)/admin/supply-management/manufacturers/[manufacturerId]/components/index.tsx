@@ -263,7 +263,8 @@ import { capitalizeFirstLetter, showSuccessAlert } from "@/lib/utils";
 import { useDeleteProduct } from "@/services/products";
 import { useRouter } from "next/navigation";
 import ProductDataTable from "@/app/(admin)/admin/products/components/data-table"; // Import the optimized component
-
+import DeleteManufacturer from "@/app/(admin)/admin/manufacturers/deleteContent";
+import { toast } from "sonner";
 interface iProps {
   manufacturerId: string;
 }
@@ -304,7 +305,9 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
     deleteProduct, 
     isLoading: isDeletingProduct 
   } = useDeleteProduct({
+    
     onSuccess: () => {
+      toast.success("Product deleted successfully!");
       showSuccessAlert("Product deleted successfully!");
       refetchManufacturerProducts();
       setOpen(false);
@@ -316,10 +319,11 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
 
   const { 
     deleteManufacturer, 
-    isLoading: isDeletingManufacturer 
+    isLoading
   } = useDeleteManufacturer({
     onSuccess: () => {
-      showSuccessAlert("Manufacturer deleted successfully!");
+      toast.success("Manufacturer deleted successfully!");
+      // showSuccessAlert("Manufacturer deleted successfully!");
       setOpen(false);
       router.push('/admin/manufacturers');
     },
@@ -407,12 +411,12 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
         return <EditManufacturer setClose={() => setOpen(false)} />;
       case "delete":
         return (
-          <DeleteContent
+          <DeleteManufacturer
             handleClose={() => setOpen(false)}
-            title="Manufacturer"
+            title={manufacturer?.name}
             handleClick={() => handleDelete(manufacturer)}
-            // loading={isDeletingManufacturer}
-            // warningMessage="Deleting this manufacturer will permanently remove it and all associated data. This action cannot be undone."
+            loading={isLoading}
+            warningMessage="Deleting this manufacturer will permanently remove it and all associated data. This action cannot be undone."
           />
         );
       case "view":
