@@ -811,46 +811,415 @@
 
 // export default AddManufacturer;
 
+// "use client";
+
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from "@/components/ui/form";
+// import { Input } from "@/components/ui/input";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { useForm } from "react-hook-form";
+// import { z } from "zod";
+// import { Button } from "@/components/ui/button";
+// import { useCallback, useState } from "react";
+// import Image from "next/image";
+// import { useDropzone } from "react-dropzone";
+// import { UploadIcon } from "../../../../../public/icons"; // Placeholder for an upload icon
+// import { CountryDropdown } from "@/components/ui/country-dropdown";
+// import { useCreateManufacturer } from "@/services/manufacturers"; // Adjust path as needed
+// import { toast } from "sonner"; 
+
+// /**
+//  * Handles the actual image upload to Cloudinary.
+//  *
+//  * @param {File} file - The file to upload.
+//  * @returns {Promise<string>} The public URL of the uploaded file from Cloudinary.
+//  */
+// const uploadImageToCloudinary = async (file: File): Promise<string> => {
+//     const formData = new FormData();
+//     formData.append("file", file);
+
+//     // FIX: Replace the placeholder below with your actual Cloudinary upload preset name.
+//     // To get this, log in to your Cloudinary account, go to Settings (gear icon) -> Upload,
+//     // and find the "Upload presets" section. You need to use an "unsigned" preset for this client-side upload to work.
+//     // If you don't have one, create a new one and set the "Signing Mode" to "Unsigned".
+//     formData.append("upload_preset", "your_actual_upload_preset_name_here"); 
+
+//     const cloudName = 'dsj9phqyk'; // Using the cloud name you provided.
+//     const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+
+//     try {
+//         const response = await fetch(uploadUrl, {
+//             method: 'POST',
+//             body: formData,
+//         });
+
+//         if (!response.ok) {
+//             const errorData = await response.json();
+//             throw new Error(`Cloudinary upload failed: ${errorData.error.message}`);
+//         }
+
+//         const data = await response.json();
+//         // The secure_url is the HTTPS URL of the uploaded file.
+//         return data.secure_url;
+
+//     } catch (error) {
+//         console.error("Error uploading image to Cloudinary:", error);
+//         // Re-throw the error to be caught by the onSubmit handler
+//         throw error;
+//     }
+// };
+
+
+// // Zod schema for form validation, aligned with backend requirements
+// // const formSchema = z.object({
+// //   manufacturername: z.string().min(5, "Name must be at least 5 characters long."),
+// //   contactperson: z.string().min(3, "Contact person name is required."),
+// //   email: z.string().email("Please enter a valid email address."),
+// //   phonenumber: z.string().optional(), // Phone is optional on the backend
+// //   country: z.string().min(1, "Country is required."),
+// //   image: z
+// //     .instanceof(File, { message: "A logo image is required." })
+// //     .refine((file) => file.size > 0, "A logo image is required."),
+// // });
+
+// // type FormSchemaType = z.infer<typeof formSchema>;
+
+// const formSchema = z.object({
+//   manufacturername: z.string().min(5, "Name must be at least 5 characters long."),
+//   contactperson: z.string().min(3, "Contact person name is required."),
+//   email: z.string().email("Please enter a valid email address."),
+//   phonenumber: z.string().optional(),
+//   country: z.string().min(1, "Country is required."),
+//   logo: z  // Changed from 'image' to 'logo'
+//     .instanceof(File, { message: "A logo image is required." })
+//     .refine((file) => file.size > 0, "A logo image is required."),
+// });
+
+// type FormSchemaType = z.infer<typeof formSchema>;
+
+// interface iProps {
+//   setClose: () => void;
+// }
+
+// const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
+//   const [preview, setPreview] = useState<string | null>(null);
+
+//   // Instantiate the custom hook to manage the creation logic
+//   // const { createManufacturer, isLoading } = useCreateManufacturer({
+//   //   onSuccess: (data: { name: any; }) => {
+//   //     toast.success(`Manufacturer "${data.name}" created successfully!`);
+//   //     setClose(); // Close the form/modal on success
+//   //   },
+//   // });
+
+//   const { createManufacturerPayload, createManufacturerIsLoading } = useCreateManufacturer((responseData: { message: any; }) => {
+//     // This code runs only on success
+//     toast.success(responseData.message || "Manufacturer created!");
+//     setClose(); // Close the modal
+//     // You could also refetch the manufacturers list here
+//   });
+
+//   const form = useForm<FormSchemaType>({
+//     resolver: zodResolver(formSchema),
+//     defaultValues: {
+//       manufacturername: "",
+//       contactperson: "",
+//       email: "",
+//       phonenumber: "",
+//       country: "",
+//       logo: undefined,
+//     },
+//   });
+
+//   // Handler for the dropzone component
+//   const onDrop = useCallback(
+//     (acceptedFiles: File[]) => {
+//       const file = acceptedFiles[0];
+//       if (file) {
+//         const reader = new FileReader();
+//         reader.onload = () => setPreview(reader.result as string);
+//         reader.readAsDataURL(file);
+//         form.setValue("logo", file, { shouldValidate: true });
+//       }
+//     },
+//     [form]
+//   );
+
+//   const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
+//     onDrop,
+//     maxFiles: 1,
+//     maxSize: 10000000, // 10MB
+//     accept: { "image/png": [".png"], "image/jpeg": [".jpg", ".jpeg"] },
+//   });
+
+//   // The main submission handler
+//   // async function onSubmit(values: FormSchemaType) {
+//   //   try {
+//   //     // Step 1: Upload the image file to Cloudinary to get its URL.
+//   //     const logoUrl = await uploadImageToCloudinary(values.image);
+
+//   //     // Step 2: Call the createManufacturer function from our hook,
+//   //     // providing the form values and overriding the 'image' field with the real Cloudinary URL.
+//   //     await createManufacturer({
+//   //       ...values,
+//   //       image: logoUrl,
+//   //     });
+//   //   } catch (err: any) {
+//   //     toast.error(err.message || "Submission failed. Please try again.");
+//   //     console.error("Submission process failed:", err);
+//   //   }
+//   // }
+
+//   // async function onSubmit(values: FormSchemaType) {
+//   //   const formData = new FormData();
+
+//   //   // The keys ('logo', 'name', etc.) must match what your backend (multer) expects
+//   //   formData.append("logo", values.image); 
+//   //   formData.append("name", values.manufacturername);
+//   //   formData.append("contactPerson", values.contactperson);
+//   //   formData.append("email", values.email);
+//   //   formData.append("country", values.country);
+//   //   if (values.phonenumber) {
+//   //     formData.append("phone", values.phonenumber);
+//   //   }
+
+//   //   // This triggers the API call. You don't need a try/catch here
+//   //   // because the hook handles success and error internally.
+//   //   await createManufacturerPayload(formData);
+//   // }
+
+
+//   // async function onSubmit(values: FormSchemaType) {
+//   //   const formData = new FormData();
+  
+//   //   // UPDATED: Changed 'image' to 'logo' to match backend expectation
+//   //   formData.append("logo", values.logo); // Field name must be "logo"
+//   //   formData.append("name", values.manufacturername);
+//   //   formData.append("contactPerson", values.contactperson);
+//   //   formData.append("email", values.email);
+//   //   formData.append("country", values.country);
+    
+//   //   if (values.phonenumber) {
+//   //     formData.append("phone", values.phonenumber);
+//   //   }
+  
+//   //   await createManufacturerPayload(formData);
+//   // }
+
+//   async function onSubmit(values: FormSchemaType) {
+//     // Add debug logs to verify file type
+//     console.log("Logo file type:", values.logo instanceof File); // Should be true
+//     console.log("Logo content:", values.logo);
+  
+//     const formData = new FormData();
+    
+//     // Append the file directly (should be File object)
+//     formData.append("logo", values.logo);
+    
+//     // Append other fields
+//     formData.append("name", values.manufacturername);
+//     formData.append("contactPerson", values.contactperson);
+//     formData.append("email", values.email);
+//     formData.append("country", values.country);
+    
+//     if (values.phonenumber) {
+//       formData.append("phone", values.phonenumber);
+//     }
+  
+//     await createManufacturerPayload(formData);
+//   }
+//   const apiError = form.formState.errors.root?.message;
+
+//   return (
+//     <div>
+//       <Form {...form}>
+//         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+//           {apiError && (
+//              <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
+//                 {apiError}
+//              </div>
+//           )}
+
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <FormField
+//               control={form.control}
+//               name="manufacturername"
+//               render={({ field }) => (
+//                 <FormItem>
+//                   <FormLabel>Manufacturer Name</FormLabel>
+//                   <FormControl>
+//                     <Input placeholder="e.g., Acme Inc." {...field} disabled={createManufacturerIsLoading} />
+//                   </FormControl>
+//                   <FormMessage />
+//                 </FormItem>
+//               )}
+//             />
+//             <FormField
+//               control={form.control}
+//               name="contactperson"
+//               render={({ field }) => (
+//                 <FormItem>
+//                   <FormLabel>Contact Person</FormLabel>
+//                   <FormControl>
+//                     <Input placeholder="e.g., Jane Doe" {...field} disabled={createManufacturerIsLoading} />
+//                   </FormControl>
+//                   <FormMessage />
+//                 </FormItem>
+//               )}
+//             />
+//           </div>
+
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <FormField
+//               control={form.control}
+//               name="email"
+//               render={({ field }) => (
+//                 <FormItem>
+//                   <FormLabel>Email Address</FormLabel>
+//                   <FormControl>
+//                     <Input type="email" placeholder="contact@acme.com" {...field} disabled={createManufacturerIsLoading} />
+//                   </FormControl>
+//                   <FormMessage />
+//                 </FormItem>
+//               )}
+//             />
+//             <FormField
+//               control={form.control}
+//               name="phonenumber"
+//               render={({ field }) => (
+//                 <FormItem>
+//                   <FormLabel>Phone Number (Optional)</FormLabel>
+//                   <FormControl>
+//                     <Input placeholder="+1 555-123-4567" {...field} disabled={createManufacturerIsLoading} />
+//                   </FormControl>
+//                   <FormMessage />
+//                 </FormItem>
+//               )}
+//             />
+//           </div>
+
+//           <FormField
+//             control={form.control}
+//             name="country"
+//             render={({ field }) => (
+//               <FormItem>
+//                 <FormLabel>Country</FormLabel>
+//                 <CountryDropdown
+//                   placeholder="-- Select a country --"
+//                   defaultValue={field.value}
+//                   onChange={(country) => field.onChange(country.name)}
+//                   disabled={createManufacturerIsLoading}
+//                 />
+//                 <FormMessage />
+//               </FormItem>
+//             )}
+//           />
+
+//           {/* <FormField
+//             control={form.control}
+//             name="logo"
+//             render={() => (
+//               <FormItem>
+//                 <FormLabel>Manufacturer Logo</FormLabel>
+//                 <FormControl>
+//                   <div
+//                     {...getRootProps()}
+//                     className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
+//                       isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+//                     } ${createManufacturerIsLoading ? 'cursor-not-allowed opacity-60' : 'hover:border-blue-400'}`}
+//                   >
+//                     {preview ? (
+//                       <Image src={preview} alt="Logo preview" width={200} height={120} className="object-contain rounded-md" />
+//                     ) : (
+//                       <UploadIcon  />
+//                     )}
+//                     <Input {...getInputProps()} disabled={createManufacturerIsLoading} />
+//                      <p className="mt-2 text-sm text-gray-600">
+//                         {isDragActive ? "Drop the logo here!" : "Drag & drop or click to select a file"}
+//                      </p>
+//                      <p className="text-xs text-gray-500">PNG, JPG, or JPEG (Max 10MB)</p>
+//                   </div>
+//                 </FormControl>
+//                 <FormMessage>
+//                   {fileRejections.length > 0 && "File is invalid. Please check size and type."}
+//                 </FormMessage>
+//               </FormItem>
+//             )}
+//           /> */}
+
+// <FormField
+//   control={form.control}
+//   name="logo"  // Changed from 'image' to 'logo'
+//   render={() => (
+//     <FormItem>
+//       <FormLabel>Manufacturer Logo</FormLabel>
+//       <FormControl>
+//         <div {...getRootProps()} className={`...`}>
+//           {preview ? (
+//             <Image src={preview} alt="Logo preview" width={200} height={120} />
+//           ) : (
+//             <UploadIcon />
+//           )}
+//           <Input {...getInputProps()} />
+//           <p className="mt-2 text-sm text-gray-600">
+//             {isDragActive ? "Drop the logo here!" : "Drag & drop or click to select a file"}
+//           </p>
+//         </div>
+//       </FormControl>
+//       <FormMessage>
+//         {fileRejections.length > 0 && "File is invalid. Please check size and type."}
+//       </FormMessage>
+//     </FormItem>
+//   )}
+// />
+
+
+//           <div className="flex justify-end gap-4 pt-4">
+//             <Button type="button" variant="outline" size="xl" onClick={setClose} disabled={createManufacturerIsLoading}>
+//               Cancel
+//             </Button>
+//             <Button type="submit" variant="warning" size="xl" disabled={createManufacturerIsLoading}>
+//               {createManufacturerIsLoading ? "Creating..." : "Create Manufacturer"}
+//             </Button>
+//           </div>
+//         </form>
+//       </Form>
+//     </div>
+//   );
+// };
+
+// export default AddManufacturer;
+
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import { useCallback, useState } from "react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
-import { UploadIcon } from "../../../../../public/icons"; // Placeholder for an upload icon
+import { UploadIcon } from "../../../../../public/icons"; // Placeholder
 import { CountryDropdown } from "@/components/ui/country-dropdown";
-import { useCreateManufacturer } from "@/services/manufacturers"; // Adjust path as needed
-import { toast } from "sonner"; 
+import { useCreateManufacturer } from "@/services/manufacturers";
+import { toast } from "sonner";
 
-/**
- * Handles the actual image upload to Cloudinary.
- *
- * @param {File} file - The file to upload.
- * @returns {Promise<string>} The public URL of the uploaded file from Cloudinary.
- */
+// Helper function to upload the image to Cloudinary
 const uploadImageToCloudinary = async (file: File): Promise<string> => {
     const formData = new FormData();
     formData.append("file", file);
+    // IMPORTANT: Replace with your actual Cloudinary upload preset
+    formData.append("upload_preset", "your_upload_preset"); 
 
-    // FIX: Replace the placeholder below with your actual Cloudinary upload preset name.
-    // To get this, log in to your Cloudinary account, go to Settings (gear icon) -> Upload,
-    // and find the "Upload presets" section. You need to use an "unsigned" preset for this client-side upload to work.
-    // If you don't have one, create a new one and set the "Signing Mode" to "Unsigned".
-    formData.append("upload_preset", "your_actual_upload_preset_name_here"); 
-
-    const cloudName = 'dsj9phqyk'; // Using the cloud name you provided.
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME; // Store in .env.local
     const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
     try {
@@ -861,90 +1230,58 @@ const uploadImageToCloudinary = async (file: File): Promise<string> => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`Cloudinary upload failed: ${errorData.error.message}`);
+            throw new Error(`Cloudinary Error: ${errorData.error.message}`);
         }
 
         const data = await response.json();
-        // The secure_url is the HTTPS URL of the uploaded file.
-        return data.secure_url;
-
+        return data.secure_url; // Return the HTTPS URL
     } catch (error) {
-        console.error("Error uploading image to Cloudinary:", error);
-        // Re-throw the error to be caught by the onSubmit handler
-        throw error;
+        console.error("Image upload failed:", error);
+        throw error; // Re-throw to be caught by the onSubmit handler
     }
 };
 
-
-// Zod schema for form validation, aligned with backend requirements
-// const formSchema = z.object({
-//   manufacturername: z.string().min(5, "Name must be at least 5 characters long."),
-//   contactperson: z.string().min(3, "Contact person name is required."),
-//   email: z.string().email("Please enter a valid email address."),
-//   phonenumber: z.string().optional(), // Phone is optional on the backend
-//   country: z.string().min(1, "Country is required."),
-//   image: z
-//     .instanceof(File, { message: "A logo image is required." })
-//     .refine((file) => file.size > 0, "A logo image is required."),
-// });
-
-// type FormSchemaType = z.infer<typeof formSchema>;
-
+// Zod schema for form validation
 const formSchema = z.object({
-  manufacturername: z.string().min(5, "Name must be at least 5 characters long."),
-  contactperson: z.string().min(3, "Contact person name is required."),
+  name: z.string().min(3, "Name must be at least 3 characters long."),
+  contactPerson: z.string().min(3, "Contact person name is required."),
   email: z.string().email("Please enter a valid email address."),
-  phonenumber: z.string().optional(),
+  phone: z.string().optional(),
   country: z.string().min(1, "Country is required."),
-  logo: z  // Changed from 'image' to 'logo'
+  logo: z
     .instanceof(File, { message: "A logo image is required." })
     .refine((file) => file.size > 0, "A logo image is required."),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-interface iProps {
+interface IProps {
   setClose: () => void;
 }
 
-const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
+const AddManufacturer: React.FC<IProps> = ({ setClose }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
 
-  // Instantiate the custom hook to manage the creation logic
-  // const { createManufacturer, isLoading } = useCreateManufacturer({
-  //   onSuccess: (data: { name: any; }) => {
-  //     toast.success(`Manufacturer "${data.name}" created successfully!`);
-  //     setClose(); // Close the form/modal on success
-  //   },
-  // });
-
-  const { createManufacturerPayload, createManufacturerIsLoading } = useCreateManufacturer((responseData: { message: any; }) => {
-    // This code runs only on success
-    toast.success(responseData.message || "Manufacturer created!");
-    setClose(); // Close the modal
-    // You could also refetch the manufacturers list here
-  });
+  const { createManufacturerPayload, createManufacturerIsLoading } = useCreateManufacturer(setClose);
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      manufacturername: "",
-      contactperson: "",
+      name: "",
+      contactPerson: "",
       email: "",
-      phonenumber: "",
+      phone: "",
       country: "",
       logo: undefined,
     },
   });
 
-  // Handler for the dropzone component
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = () => setPreview(reader.result as string);
-        reader.readAsDataURL(file);
+        setPreview(URL.createObjectURL(file));
         form.setValue("logo", file, { shouldValidate: true });
       }
     },
@@ -954,115 +1291,76 @@ const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
   const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
     onDrop,
     maxFiles: 1,
-    maxSize: 10000000, // 10MB
+    maxSize: 5000000, // 5MB
     accept: { "image/png": [".png"], "image/jpeg": [".jpg", ".jpeg"] },
   });
-
-  // The main submission handler
-  // async function onSubmit(values: FormSchemaType) {
-  //   try {
-  //     // Step 1: Upload the image file to Cloudinary to get its URL.
-  //     const logoUrl = await uploadImageToCloudinary(values.image);
-
-  //     // Step 2: Call the createManufacturer function from our hook,
-  //     // providing the form values and overriding the 'image' field with the real Cloudinary URL.
-  //     await createManufacturer({
-  //       ...values,
-  //       image: logoUrl,
-  //     });
-  //   } catch (err: any) {
-  //     toast.error(err.message || "Submission failed. Please try again.");
-  //     console.error("Submission process failed:", err);
-  //   }
-  // }
-
-  // async function onSubmit(values: FormSchemaType) {
-  //   const formData = new FormData();
-
-  //   // The keys ('logo', 'name', etc.) must match what your backend (multer) expects
-  //   formData.append("logo", values.image); 
-  //   formData.append("name", values.manufacturername);
-  //   formData.append("contactPerson", values.contactperson);
-  //   formData.append("email", values.email);
-  //   formData.append("country", values.country);
-  //   if (values.phonenumber) {
-  //     formData.append("phone", values.phonenumber);
-  //   }
-
-  //   // This triggers the API call. You don't need a try/catch here
-  //   // because the hook handles success and error internally.
-  //   await createManufacturerPayload(formData);
-  // }
-
-
+  
+  // This is the core logic
   async function onSubmit(values: FormSchemaType) {
-    const formData = new FormData();
-  
-    // UPDATED: Changed 'image' to 'logo' to match backend expectation
-    formData.append("logo", values.logo); // Field name must be "logo"
-    formData.append("name", values.manufacturername);
-    formData.append("contactPerson", values.contactperson);
-    formData.append("email", values.email);
-    formData.append("country", values.country);
-    
-    if (values.phonenumber) {
-      formData.append("phone", values.phonenumber);
+    setIsSubmitting(true);
+
+    try {
+        // Step 1: Upload the logo image to Cloudinary
+        // toast.info("Uploading logo...");
+        // const logoUrl = await uploadImageToCloudinary(values.logo);
+        // toast.success("Logo uploaded!");
+
+        // Step 2: Prepare the final payload for your backend
+        const payload = {
+            name: values.name,
+            contactPerson: values.contactPerson,
+            email: values.email,
+            country: values.country,
+            logo: "https:nexttest.comimage", // Use the returned URL
+            phone: values.phone || undefined,
+        };
+
+        // Step 3: Call the mutation to create the manufacturer
+        await createManufacturerPayload(payload as any);
+
+    } catch (error: any) {
+        // This will catch errors from both Cloudinary upload and the backend mutation
+        console.error("Creation failed:", error);
+        const errorMessage = error?.response?.data?.error || error.message || "An unexpected error occurred.";
+        
+        // Display specific backend validation errors on the form fields
+        if (errorMessage.includes("name")) {
+            form.setError("name", { type: "manual", message: errorMessage });
+        } else if (errorMessage.includes("email")) {
+            form.setError("email", { type: "manual", message: errorMessage });
+        } else {
+            // Show a general error toast for other issues
+            toast.error(errorMessage);
+        }
+    } finally {
+        setIsSubmitting(false);
     }
-  
-    await createManufacturerPayload(formData);
   }
 
-  // async function onSubmit(values: FormSchemaType) {
-  //   // Add debug logs to verify file type
-  //   console.log("Logo file type:", values.logo instanceof File); // Should be true
-  //   console.log("Logo content:", values.logo);
-  
-  //   const formData = new FormData();
-    
-  //   // Append the file directly (should be File object)
-  //   formData.append("logo", values.logo);
-    
-  //   // Append other fields
-  //   formData.append("name", values.manufacturername);
-  //   formData.append("contactPerson", values.contactperson);
-  //   formData.append("email", values.email);
-  //   formData.append("country", values.country);
-    
-  //   if (values.phonenumber) {
-  //     formData.append("phone", values.phonenumber);
-  //   }
-  
-  //   await createManufacturerPayload(formData);
-  // }
-  const apiError = form.formState.errors.root?.message;
+  const isLoading = isSubmitting || createManufacturerIsLoading;
 
   return (
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {apiError && (
-             <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-                {apiError}
-             </div>
-          )}
-
+          {/* Form Fields... */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
-              name="manufacturername"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Manufacturer Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Acme Inc." {...field} disabled={createManufacturerIsLoading} />
+                    <Input placeholder="e.g., Acme Inc." {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
+          <FormField
               control={form.control}
-              name="contactperson"
+              name="contactPerson"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Contact Person</FormLabel>
@@ -1091,7 +1389,7 @@ const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
             />
             <FormField
               control={form.control}
-              name="phonenumber"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Phone Number (Optional)</FormLabel>
@@ -1120,8 +1418,11 @@ const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
               </FormItem>
             )}
           />
+            {/* ... other fields like contactPerson, email, phone, country */}
+          {/* </div> */}
 
-          {/* <FormField
+          {/* Logo Upload Field */}
+          <FormField
             control={form.control}
             name="logo"
             render={() => (
@@ -1131,61 +1432,35 @@ const AddManufacturer: React.FC<iProps> = ({ setClose }) => {
                   <div
                     {...getRootProps()}
                     className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
-                      isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-                    } ${createManufacturerIsLoading ? 'cursor-not-allowed opacity-60' : 'hover:border-blue-400'}`}
+                      isDragActive ? 'border-primary bg-primary/10' : 'border-gray-300'
+                    } ${isLoading ? 'cursor-not-allowed opacity-60' : 'hover:border-primary/70'}`}
                   >
                     {preview ? (
                       <Image src={preview} alt="Logo preview" width={200} height={120} className="object-contain rounded-md" />
                     ) : (
-                      <UploadIcon  />
+                      <UploadIcon />
                     )}
-                    <Input {...getInputProps()} disabled={createManufacturerIsLoading} />
-                     <p className="mt-2 text-sm text-gray-600">
-                        {isDragActive ? "Drop the logo here!" : "Drag & drop or click to select a file"}
-                     </p>
-                     <p className="text-xs text-gray-500">PNG, JPG, or JPEG (Max 10MB)</p>
+                    <Input {...getInputProps()} disabled={isLoading} />
+                    <p className="mt-2 text-sm text-gray-600">
+                      {isDragActive ? "Drop the logo here!" : "Drag & drop or click to select a file"}
+                    </p>
+                    <p className="text-xs text-gray-500">PNG or JPG (Max 5MB)</p>
                   </div>
                 </FormControl>
                 <FormMessage>
-                  {fileRejections.length > 0 && "File is invalid. Please check size and type."}
+                  {fileRejections.length > 0 && "Invalid file. Please check size and type."}
                 </FormMessage>
               </FormItem>
             )}
-          /> */}
+          />
 
-<FormField
-  control={form.control}
-  name="logo"  // Changed from 'image' to 'logo'
-  render={() => (
-    <FormItem>
-      <FormLabel>Manufacturer Logo</FormLabel>
-      <FormControl>
-        <div {...getRootProps()} className={`...`}>
-          {preview ? (
-            <Image src={preview} alt="Logo preview" width={200} height={120} />
-          ) : (
-            <UploadIcon />
-          )}
-          <Input {...getInputProps()} />
-          <p className="mt-2 text-sm text-gray-600">
-            {isDragActive ? "Drop the logo here!" : "Drag & drop or click to select a file"}
-          </p>
-        </div>
-      </FormControl>
-      <FormMessage>
-        {fileRejections.length > 0 && "File is invalid. Please check size and type."}
-      </FormMessage>
-    </FormItem>
-  )}
-/>
-
-
+          {/* Action Buttons */}
           <div className="flex justify-end gap-4 pt-4">
-            <Button type="button" variant="outline" size="xl" onClick={setClose} disabled={createManufacturerIsLoading}>
+            <Button type="button" variant="outline" size="xl" onClick={setClose} disabled={isLoading}>
               Cancel
             </Button>
-            <Button type="submit" variant="warning" size="xl" disabled={createManufacturerIsLoading}>
-              {createManufacturerIsLoading ? "Creating..." : "Create Manufacturer"}
+            <Button type="submit" variant="warning" size="xl" disabled={isLoading}>
+              {isLoading ? "Creating..." : "Create Manufacturer"}
             </Button>
           </div>
         </form>
