@@ -201,12 +201,12 @@ const DataTable: React.FC<DataTableProps> = ({
         >
           <ViewIcon />
         </Link>
-        <Link
+        {/* <Link
           href={`${ROUTES.ADMIN.SIDEBAR.ADMINS}/${item?.id}?tab=general`}
           className="bg-[#2F78EE] p-2.5 rounded-lg cursor-pointer"
         >
           <EditIcon />
-        </Link>
+        </Link> */}
         <div
           onClick={() => openDeleteDialog(item)}
           className="bg-[#E03137] p-2.5 rounded-lg cursor-pointer"
