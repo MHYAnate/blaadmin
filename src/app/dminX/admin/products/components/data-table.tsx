@@ -50,10 +50,10 @@ const ProductDataTable: React.FC<iProps> = ({
       </div>
     ),
     price: (item: any) => (
-      <div className="font-medium">NGN {item.options[0].price || 'N/A'}</div>
+      <div className="font-medium">NGN {item.options?.price || 'N/A'}</div>
     ),
     quantity: (item: any) => (
-      <span className="font-medium">{item.options[0].inventory || 0}</span>
+      <span className="font-medium">{item.options?.inventory || 0}</span>
     ),
     productid: (item: any) => (
       <div className="font-medium">#{item.id}</div>

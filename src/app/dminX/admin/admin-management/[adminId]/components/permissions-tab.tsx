@@ -1,99 +1,117 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useGetAdminPermissions } from "@/services/admin/index";
-import { Separator } from "@/components/ui/separator";
-
+import { 
+  Shield, 
+  Users, 
+  Check, 
+  X, 
+  ChevronDown, 
+  ChevronRight,
+  User,
+  Crown,
+  Briefcase,
+  Lock,
+} from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 interface PermissionsTabProps {
   adminData: any;
+  roles: any[];
 }
 
-const PermissionsTab: React.FC<PermissionsTabProps> = ({ adminData }) => {
-  const { permissionsData, isPermissionsLoading } = useGetAdminPermissions({ enabled: true });
-  const [groupedPermissions, setGroupedPermissions] = useState<Record<string, any[]>>({});
-  
-  useEffect(() => {
-    if (permissionsData && permissionsData.length > 0) {
-      // Group permissions by category
-      const grouped = permissionsData.reduce((acc: Record<string, any[]>, permission: any) => {
-        const category = permission.category || "Other";
-        if (!acc[category]) {
-          acc[category] = [];
-        }
-        acc[category].push(permission);
-        return acc;
-      }, {});
-      
-      setGroupedPermissions(grouped);
-    }
-  }, [permissionsData]);
+const PermissionsTab: React.FC<PermissionsTabProps> = ({ adminData, roles }) => {
 
-  // Get all user permissions from roles
-  const userPermissions = adminData?.roles?.flatMap((role: any) => 
-    role.permissions?.map((p: any) => p.id) || []
-  ) || [];
+  const formatPermissionName = (permission: string) => {
+    return permission.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  };
 
-  if (isPermissionsLoading) {
-    return (
-      <div className="p-4">
-        <p className="text-muted-foreground">Loading permissions...</p>
-      </div>
-    );
-  }
+  const getCurrentUserPermissions = () => {
+    const permissions = new Set();
+    adminData.roles?.forEach((userRole: any) => {
+      const fullRole = roles.find(role => role.id === userRole.role.id);
+      fullRole?.permissions?.forEach((perm: any) => {
+        permissions.add(perm.name);
+      });
+    });
+    return Array.from(permissions);
+  };
 
-  
+  const currentUserPermissions = getCurrentUserPermissions();
+
+  // Helper function to format permission names (replace with your actual function)
+// const formatPermissionName = (permission: any) => {
+//   return permission.name || permission
+// }
+
+const getPermissionDescription = (permission: any) => {
+  return permission.description || "Permission description not available."
+}
+
+const isPermissionEnabled = (permission: any) => {
+  return permission.enabled || false
+}
 
   return (
     <div className="space-y-6">
-      <div className="border border-[#F1F2F4] rounded-[1rem] p-6">
-        <h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
-          Permissions Overview
-        </h5>
-        <p className="text-sm text-[#687588] mb-4">
-          This user has access to the following permissions based on their assigned roles. 
-          Permissions are granted through roles and cannot be assigned directly to users.
-        </p>
-        
-        {Object.keys(groupedPermissions).length > 0 ? (
-          Object.entries(groupedPermissions).map(([category, permissions]) => (
-            <div key={category} className="mb-6">
-              <h6 className="text-[#111827] font-medium mb-3">{category}</h6>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {permissions.map((permission) => {
-                  const hasPermission = userPermissions.includes(permission.id);
-                  
-                  return (
-                    <div 
-                      key={permission.id} 
-                      className={`p-3 rounded-md border ${
-                        hasPermission ? "border-[#27A376] bg-[#E7F7EF]" : "border-[#E5E7EB] bg-[#F9FAFB]"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className={`w-3 h-3 rounded-full ${hasPermission ? "bg-[#27A376]" : "bg-[#D1D5DB]"}`}></div>
-                        <p className={`text-sm font-medium ${hasPermission ? "text-[#111827]" : "text-[#6B7280]"}`}>
-                          {permission.name}
-                        </p>
-                      </div>
-                      {permission.description && (
-                        <p className="text-xs text-[#687588] mt-1 ml-5">
-                          {permission.description}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-              <Separator className="mt-4" />
+      {/* Header */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-blue-100 rounded-lg">
+              <Shield className="w-6 h-6 text-blue-600" />
             </div>
-          ))
-        ) : (
-          <p className="text-sm text-[#687588]">No permissions found or user has no assigned permissions.</p>
-        )}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Assigned Permissions</h2>
+              
+            </div>
+          </div>
+        </div>
+
+        {/* Admin Info */}
+        
       </div>
+
+        <div className="space-y-6">
+          {/* Effective Permissions Summary */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <Lock className="w-5 h-5 mr-2 text-green-600" />
+              Effective Permissions ({currentUserPermissions.length})
+            </h3>
+            
+            {currentUserPermissions.length > 0 ? (
+              <div className="space-y-6">
+              <h2 className="text-xl font-semibold text-gray-900">Role Permissions</h2>
+        
+              <div className="space-y-6">
+                {currentUserPermissions.map((permission: any, index: number) => (
+                  <div key={index} className="flex items-start justify-between py-4 border-b border-gray-100 last:border-b-0">
+                    <div className="flex-1 space-y-1 pr-4">
+                      <h3 className="text-base font-medium text-gray-900">{formatPermissionName(permission)}</h3>
+                      <p className="text-sm text-gray-500 leading-relaxed">{`This permission gives the ${adminData.roles[0].role.name} the access ${formatPermissionName(permission)} on BuyLocal Admin Portal`}</p>
+                    </div>
+        
+                    <div className="flex-shrink-0">
+                      <Switch
+                        checked={true}
+                        onCheckedChange={(checked) => {
+                          // Handle permission toggle here
+                          console.log(`Permission ${formatPermissionName(permission)} toggled to:`, checked)
+                        }}
+                        className="data-[state=checked]:bg-green-500"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <Lock className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                <p>No permissions available</p>
+              </div>
+            )}
+          </div>
+        </div>
     </div>
   );
 };
 
 export default PermissionsTab;
-

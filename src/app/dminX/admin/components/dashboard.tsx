@@ -21,6 +21,7 @@ import { useGetAdmins } from "@/services/admin";
 import { useSearchParams } from 'next/navigation';
 import { Storage } from "@/lib/utils";
 import { useEffect,useState } from "react";
+import SalesPerformance from "./dashboardTopChart";
 
 const Dashboard: React.FC = () => {
 
@@ -199,7 +200,8 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div className="flex-1 h-auto">
-            <LineGraphComponent data={data?.charts?.salesPerformance || []} />
+            {/* <LineGraphComponent data={data?.charts?.salesPerformance || []} /> */}
+            <SalesPerformance data={data}/>
           </div>
         </CardContent>
       </Card>
