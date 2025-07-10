@@ -264,3 +264,116 @@ export const useCreateManufacturer1 = (handleSuccess) => {
     createManufacturerPayload: (requestPayload) => mutateAsync(requestPayload),
   };
 };
+
+// export const useUpdateManufacturer = (onSuccessCallback) => {
+//   const queryClient = useQueryClient();
+
+//   const {
+//       mutateAsync,
+//       isPending: updateManufacturerIsLoading,
+//       error,
+//   } = useMutation({
+//       /**
+//        * @param {object} params - The parameters for updating.
+//        * @param {string | number} params.id - The ID of the manufacturer to update.
+//        * @param {object} params.payload - The data to update.
+//        */
+//       mutationFn: async ({ id, payload }) => {
+//           const { data } = await apiClient.patch(routes.deleteManufacturer(id), payload);
+//           return data;
+//       },
+//       onSuccess: (response) => {
+//           queryClient.invalidateQueries({ queryKey: ["fetchManufacturers"] });
+//           queryClient.invalidateQueries({ queryKey: ["fetchManufacturerInfo", response?.data?.id] });
+//           toast.success(response?.message || "Manufacturer updated successfully!");
+//           if (onSuccessCallback) onSuccessCallback();
+//       },
+//       onError: (error) => {
+//           console.error("Update Mutation Error:", error);
+//       },
+//   });
+
+//   return {
+//       updateManufacturerPayload: mutateAsync,
+//       updateManufacturerIsLoading,
+//       updateManufacturerError: ErrorHandler(error),
+//   };
+// };
+
+// Updated useUpdateManufacturer hook
+// export const useUpdateManufacturer = ({
+//   onSuccessCallback,
+//   queryClient
+// }) => {
+//   const {
+//     mutateAsync,
+//     isPending: updateManufacturerIsLoading,
+//     error,
+//   } = useMutation({
+//     mutationFn: async ({ id, payload }) => {
+//       // Use correct update route
+//       const response = await apiClient.patch(
+//         routes.updateManufacturer(id), 
+//         payload
+//       );
+//       return response.data;
+//     },
+//     onSuccess: (data, variables) => {
+//       queryClient.invalidateQueries({ queryKey: ["fetchManufacturers"] });
+//       queryClient.invalidateQueries({ 
+//         queryKey: ["fetchManufacturerInfo", variables.id] 
+//       });
+      
+//       toast.success(data?.message || "Manufacturer updated successfully!");
+      
+//       if (onSuccessCallback) {
+//         onSuccessCallback();
+//       }
+//     },
+//     onError: (error) => {
+//       console.error("Update Mutation Error:", error);
+//       const errorMessage = error.response?.data?.error || 
+//                           error.message || 
+//                           "Failed to update manufacturer";
+//       toast.error(errorMessage);
+//     },
+//   });
+
+//   return {
+//     updateManufacturerPayload: mutateAsync,
+//     updateManufacturerIsLoading,
+//     updateManufacturerError: error,
+//   };
+// };
+
+export const useUpdateManufacturer = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  const {
+      mutateAsync,
+      isPending: updateManufacturerIsLoading,
+      error,
+  } = useMutation({
+      mutationFn: async (params) => {
+          const { data } = await apiClient.patch(routes.updateManufacturer(params.id), params.payload);
+          return data;
+      },
+      onSuccess: (response, variables) => {
+          queryClient.invalidateQueries({ queryKey: ["fetchManufacturers"] });
+          queryClient.invalidateQueries({ queryKey: ["fetchManufacturerInfo", variables.id] });
+          toast.success(response?.message || "Manufacturer updated successfully!");
+          if (onSuccessCallback) onSuccessCallback();
+      },
+      onError: (error) => {
+          console.error("Update Mutation Error:", error);
+          const errorMessage = error?.response?.data?.error || error.message || "An unexpected error occurred.";
+          toast.error(errorMessage);
+      },
+  });
+
+  return {
+      updateManufacturerPayload: mutateAsync, // This now expects { id, payload }
+      updateManufacturerIsLoading,
+      updateManufacturerError: ErrorHandler(error),
+  };
+};

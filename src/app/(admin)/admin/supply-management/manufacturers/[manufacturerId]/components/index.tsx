@@ -408,7 +408,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
   const renderItem = () => {
     switch (tab) {
       case "update":
-        return <EditManufacturer setClose={() => setOpen(false)} />;
+        return <EditManufacturer setClose={() => setOpen(false)} manufacturer={manufacturer}/>;
       case "delete":
         return (
           <DeleteManufacturer
@@ -444,7 +444,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
           />
         );
       default:
-        return <EditManufacturer setClose={() => setOpen(false)} />;
+        return <EditManufacturer manufacturer={manufacturer} setClose={() => setOpen(false)} />;
     }
   };
 
