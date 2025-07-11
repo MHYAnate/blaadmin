@@ -69,13 +69,20 @@ export default function AdminRegistration() {
   
 
   // Validate and submit form
+
+  const phoneRegex = /^\+?\d+$/;
+  
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     const newErrors: FormErrors = {}
     if (!firstName.trim()) newErrors.firstName = "First name is required"
     if (!lastName.trim()) newErrors.lastName = "Last name is required"
     if (!username.trim()) newErrors.username = "Username is required"
-    if (!phone.trim()) newErrors.phone = "Phone number is required"
+    if (!phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!phoneRegex.test(phone.trim())) {
+      newErrors.phone = "Phone number must contain only digits and may start with '+'";
+    }
     if (!gender) newErrors.gender = "Gender is required"
     if (!password) newErrors.password = "Password is required"
     if (password && password.length < 6) newErrors.password = "Password must be at least 6 characters"
@@ -162,35 +169,7 @@ export default function AdminRegistration() {
       </div>
     )
   }
-  // if (registrationComplete && role === "admin") {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen bg-gray-50">
-  //       <div className="max-w-md w-full mx-auto p-8 bg-white rounded-lg shadow-md text-center">
-  //         <div className="rounded-full bg-green-100 p-3 w-16 h-16 flex items-center justify-center mx-auto mb-4">
-  //           <svg
-  //             xmlns="http://www.w3.org/2000/svg"
-  //             className="h-8 w-8 text-green-600"
-  //             fill="none"
-  //             viewBox="0 0 24 24"
-  //             stroke="currentColor"
-  //           >
-  //             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-  //           </svg>
-  //         </div>
-  //         <h1 className="text-2xl font-bold text-gray-800 mb-2">Registration Complete!</h1>
-  //         <p className="text-gray-600 mb-6">
-  //           Your admin account has been successfully set up. You can now log in to access your dashboard.
-  //         </p>
-  //         <button
-  //           onClick={() => (window.location.href = "/login")}
-  //           className="w-full bg-[#0F3D30] text-white py-3 px-4 rounded-md hover:bg-[#1b5d49] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F3D30]"
-  //         >
-  //           Proceed to Login
-  //         </button>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+
 
   return (
     <div className="flex flex-col md:flex-row w-full min-h-screen">
