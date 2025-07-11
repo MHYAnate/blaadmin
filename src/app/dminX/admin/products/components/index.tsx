@@ -22,6 +22,8 @@ import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { useDeleteProduct, useGetProducts } from "@/services/products";
 import DatePickerWithRange from "@/components/ui/date-picker";
 import { productTypeList } from "@/constant";
+import { useGetManufacturers } from "@/services/manufacturers";
+import { capitalizeFirstLetter, showSuccessAlert } from "@/lib/utils";
 
 export default function Products() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,19 +33,30 @@ export default function Products() {
   const [pageSize, setPageSize] = useState<string>("10");
   const [currentPage, setCurrentPage] = useState(1);
   const [startDate, setStartDate] = useState<string | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [tab, setTab] = useState<string>("");
   const [endDate, setEndDate] = useState<string | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
+    const {
+      getManufacturersData,
+      getManufacturersIsLoading,
+      refetchManufacturers,
+      setManufacturersFilter,
+    } = useGetManufacturers();
   const {
     getPRoductsIsLoading,
     getProductsData,
     setProductsFilter,
     refetchProducts,
   } = useGetProducts();
+
   const {
     deleteProduct,
-    isLoading: deleteProductIsLoading,
+    isLoading,
     error: deleteProductError,
     data: deleteProductPayload,
   } = useDeleteProduct((res: any) => {
@@ -58,9 +71,72 @@ export default function Products() {
     type: status,
   };
 
+    // Handlers for product actions
+    const handleViewProduct = (product: any) => {
+      setSelectedProduct(product);
+      setTab("view");
+      setOpen(true);
+    };
+  
+    const handleEditProduct = (product: any) => {
+      setSelectedProduct(product);
+      setTab("edit");
+      setOpen(true);
+    };
+  
+    const handleDeleteProduct = (product: any) => {
+      setSelectedProduct(product);
+      setTab("delete-product");
+      setOpen(true);
+    };
+    const handleConfirmDelete = () => {
+      if (selectedProduct) {
+        deleteProduct(selectedProduct.id);
+      }
+    };
+  
+
   useEffect(() => {
     setProductsFilter(payload);
   }, [filter, status, pageSize]);
+
+  const renderItem = () => {
+      switch (tab) {
+     
+        case "view":
+          return (
+            <ViewProduct 
+              setClose={() => setOpen(false)} 
+              productData={selectedProduct} 
+            />
+          );
+        case "edit":
+          return (
+            <>
+              <EditProduct
+              setClose={() => setOpen(false)} 
+              product={selectedProduct} 
+              manufacturers={getManufacturersData?.data || []}
+               />
+            </>
+          );
+        case "delete-product":
+          return (
+            <DeleteContent 
+              handleClose={() => setOpen(false)} 
+              title="Product" 
+              handleClick={handleConfirmDelete}
+              isLoading={isLoading}
+            />
+          );
+        default:
+          return     <ViewProduct 
+          setClose={() => setOpen(false)} 
+          productData={selectedProduct} 
+        />;
+      }
+    };
+  
 
   return (
     <section>
@@ -108,66 +184,42 @@ export default function Products() {
           </div>
 
           <ProductDataTable
-            handleEdit={() => {
-              setCurrentTab("edit");
-              setIsOpen(true);
-            }}
-            handleView={() => {
-              setCurrentTab("view");
-              setIsOpen(true);
-            }}
-            handleDelete={() => {
-              setCurrentTab("delete");
-              setIsOpen(true);
-            }}
+            handleEdit={handleEditProduct}
+            handleView={handleViewProduct}
+            handleDelete={handleDeleteProduct}
             setPageSize={setPageSize}
-            data={[]}
+            data={getProductsData?.data || []}
             currentPage={currentPage}
             onPageChange={onPageChange}
             pageSize={Number(pageSize)}
-            totalPages={40}
+            totalPages={getProductsData?.pagination?.totalPages || 1}
             loading={getPRoductsIsLoading}
           />
         </CardContent>
       </Card>
-      <Dialog open={isOpen} onOpenChange={() => setIsOpen(!open)}>
-        <DialogContent
-          className={`${
-            currentTab === "delete"
-              ? "max-w-[33.75rem] left-[50%] translate-x-[-50%]"
-              : "right-0 p-8 max-w-[40.56rem] h-screen overflow-y-scroll"
-          }`}
-        >
-          <DialogHeader>
-            {currentTab !== "delete" && (
-              <DialogTitle className="mb-6 text-2xl font-bold text-[#111827] flex gap-[18px] items-center">
-                <div
-                  onClick={() => setIsOpen(false)}
-                  className="cursor-pointer"
-                >
-                  <ChevronLeft size={24} />
-                </div>
-                {currentTab === "view"
-                  ? "View"
-                  : currentTab === "edit"
-                  ? "Edit"
-                  : "Delete"}
-                Product
-              </DialogTitle>
-            )}
-          </DialogHeader>
-          {currentTab === "view" ? (
-            <ViewProduct setClose={() => setIsOpen(false)} productData={undefined} />
-          ) : currentTab === "edit" ? (
-            <EditProduct setClose={() => setIsOpen(false)} />
-          ) : (
-            <DeleteContent
-              handleClose={() => setIsOpen(false)}
-              title="Product"
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+
+       <Dialog open={open} onOpenChange={() => setOpen(!open)}>
+              <DialogContent
+                className={`${
+                  tab !== "delete" && tab !== "delete-product"
+                    ? "right-0 p-8 max-w-[47.56rem] h-screen overflow-y-scroll"
+                    : "max-w-[33.75rem] left-[50%] translate-x-[-50%] py-10"
+                }`}
+              >
+                {tab !== "delete" && tab !== "delete-product" && (
+                  <DialogHeader>
+                    <DialogTitle className="mb-6 text-2xl font-bold text-[#111827] flex gap-4.5 items-center">
+                      <div onClick={() => setOpen(false)} className="cursor-pointer">
+                        <ChevronLeft size={24} />
+                      </div>
+                      {capitalizeFirstLetter(tab)}{" "}
+                      {tab === "update" ? "Manufacturer" : "Product"}
+                    </DialogTitle>
+                  </DialogHeader>
+                )}
+                {renderItem()}
+              </DialogContent>
+            </Dialog>
     </section>
   );
 }

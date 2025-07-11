@@ -229,7 +229,7 @@ export default function Orders() {
             </DialogTitle>
           </DialogHeader>
           {/* <CreateCustomer setClose={() => setIsOpen(false)} /> */}
-          <DeleteContent handleClose={() => setIsOpen(false)} title="Order" />
+          <DeleteContent isLoading={()=>{}} handleClick={()=>{}} handleClose={() => setIsOpen(false)} title="Order" />
         </DialogContent>
       </Dialog>
     </section>
