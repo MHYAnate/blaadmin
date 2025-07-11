@@ -210,7 +210,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
             handleClose={() => setOpen(false)} 
             title="Product" 
             handleClick={handleConfirmDelete}
-            // loading={isDeletingProduct}
+            isLoading={isDeletingProduct}
           />
         );
       default:
