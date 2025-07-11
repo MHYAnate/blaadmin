@@ -54,7 +54,6 @@ export default function Products() {
     refetchProducts,
   } = useGetProducts();
 
-  console.log("getall product", getProductsData)
   const {
     deleteProduct,
     isLoading,
@@ -198,48 +197,7 @@ export default function Products() {
           />
         </CardContent>
       </Card>
-      {/* <Dialog open={isOpen} onOpenChange={() => setIsOpen(!open)}>
-        <DialogContent
-          className={`${
-            currentTab === "delete"
-              ? "max-w-[33.75rem] left-[50%] translate-x-[-50%]"
-              : "right-0 p-8 max-w-[40.56rem] h-screen overflow-y-scroll"
-          }`}
-        >
-          <DialogHeader>
-            {currentTab !== "delete" && (
-              <DialogTitle className="mb-6 text-2xl font-bold text-[#111827] flex gap-[18px] items-center">
-                <div
-                  onClick={() => setIsOpen(false)}
-                  className="cursor-pointer"
-                >
-                  <ChevronLeft size={24} />
-                </div>
-                {currentTab === "view"
-                  ? "View"
-                  : currentTab === "edit"
-                  ? "Edit"
-                  : "Delete"}
-                Product
-              </DialogTitle>
-            )}
-          </DialogHeader>
-          {currentTab === "view" ? (
-            <ViewProduct setClose={() => setIsOpen(false)} productData={undefined} />
-          ) : currentTab === "edit" ? (
-            <EditProduct
-            setClose={() => []} 
-            product={{}} 
-            manufacturers={[]}
-             />
-          ) : (
-            <DeleteContent
-              handleClose={() => setIsOpen(false)}
-              title="Product"
-            />
-          )}
-        </DialogContent>
-      </Dialog> */}
+
        <Dialog open={open} onOpenChange={() => setOpen(!open)}>
               <DialogContent
                 className={`${
