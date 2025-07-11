@@ -199,7 +199,7 @@ export default function AdminRegistration() {
         <div className="flex-1 flex items-center justify-center">
           <Image
             alt="Admin registration"
-            src="/images/photo.png"
+            src="/images/Photo.png"
             className="object-cover w-full h-full"
             width={500}
             height={500}
