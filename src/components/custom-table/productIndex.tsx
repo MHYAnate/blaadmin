@@ -75,8 +75,8 @@ export function ProductTableComponent<T extends ProductData>({
       text: "10000",
     },
     {
-      value: "1000000",
-      text: "1000000",
+      value: "10000000",
+      text: "full",
     },
   ];
 
