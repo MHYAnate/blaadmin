@@ -4,6 +4,9 @@ import { ErrorHandler } from "../errorHandler";
 import httpService from "../httpService";
 import useFetchItem from "../useFetchItem";
 import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/app/(admin)/admin/manufacturers/apiClient";
+
 
 export const useGetProducts = () => {
   const { isLoading, error, data, refetch, setFilter } = useFetchItem({
@@ -106,5 +109,35 @@ export const useDeleteProduct = (onSuccess) => {
     isLoading,
     error,
     data
+  };
+};
+
+export const useCreateProduct = (onSuccessCallback) => {
+  const queryClient = useQueryClient();
+
+  const {
+    mutateAsync: createProduct,
+    isPending: isCreating,
+    error,
+  } = useMutation({
+    mutationFn: (payload) =>
+      apiClient.post(routes.createProduct(), payload),
+
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ["fetchProducts"] });
+      toast.success(response?.data?.message || "Product created successfully!");
+      if (onSuccessCallback) onSuccessCallback();
+    },
+
+    onError: (error) => {
+      const errorMessage = ErrorHandler(error) || "Product creation failed.";
+      toast.error(errorMessage);
+    },
+  });
+
+  return {
+    createProduct,
+    isCreating,
+    createProductError: ErrorHandler(error),
   };
 };

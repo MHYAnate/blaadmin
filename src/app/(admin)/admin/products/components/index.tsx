@@ -54,6 +54,11 @@ export default function Products() {
     refetchProducts,
   } = useGetProducts();
 
+
+const categories= [{id:1, name:"catea"},{id:2, name:"catb"}, {id:3,name:"catc"}]
+
+  console.log(getProductsData)
+
   const {
     deleteProduct,
     isLoading,
@@ -114,6 +119,7 @@ export default function Products() {
           return (
             <>
               <EditProduct
+              categories={categories || []}
               setClose={() => setOpen(false)} 
               product={selectedProduct} 
               manufacturers={getManufacturersData?.data || []}
