@@ -408,7 +408,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
         </div>
       ))}
 
-      <Button
+      {/* <Button
         type="button"
         variant="outline"
         className="mt-4"
@@ -417,7 +417,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
       >
         <Plus size={16} className="mr-2" />
         Add Product Option
-      </Button>
+      </Button> */}
     </div>
   );
 };

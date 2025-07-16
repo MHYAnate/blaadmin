@@ -431,7 +431,7 @@ const EditProductForm: React.FC<IProps> = ({
 
           {/* Product Options */}
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
+            {/* <div className="flex justify-between items-center">
               <h3 className="text-lg font-medium">Product Options</h3>
               <div className="flex gap-2">
                 <Button 
@@ -466,7 +466,7 @@ const EditProductForm: React.FC<IProps> = ({
                   Add Option
                 </Button>
               </div>
-            </div>
+            </div> */}
 
             {fields.map((field, index) => (
               <OptionFormFields 
