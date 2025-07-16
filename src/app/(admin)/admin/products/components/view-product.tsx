@@ -37,7 +37,7 @@ const ViewProduct: React.FC<iProps> = ({ setClose, productData }) => {
           <div className="flex gap-1 items-center mb-4">
             <p className="font-normal text-sm text-[#667085] w-32">Category:</p>
             <p className="font-semibold text-sm text-[#111827]">
-              {productData.categoryId}
+              {productData?.category?.name}
             </p>
           </div>
           <div className="flex gap-1 items-center mb-4">
@@ -49,7 +49,7 @@ const ViewProduct: React.FC<iProps> = ({ setClose, productData }) => {
           <div className="flex gap-1 items-center mb-4">
             <p className="font-normal text-sm text-[#667085] w-32">Manufacturer:</p>
             <p className="font-semibold text-sm text-[#111827]">
-              {productData.manufacturerId}
+              {productData?.manufacturer?.name}
             </p>
           </div>
           <div className="flex gap-1 items-center mb-4">
