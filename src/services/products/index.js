@@ -141,3 +141,68 @@ export const useCreateProduct = (onSuccessCallback) => {
     createProductError: ErrorHandler(error),
   };
 };
+
+
+
+// export const useGetAllCategories = () => {
+//   const {
+//     isLoading,
+//     error,
+//     data,
+//     refetch,
+//     setFilter
+//   } = useFetchItem({
+//     queryKey: ["fetchAllCategories"],
+//     queryFn: (queryParams) => httpService.getData(routes.categories(queryParams)),
+//     retry: 2,
+//   });
+
+//   return {
+//     getAllCategoriesIsLoading: isLoading,
+//     getAllCategoriesData: {
+//       categories: data?.data?.categories || [],
+//       pagination: data?.data?.pagination || {
+//         total: 0,
+//         page: 1,
+//         limit: 10,
+//         totalPages: 0
+//       }
+//     },
+//     getAllCategoriesError: ErrorHandler(error),
+//     refetchAllCategories: refetch,
+//     setAllCategoriesFilter: setFilter,
+//   };
+// };
+
+export const useGetAllCategories = () => {
+  const {
+    isLoading,
+    error,
+    data,
+    refetch,
+    setFilter
+  } = useFetchItem({
+    queryKey: ["fetchAllCategories"],
+    queryFn: (queryParams) => httpService.getData(routes.categories(queryParams)),
+    retry: 2,
+  });
+
+  const categories = data?.data?.categories ?? [];
+  const pagination = data?.data?.pagination ?? {
+    total: 0,
+    page: 1,
+    limit: 10,
+    totalPages: 0,
+  };
+
+  return {
+    getAllCategoriesIsLoading: isLoading,
+    getAllCategoriesData: {
+      categories,
+      pagination,
+    },
+    getAllCategoriesError: ErrorHandler(error),
+    refetchAllCategories: refetch,
+    setAllCategoriesFilter: setFilter,
+  };
+};

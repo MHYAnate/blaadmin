@@ -534,5 +534,6 @@ deleteManufacturer: (id) => `admin/manufacturers/${id}`,
 createManufacturer: () => 'admin/manufacturers',
 createAdminRole: () => 'admin/roles',
 updateManufacturer: (id) => `admin/manufacturers/${id}`,
-createProduct:()=>'admin/products'
+createProduct:()=>'admin/products',
+categories:()=> 'admin/categories'
 };

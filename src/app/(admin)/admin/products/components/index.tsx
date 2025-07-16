@@ -19,7 +19,7 @@ import DeleteContent from "@/app/(admin)/components/delete-content";
 import { Card, CardContent } from "@/components/ui/card";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import { InputFilter } from "@/app/(admin)/components/input-filter";
-import { useDeleteProduct, useGetProducts } from "@/services/products";
+import { useDeleteProduct, useGetAllCategories, useGetProducts } from "@/services/products";
 import DatePickerWithRange from "@/components/ui/date-picker";
 import { productTypeList } from "@/constant";
 import { useGetManufacturers } from "@/services/manufacturers";
@@ -54,8 +54,32 @@ export default function Products() {
     refetchProducts,
   } = useGetProducts();
 
+  const {
+    getAllCategoriesIsLoading,
+    getAllCategoriesData,
+    getAllCategoriesError,
+    setAllCategoriesFilter
+  } = useGetAllCategories();
+  
+  // Accessing data
+  const { categories, pagination } = getAllCategoriesData;
 
-const categories= [{id:1, name:"catea"},{id:2, name:"catb"}, {id:3,name:"catc"}]
+  console.log(getAllCategoriesData, "categories")
+
+  console.log(categories, "catcheck")
+  
+  // Setting filters
+  const handleSearch = (term: any) => {
+    setAllCategoriesFilter({ search: term, page: 1 });
+  };
+  
+  // Pagination control
+  const handlePageChange = (newPage: any) => {
+    setAllCategoriesFilter((prev: any) => ({ ...prev, page: newPage }));
+  };
+
+
+// const categories= [{id:1, name:"catea"},{id:2, name:"catb"}, {id:3,name:"catc"}]
 
   console.log(getProductsData)
 

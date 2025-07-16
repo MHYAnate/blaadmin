@@ -60,8 +60,8 @@ const ProductDataTable: React.FC<iProps> = ({
       <div>
       <div className="font-medium">₦ {item.options[0]?.sellingPrice || 'N/A'}</div>
       <p className="font-normal text-xs text-[#A0AEC0]">
-        {`${item.options[0]?.markupValue
-} % OFF`}
+       {item.options[0]?.markupType === "PERCENTAGE"? "" : "₦"}{`${item.options[0]?.markupValue
+}  `} {item.options[0]?.markupType === "PERCENTAGE"? "% OFF" : "OFF"} 
       </p>
     </div>
      
