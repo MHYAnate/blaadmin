@@ -35,7 +35,7 @@ const ProductDataTable: React.FC<iProps> = ({
     name: (item: any) => (
       <div className="font-medium flex items-center gap-3">
         <Image
-          src="/images/user-avatar.png"
+          src={item.options[0]?.image[0] ? item.options[0]?.image[0]:"/images/bladmin-login.jpg"}
           width={36}
           height={36}
           alt="Product image"
@@ -49,8 +49,22 @@ const ProductDataTable: React.FC<iProps> = ({
         </div>
       </div>
     ),
+    stock: (item: any) => (
+      <div className="font-medium">₦ {item.options[0]?.stockPrice
+        || 'N/A'}</div>
+    ),
     price: (item: any) => (
-      <div className="font-medium">NGN {item.options[0]?.price || 'N/A'}</div>
+      <div className="font-medium">₦ {item.options[0]?.price || 'N/A'}</div>
+    ),
+    bulk: (item: any) => (
+      <div>
+      <div className="font-medium">₦ {item.options[0]?.sellingPrice || 'N/A'}</div>
+      <p className="font-normal text-xs text-[#A0AEC0]">
+        {`${item.options[0]?.markupValue
+} % OFF`}
+      </p>
+    </div>
+     
     ),
     quantity: (item: any) => (
       <span className="font-medium">{item.options[0]?.inventory || 0}</span>
@@ -92,7 +106,9 @@ const ProductDataTable: React.FC<iProps> = ({
 
   const columnOrder = [
     "name",
+    "stock",
     "price",
+    "bulk",
     "quantity",
     "productid",
     "status",
@@ -102,7 +118,9 @@ const ProductDataTable: React.FC<iProps> = ({
   const columnLabels = {
     status: "Status",
     name: "Product Name",
-    price: "Price",
+    stock:"Stock price",
+    price: "Retail price",
+    bulk:"Bulk price",
     quantity: "Quantity",
     action: "Actions",
     productid: "ID",

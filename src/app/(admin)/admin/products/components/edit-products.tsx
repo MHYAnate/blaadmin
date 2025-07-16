@@ -11,7 +11,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { apiClient } from "@/app/(admin)/admin/manufacturers/apiClient"; // Use the working apiClient
+import { apiClient } from "@/app/(admin)/admin/manufacturers/apiClient";
 import { Trash, UploadCloud, Copy } from "lucide-react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
@@ -30,12 +30,12 @@ const productSchema = z.object({
   options: z.array(z.object({
     id: z.number().optional(), // For existing options
     value: z.string().min(1, "Option value is required"),
-    price: z.coerce.number().min(0, "Price must be 0 or more"),
+    price: z.coerce.number().min(0, "Retail price must be 0 or more"), // Updated label
     inventory: z.coerce.number().min(0, "Inventory must be 0 or more"),
-    stockPrice: z.coerce.number().min(0, "Cost price must be 0 or more"),
+    stockPrice: z.coerce.number().min(0, "Stock price must be 0 or more"), // Updated label
     markupType: z.enum(["PERCENTAGE", "FIXED"]),
-    markupValue: z.coerce.number().min(0, "Markup must be 0 or more"),
-    sellingPrice: z.coerce.number().min(0, "Selling price must be 0 or more"),
+    markupValue: z.coerce.number().min(0, "Discount must be 0 or more"), // Updated label
+    sellingPrice: z.coerce.number().min(0, "Bulk price must be 0 or more"), // Updated label
     weight: z.coerce.number().min(0, "Weight must be 0 or more"),
     unit: z.string().min(1, "Unit is required"),
     moq: z.coerce.number().min(1, "MOQ must be at least 1"),
@@ -47,7 +47,7 @@ const productSchema = z.object({
 
 type ProductFormValues = z.infer<typeof productSchema>;
 
-// Helper function to process options (from working form)
+// Helper function to process options
 const processOptions = (options: any[]) => {
   return options.map(option => ({
     value: option.value,
@@ -57,7 +57,7 @@ const processOptions = (options: any[]) => {
     unit: option.unit || "",
     inventory: parseInt(option.inventory) || 0,
     lowStockThreshold: parseInt(option.lowStockThreshold) || 10,
-    markupType: option.markupType || "FIXED",
+    markupType: option.markupType || "PERCENTAGE",
     markupValue: parseFloat(option.markupValue) || 0,
     sellingPrice: parseFloat(option.sellingPrice) || 0,
     stockPrice: parseFloat(option.stockPrice) || 0,
@@ -112,6 +112,23 @@ const EditProductForm: React.FC<IProps> = ({
     control: form.control,
     name: "options",
   });
+
+  // Calculate bulk price from retail price and discount
+  const calculateBulkPrice = useCallback((index: number) => {
+    const retailPrice = form.getValues(`options.${index}.price`);
+    const markupType = form.getValues(`options.${index}.markupType`);
+    const markupValue = form.getValues(`options.${index}.markupValue`);
+    
+    if (retailPrice >= 0 && markupValue >= 0) {
+      let bulkPrice = retailPrice;
+      if (markupType === "PERCENTAGE") {
+        bulkPrice = retailPrice * (1 - markupValue / 100);
+      } else {
+        bulkPrice = retailPrice - markupValue;
+      }
+      form.setValue(`options.${index}.sellingPrice`, parseFloat(bulkPrice.toFixed(2)));
+    }
+  }, [form]);
 
   // Initialize form with product data
   useEffect(() => {
@@ -168,24 +185,6 @@ const EditProductForm: React.FC<IProps> = ({
     }
   };
 
-  // Calculate selling price when cost or markup changes
-  const calculateSellingPrice = useCallback((index: number) => {
-    const stockPrice = form.getValues(`options.${index}.stockPrice`);
-    const markupType = form.getValues(`options.${index}.markupType`);
-    const markupValue = form.getValues(`options.${index}.markupValue`);
-    
-    if (stockPrice >= 0 && markupValue >= 0) {
-      let newSellingPrice = 0;
-      if (markupType === "PERCENTAGE") {
-        newSellingPrice = stockPrice * (1 + markupValue / 100);
-      } else {
-        newSellingPrice = stockPrice + markupValue;
-      }
-      form.setValue(`options.${index}.sellingPrice`, parseFloat(newSellingPrice.toFixed(2)));
-      form.setValue(`options.${index}.price`, parseFloat(newSellingPrice.toFixed(2)));
-    }
-  }, [form]);
-
   // Copy/paste functionality
   const handleCopyOption = (index: number) => {
     const optionToCopy = form.getValues(`options.${index}`);
@@ -206,7 +205,7 @@ const EditProductForm: React.FC<IProps> = ({
     }
   };
 
-  // Submit handler - using the working form's approach
+  // Submit handler
   const onSubmit = async (values: ProductFormValues) => {
     setIsSubmitting(true);
     
@@ -232,7 +231,13 @@ const EditProductForm: React.FC<IProps> = ({
         })
       );
 
-      // Prepare update data - only include provided fields (from working form)
+      // Compute price range
+      const allRetailPrices = values.options.map(opt => opt.price);
+      const allBulkPrices = values.options.map(opt => opt.sellingPrice);
+      const minPrice = Math.min(...allBulkPrices);
+      const maxPrice = Math.max(...allRetailPrices);
+
+      // Prepare update data
       const updateData = {
         ...(values.name !== undefined && { name: values.name }),
         ...(values.description !== undefined && { description: values.description }),
@@ -243,10 +248,11 @@ const EditProductForm: React.FC<IProps> = ({
         ...(values.targetLevel !== undefined && { targetLevel: values.targetLevel }),
         ...(values.categoryId !== undefined && { categoryId: parseInt(values.categoryId) }),
         ...(values.manufacturerId !== undefined && { manufacturerId: parseInt(values.manufacturerId) }),
+        priceRange: { min: minPrice, max: maxPrice }, // New field
         options: processOptions(processedOptions)
       };
 
-      // Update product using the working API call pattern
+      // Update product
       const response = await apiClient.patch(`/admin/products/${product.id}`, updateData);
       
       if (response.data.success) {
@@ -469,7 +475,7 @@ const EditProductForm: React.FC<IProps> = ({
                 index={index} 
                 onCopy={handleCopyOption}
                 onRemove={remove}
-                calculateSellingPrice={calculateSellingPrice}
+                calculateBulkPrice={calculateBulkPrice}
               />
             ))}
           </div>
@@ -503,7 +509,7 @@ interface OptionFormFieldsProps {
   index: number;
   onCopy: (index: number) => void;
   onRemove: (index: number) => void;
-  calculateSellingPrice: (index: number) => void;
+  calculateBulkPrice: (index: number) => void;
 }
 
 const OptionFormFields: React.FC<OptionFormFieldsProps> = ({ 
@@ -511,7 +517,7 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
   index, 
   onCopy, 
   onRemove, 
-  calculateSellingPrice 
+  calculateBulkPrice 
 }) => {
   return (
     <div className="p-4 border rounded-lg space-y-4 relative bg-slate-50">
@@ -599,19 +605,38 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
 
       {/* Pricing Fields */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Stock Price */}
         <FormField
           control={form.control}
           name={`options.${index}.stockPrice`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Cost Price (₦)</FormLabel>
+              <FormLabel>Stock Price (₦)</FormLabel>
+              <FormControl>
+                <Input 
+                  type="number" 
+                  {...field} 
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        {/* Retail Price */}
+        <FormField
+          control={form.control}
+          name={`options.${index}.price`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Retail Price (₦)</FormLabel>
               <FormControl>
                 <Input 
                   type="number" 
                   {...field} 
                   onChange={(e) => {
                     field.onChange(e);
-                    calculateSellingPrice(index);
+                    calculateBulkPrice(index);
                   }}
                 />
               </FormControl>
@@ -625,11 +650,11 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
           name={`options.${index}.markupType`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Markup Type</FormLabel>
+              <FormLabel>Discount Type</FormLabel>
               <Select 
                 onValueChange={(value) => {
                   field.onChange(value);
-                  calculateSellingPrice(index);
+                  calculateBulkPrice(index);
                 }} 
                 value={field.value}
               >
@@ -653,34 +678,15 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
           name={`options.${index}.markupValue`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Markup Value</FormLabel>
+              <FormLabel>Discount Value</FormLabel>
               <FormControl>
                 <Input 
                   type="number" 
                   {...field} 
                   onChange={(e) => {
                     field.onChange(e);
-                    calculateSellingPrice(index);
+                    calculateBulkPrice(index);
                   }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <FormField
-          control={form.control}
-          name={`options.${index}.sellingPrice`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Selling Price (₦)</FormLabel>
-              <FormControl>
-                <Input 
-                  type="number" 
-                  {...field} 
-                  readOnly
-                  className="bg-gray-100"
                 />
               </FormControl>
               <FormMessage />
@@ -689,8 +695,25 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
         />
       </div>
       
-      {/* Inventory and Stock */}
+      {/* Bulk Price */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name={`options.${index}.sellingPrice`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bulk Price (₦)</FormLabel>
+              <FormControl>
+                <Input 
+                  type="number" 
+                  {...field} 
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
         <FormField
           control={form.control}
           name={`options.${index}.inventory`}
@@ -704,7 +727,9 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
             </FormItem>
           )}
         />
-        
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormField
           control={form.control}
           name={`options.${index}.lowStockThreshold`}

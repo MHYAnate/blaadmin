@@ -9,6 +9,7 @@ interface iProps {
 }
 
 const ViewProduct: React.FC<iProps> = ({ setClose, productData }) => {
+  
   if (!productData) return null;
   
   return (
@@ -63,7 +64,7 @@ const ViewProduct: React.FC<iProps> = ({ setClose, productData }) => {
             width={274}
             height={274}
             alt="Product image"
-            src="/images/bladmin-login.jpg"
+            src={productData.options[0].image[0]? productData.options[0].image[0]:"/images/bladmin-login.jpg"}
             className="w-full h-auto rounded-lg"
           />
         </div>
