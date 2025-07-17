@@ -29,6 +29,8 @@ export type ProductOption = {
   weight: number;
   unit: string;
   moq: number;
+  processingTimeDays:string;
+  shortDescription:string;
 };
 
 export default function AddProductsPage() {
@@ -42,6 +44,8 @@ export default function AddProductsPage() {
     description: z.string().min(10, "Description must be at least 10 characters"),
     categoryId: z.string().min(1, "Category is required"),
     manufacturerId: z.string().min(1, "Manufacturer is required"),
+    processingTimeDays:z.string().min(1, "processing time required"),
+    shortDescription:z.string().min(1, "input refund option"),
     options: z.array(
       z.object({
         name: z.string().min(1, "Option name is required"),
@@ -69,6 +73,8 @@ export default function AddProductsPage() {
       description: "",
       categoryId: "",
       manufacturerId: "",
+      processingTimeDays:"",
+      shortDescription:"",
       options: [{
         name: "",
         value: "",
@@ -151,6 +157,8 @@ export default function AddProductsPage() {
         targetLevel: 50,
         stockAlert: false,
         priceRange: { min: minPrice, max: maxPrice },
+        processingTimeDays:values.processingTimeDays,
+        shortDescription:values.shortDescription,
         options: optionsWithImages.map(option => ({
           value: option.value,
           price: option.retailPrice,       

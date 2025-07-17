@@ -9,6 +9,7 @@ import { Plus, Trash, X } from "lucide-react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { Key, useCallback } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface iProps {
   form: UseFormReturn<any>;
@@ -18,6 +19,27 @@ interface iProps {
 const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
   const { control, getValues, setValue, formState } = form;
   const options = form.watch("options") || [];
+
+  const processingTime = [
+    {value:"3 to 7 days within Lagos",
+     id:1
+    },
+    {value:"7 to 15 days outside Lagos",
+     id:2
+    },
+    {value:"15 to 30 days outside Nigeria",
+     id:3
+     }
+   ]
+ 
+   const refund = [
+     {value:"yes",
+       id:1
+     },
+     {value:"no",
+       id:2
+     }
+   ]
 
   const addOption = () => {
     setValue("options", [
@@ -138,7 +160,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
                 <FormItem>
                   <FormLabel>Unit</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Bag, Kg" {...field} disabled={isSubmitting} />
+                    <Input placeholder="e.g.,cl, grams, Kg, " {...field} disabled={isSubmitting} />
                   </FormControl>
                   {fieldState.error && (
                     <FormMessage>{fieldState.error.message}</FormMessage>
@@ -151,7 +173,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
               name={`options.${index}.weight`}
               render={({ field, fieldState }) => (
                 <FormItem>
-                  <FormLabel>Weight (kg)</FormLabel>
+                  <FormLabel>Weight </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -361,7 +383,49 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
               </FormItem>
             )}
           />
-
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                      <FormField control={form.control} name="processingTimeDays" render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Processessing Time</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select processing Time Days" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {processingTime.map(time => (
+                                  <SelectItem key={time.id} value={String(time.value)}>
+                                    {time.value}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )} />
+                           <FormField control={form.control} name="shortDescription" render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Refund</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select a refund option" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {refund.map(time => (
+                                  <SelectItem key={time.id} value={String(time.value)}>
+                                    {time.value}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )} />
+                        
+                      </div>
           {/* Image Upload Section */}
           <FormField
             control={control}
