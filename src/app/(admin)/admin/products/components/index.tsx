@@ -68,6 +68,50 @@ export default function Products() {
 
   console.log(categories, "catcheck")
   
+  const categories1 = [
+    {
+        "id": 12,
+        "name": "International & Ethnic Ingredients",
+        "productCount": 5,
+        "createdAt": "2025-05-21T15:03:46.057Z",
+        "updatedAt": "2025-05-21T15:03:46.057Z"
+    },
+    {
+        "id": 10,
+        "name": "Instant & Convenience Foods",
+        "productCount": 2,
+        "createdAt": "2025-05-21T15:03:42.900Z",
+        "updatedAt": "2025-05-21T15:03:42.900Z"
+    },
+    {
+        "id": 4,
+        "name": "Oils, Fats & Condiments",
+        "productCount": 2,
+        "createdAt": "2025-05-21T15:03:32.859Z",
+        "updatedAt": "2025-05-21T15:03:32.859Z"
+    },
+    {
+        "id": 3,
+        "name": "Baking & Sweeteners",
+        "productCount": 2,
+        "createdAt": "2025-05-21T15:03:31.235Z",
+        "updatedAt": "2025-05-21T15:03:31.235Z"
+    },
+    {
+        "id": 2,
+        "name": "Processed & Packaged Foods",
+        "productCount": 10,
+        "createdAt": "2025-05-21T15:03:29.638Z",
+        "updatedAt": "2025-05-21T15:03:29.638Z"
+    },
+    {
+        "id": 1,
+        "name": "Dry Staples & Grains",
+        "productCount": 7,
+        "createdAt": "2025-05-21T15:03:27.395Z",
+        "updatedAt": "2025-05-21T15:03:27.395Z"
+    }
+]
   // Setting filters
   const handleSearch = (term: any) => {
     setAllCategoriesFilter({ search: term, page: 1 });
@@ -143,7 +187,7 @@ export default function Products() {
           return (
             <>
               <EditProduct
-              categories={categories || []}
+              categories={categories1 || []}
               setClose={() => setOpen(false)} 
               product={selectedProduct} 
               manufacturers={getManufacturersData?.data || []}
