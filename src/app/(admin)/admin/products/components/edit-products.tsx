@@ -27,8 +27,6 @@ const productSchema = z.object({
   stockAlert: z.boolean().optional(),
   criticalLevel: z.coerce.number().min(0).optional(),
   targetLevel: z.coerce.number().min(0).optional(),
-  processingTimeDays:z.string().min(1,"select processing time"), 
-  shortDescription:z.string().min(1, "input refund option"),
   options: z.array(z.object({
     id: z.number().optional(), // For existing options
     value: z.string().min(1, "Option value is required"),
@@ -106,8 +104,6 @@ const EditProductForm: React.FC<IProps> = ({
       stockAlert: false,
       criticalLevel: 5,
       targetLevel: 50,
-      processingTimeDays:"",
-      shortDescription:"",
       options: [],
     }
   });
@@ -147,8 +143,6 @@ const EditProductForm: React.FC<IProps> = ({
         stockAlert: product.stockAlert || false,
         criticalLevel: product.criticalLevel || 5,
         targetLevel: product.targetLevel || 50,
-        processingTimeDays: product.processingTimeDays || "",
-        shortDescription: product.shortDescription || "",
         options: product.options?.map((opt: any) => ({
           id: opt.id,
           value: opt.value,
@@ -211,27 +205,6 @@ const EditProductForm: React.FC<IProps> = ({
     }
   };
 
-  const processingTime = [
-   {value:"3 to 7 days within Lagos",
-    id:1
-   },
-   {value:"7 to 15 days outside Lagos",
-    id:2
-   },
-   {value:"15 to 30 days outside Nigeria",
-    id:3
-    }
-  ]
-
-  const refund = [
-    {value:"yes",
-      id:1
-    },
-    {value:"no",
-      id:2
-    }
-  ]
-
   // Submit handler
   const onSubmit = async (values: ProductFormValues) => {
     setIsSubmitting(true);
@@ -276,8 +249,6 @@ const EditProductForm: React.FC<IProps> = ({
         ...(values.categoryId !== undefined && { categoryId: parseInt(values.categoryId) }),
         ...(values.manufacturerId !== undefined && { manufacturerId: parseInt(values.manufacturerId) }),
         priceRange: { min: minPrice, max: maxPrice }, // New field
-        ...( { name: values.shortDescription }),
-        ...( { name: values.shortDescription }), 
         options: processOptions(processedOptions)
       };
 
@@ -455,49 +426,6 @@ const EditProductForm: React.FC<IProps> = ({
                   <FormMessage />
                 </FormItem>
               )} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-            <FormField control={form.control} name="processingTimeDays" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Processessing Time</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select processing Time Days" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {processingTime.map(time => (
-                        <SelectItem key={time.id} value={String(time.value)}>
-                          {time.value}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )} />
-                 <FormField control={form.control} name="shortDescription" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Refund</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a refund option" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {refund.map(time => (
-                        <SelectItem key={time.id} value={String(time.value)}>
-                          {time.value}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              
             </div>
           </div>
 

@@ -73,12 +73,29 @@ const ProductDataTable: React.FC<iProps> = ({
       <div className="font-medium">#{item.id}</div>
     ),
     status: (item: any) => (
+      // <Badge
+      //   variant={item?.inventory == 0 ? "warning" : "outline"}
+      //   className={item?.inventory == 0?"py-1 px-4 font-semibold":item?.inventory <= item?.lowStockThreshold?"py-1 px-4 font-semibold bg-[#7594c6]":"py-1 px-4 font-semibold bg-[#27A376]"}
+      // >
+      //   {item?.inventory == 0 ? "Out of Stock" :item?.inventory <= item?.lowStockThreshold ? "Low Stock":"In stock"}
+      // </Badge>
       <Badge
-        variant={item.isActive ? "success" : "destructive"}
-        className="py-1 px-4 font-semibold"
-      >
-        {item.isActive ? "ACTIVE" : "INACTIVE"}
-      </Badge>
+  variant="outline"
+  className={`inline-flex items-center justify-center whitespace-nowrap text-xs px-3 py-2 font-medium text-white rounded-md ${
+    item.options[0]?.inventory === 0
+      ? "bg-red-600"
+      : item.options[0]?.inventory <= item.options[0]?.lowStockThreshold
+      ? "bg-slate-500"
+      : "bg-green-600"
+  }`}
+>
+  {item.options[0]?.inventory === 0
+    ? "Out of Stock"
+    : item.options[0]?.inventory <= item.options[0]?.lowStockThreshold
+    ? "Low Stock"
+    : "In Stock"}
+</Badge>
+
     ),
     action: (item: any) => (
       <div className="flex gap-2.5">
