@@ -50,15 +50,15 @@ const ProductDataTable: React.FC<iProps> = ({
       </div>
     ),
     stock: (item: any) => (
-      <div className="font-medium">₦ {item.options[0]?.stockPrice
+      <div className="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 font-medium text-black rounded-md">₦ {item.options[0]?.stockPrice
         || 'N/A'}</div>
     ),
     price: (item: any) => (
-      <div className="font-medium">₦ {item.options[0]?.price || 'N/A'}</div>
+      <div className="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 font-medium text-black rounded-md">₦ {item.options[0]?.price || 'N/A'}</div>
     ),
     bulk: (item: any) => (
       <div>
-      <div className="font-medium">₦ {item.options[0]?.sellingPrice || 'N/A'}</div>
+      <div className="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 font-medium text-black rounded-md ">₦ {item.options[0]?.sellingPrice || 'N/A'}</div>
       <p className="font-normal text-xs text-[#A0AEC0]">
        {item.options[0]?.markupType === "PERCENTAGE"? "" : "₦"}{`${item.options[0]?.markupValue
 }  `} {item.options[0]?.markupType === "PERCENTAGE"? "% OFF" : "OFF"} 

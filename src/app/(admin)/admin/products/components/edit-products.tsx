@@ -26,7 +26,7 @@ const productSchema = z.object({
   type: z.string().min(1, "Type is required"),
   stockAlert: z.boolean().optional(),
   criticalLevel: z.coerce.number().min(0).optional(),
-  targetLevel: z.coerce.number().min(0).optional(),
+  // targetLevel: z.coerce.number().min(0).optional(),
   options: z.array(z.object({
     id: z.number().optional(), // For existing options
     value: z.string().min(1, "Option value is required"),
@@ -102,8 +102,8 @@ const EditProductForm: React.FC<IProps> = ({
       isActive: false,
       type: "platform",
       stockAlert: false,
-      criticalLevel: 5,
-      targetLevel: 50,
+      // criticalLevel: 5,
+      // targetLevel: 50,
       options: [],
     }
   });
@@ -141,8 +141,8 @@ const EditProductForm: React.FC<IProps> = ({
         isActive: product.isActive || false,
         type: product.type || "platform",
         stockAlert: product.stockAlert || false,
-        criticalLevel: product.criticalLevel || 5,
-        targetLevel: product.targetLevel || 50,
+        // criticalLevel: product.criticalLevel || 5,
+        // targetLevel: product.targetLevel || 50,
         options: product.options?.map((opt: any) => ({
           id: opt.id,
           value: opt.value,
@@ -244,8 +244,8 @@ const EditProductForm: React.FC<IProps> = ({
         ...(values.type !== undefined && { type: values.type }),
         ...(values.isActive !== undefined && { isActive: values.isActive }),
         ...(values.stockAlert !== undefined && { stockAlert: values.stockAlert }),
-        ...(values.criticalLevel !== undefined && { criticalLevel: values.criticalLevel }),
-        ...(values.targetLevel !== undefined && { targetLevel: values.targetLevel }),
+        // ...(values.criticalLevel !== undefined && { criticalLevel: values.criticalLevel }),
+        // ...(values.targetLevel !== undefined && { targetLevel: values.targetLevel }),
         ...(values.categoryId !== undefined && { categoryId: parseInt(values.categoryId) }),
         ...(values.manufacturerId !== undefined && { manufacturerId: parseInt(values.manufacturerId) }),
         priceRange: { min: minPrice, max: maxPrice }, // New field
@@ -406,27 +406,7 @@ const EditProductForm: React.FC<IProps> = ({
               )} />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <FormField control={form.control} name="criticalLevel" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Critical Stock Level</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              
-              <FormField control={form.control} name="targetLevel" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Target Stock Level</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-            </div>
+      
           </div>
 
           {/* Product Options */}
@@ -551,9 +531,9 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
           name={`options.${index}.value`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Option Value</FormLabel>
+              <FormLabel>specific discription</FormLabel>
               <FormControl>
-                <Input placeholder="e.g., 50KG" {...field} />
+                <Input placeholder="specific discription" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -567,7 +547,7 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
             <FormItem>
               <FormLabel>Unit</FormLabel>
               <FormControl>
-                <Input placeholder="e.g., Bag" {...field} />
+                <Input placeholder="e.g., Kg, grams, ..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -579,7 +559,7 @@ const OptionFormFields: React.FC<OptionFormFieldsProps> = ({
           name={`options.${index}.weight`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Weight (kg)</FormLabel>
+              <FormLabel>Weight </FormLabel>
               <FormControl>
                 <Input type="number" {...field} />
               </FormControl>
