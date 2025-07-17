@@ -98,7 +98,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <FormField
+            {/* <FormField
               control={control}
               name={`options.${index}.name`}
               render={({ field, fieldState }) => (
@@ -112,13 +112,13 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
                   )}
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={control}
               name={`options.${index}.value`}
               render={({ field, fieldState }) => (
                 <FormItem>
-                  <FormLabel>Option Value</FormLabel>
+                  <FormLabel>Specicfic Discription</FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., Large, 50KG" {...field} disabled={isSubmitting} />
                   </FormControl>
@@ -138,7 +138,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
                 <FormItem>
                   <FormLabel>Unit</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Bag, Kg" {...field} disabled={isSubmitting} />
+                    <Input placeholder="e.g., grams, Kg" {...field} disabled={isSubmitting} />
                   </FormControl>
                   {fieldState.error && (
                     <FormMessage>{fieldState.error.message}</FormMessage>
@@ -151,7 +151,7 @@ const AddPricing: React.FC<iProps> = ({ form, isSubmitting }) => {
               name={`options.${index}.weight`}
               render={({ field, fieldState }) => (
                 <FormItem>
-                  <FormLabel>Weight (kg)</FormLabel>
+                  <FormLabel>Weight </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
