@@ -44,7 +44,7 @@ export default function AddProductsPage() {
     manufacturerId: z.string().min(1, "Manufacturer is required"),
     options: z.array(
       z.object({
-        name: z.string().min(1, "Option name is required"),
+        
         value: z.string().min(1, "Option value is required"),
         inventory: z.number().min(0, "Inventory cannot be negative"),
         stockPrice: z.number().min(0.01, "Cost price must be at least 0.01"),
@@ -70,7 +70,7 @@ export default function AddProductsPage() {
       categoryId: "",
       manufacturerId: "",
       options: [{
-        name: "",
+       
         value: "",
         inventory: 0,
         stockPrice: 0,
