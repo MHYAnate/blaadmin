@@ -19,6 +19,9 @@ import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import DeleteContent from "@/app/(admin)/components/delete-content";
 import DatePickerWithRange from "@/components/ui/date-picker";
+import { useGetAdminRoles } from "@/services/admin";
+import { RoleData } from "@/types";
+import RoleCard from "./roleCard";
 
 const Customers: React.FC = () => {
   const {
@@ -84,6 +87,18 @@ const Customers: React.FC = () => {
     },
   ];
 
+   const { rolesData, isRolesLoading } = useGetAdminRoles({ enabled: true });
+    
+  
+  
+  
+    // Debug: log to see what rolesData contains
+    console.log("rolesData:", rolesData);
+  
+  
+    // Ensure rolesData is an array
+    const safeRolesData = Array.isArray(rolesData.data) ? rolesData.data : [];
+
   return (
     <div>
       <Card className="bg-white">
@@ -102,7 +117,13 @@ const Customers: React.FC = () => {
                 <ExportIcon /> Download
               </Button>
             </div>
+             
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-8">
+                    {safeRolesData.map((role: RoleData) => (
+                      <RoleCard key={role.id} role={role} />
+                    ))}
+                  </div>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-1/2 me-auto">
               <InputFilter setQuery={setFilter} />
