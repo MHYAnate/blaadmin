@@ -31,6 +31,7 @@ const Customers: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [type, setType] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [kycStatus, setkycStatus] = useState<string>("");
   const [pageSize, setPageSize] = useState<string>("10");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTab, setCurrentTab] = useState<string>("delete");
@@ -45,14 +46,19 @@ const Customers: React.FC = () => {
     pageSize,
     type,
     status,
+    kycStatus,
     search: filter,
   };
 
   useEffect(() => {
     setCustomersFilter(payload);
-  }, [filter, type, status, pageSize, currentPage]);
+  }, [filter, type, status, pageSize, currentPage, kycStatus]);
 
   const customerList = [
+    {
+      text: "All",
+      value: "all",
+    },
     {
       text: "Individual",
       value: "individual",
@@ -65,12 +71,16 @@ const Customers: React.FC = () => {
 
   const kycList = [
     {
+      text: "All",
+      value: "all",
+    },
+    {
       text: "Verified",
-      value: "verified",
+      value: "Verified",
     },
     {
       text: "Not Verified",
-      value: "not verified",
+      value: "Not Verified",
     },
   ];
 
@@ -103,7 +113,7 @@ const Customers: React.FC = () => {
               list={customerList}
             />
             <SelectFilter
-              setFilter={setStatus}
+              setFilter={setkycStatus}
               list={kycList}
               placeholder="Kyc status"
             />
