@@ -440,6 +440,7 @@
 
 export const routes = {
   login: () => "auth/login",
+  logout: () => "auth/logout",
   forgotPassword: () => `auth/reset`,
   resetPassword: () => "auth/reset-password",
   profile: () => "/api/user/info",

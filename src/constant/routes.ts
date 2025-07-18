@@ -6,7 +6,7 @@ export const ROUTES = {
       ROLES: "/admin/create-role",
       PERMISSIONS: "/admin/permissions",
       CUSTOMERS: "/admin/customers",
-      BUSINNES: "/admin/customers",
+      BUSINNES: "/admin/business",
       INDIVIDUALS: "/admin/customers",
       PRODUCTS: "/admin/products",
       ORDERS: "/admin/orders",
