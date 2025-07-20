@@ -33,6 +33,7 @@ export default function CustomerDetail({ customerId }: { customerId: string }) {
   } = useGetCustomerInfo();
   const customer = "Individuals";
   const status = "Active";
+  console.log("customerDetail", data)
   const list = [
     {
       value: "general",

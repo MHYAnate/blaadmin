@@ -57,6 +57,8 @@ const Customers: React.FC = () => {
     setCustomersFilter(payload);
   }, [filter, type, status, pageSize, currentPage, kycStatus]);
 
+  console.log("customers", data)
+
   const customerList = [
     {
       text: "All",
