@@ -64,68 +64,207 @@ export interface Customer {
 }
 
 const General: React.FC<Customer> = ({ data }) => {
-	return (
-		<>
-			<div className="border border-[#F1F2F4] rounded-[1rem] p-6 mb-6">
-				<h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
-					Personal Info
-				</h5>
-				<div className="flex justify-between gap-[2rem]">
-					<div className="w-full">
-						<div className="flex justify-between mb-4">
-							<p className="text-sm text-[#687588]">Full Name</p>
-							<p className="text-sm text-[#111827] font-semibold">
-								{data?.personalInfo?.fullName}
-							</p>
-						</div>
-						<div className="flex justify-between mb-4">
-							<p className="text-sm text-[#687588]">Store Name</p>
-							<p className="text-sm text-[#111827] font-semibold">
-								{data?.businessInfo?.storeName}
-							</p>
-						</div>
-						<div className="flex justify-between mb-4">
-							<p className="text-sm text-[#687588]">Email</p>
-							<p className="text-sm text-[#111827] font-semibold">
-								{data?.personalInfo?.email || "----"}
-							</p>
-						</div>
-					</div>
-					<div className="w-full">
-						<div className="flex justify-between mb-4">
-							<p className="text-sm text-[#687588]">Gender</p>
-							<p className="text-sm text-[#111827] font-semibold">
-								{data?.personalInfo?.gender}
-							</p>
-						</div>
-						{data?.customerType === "business" && (
-							<div className="flex justify-between mb-4">
-								<p className="text-sm text-[#687588]">CAC Number</p>
-								<p className="text-sm text-[#111827] font-semibold">
-									{data?.businessInfo?.cacNumber}
-								</p>
-							</div>
-						)}
-						{data?.customerType === "business" && (
-							<div className="flex justify-between mb-4">
-								<p className="text-sm text-[#687588]">Business Number</p>
-								<p className="text-sm text-[#111827] font-semibold">
-									{data?.businessInfo?.businessPhone}
-								</p>
-							</div>
-						)}
-						{data?.customerType !== "business" && (
-							<div className="flex justify-between mb-4">
-								<p className="text-sm text-[#687588]">Phone Number</p>
-								<p className="text-sm text-[#111827] font-semibold">
-									{data?.personalInfo?.phone}
-								</p>
-							</div>
-						)}
-					</div>
-				</div>
-			</div>
-			{/* <div className="border border-[#F1F2F4] rounded-[1rem] p-6">
+	// return (
+	// 	<>
+	// 		<div className="border border-[#F1F2F4] rounded-[1rem] p-6 mb-6">
+	// 			<h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
+	// 				Personal Info
+	// 			</h5>
+	// 			<div className="flex justify-between gap-[2rem]">
+	// 				<div className="w-full">
+	// 					<div className="flex justify-between mb-4">
+	// 						<p className="text-sm text-[#687588]">Full Name</p>
+	// 						<p className="text-sm text-[#111827] font-semibold">
+	// 							{data?.personalInfo?.fullName}
+	// 						</p>
+	// 					</div>
+	// 					<div className="flex justify-between mb-4">
+	// 						<p className="text-sm text-[#687588]">Store Name</p>
+	// 						<p className="text-sm text-[#111827] font-semibold">
+	// 							{data?.businessInfo?.storeName}
+	// 						</p>
+	// 					</div>
+	// 					<div className="flex justify-between mb-4">
+	// 						<p className="text-sm text-[#687588]">Email</p>
+	// 						<p className="text-sm text-[#111827] font-semibold">
+	// 							{data?.personalInfo?.email || "----"}
+	// 						</p>
+	// 					</div>
+	// 				</div>
+	// 				<div className="w-full">
+	// 					<div className="flex justify-between mb-4">
+	// 						<p className="text-sm text-[#687588]">Gender</p>
+	// 						<p className="text-sm text-[#111827] font-semibold">
+	// 							{data?.personalInfo?.gender}
+	// 						</p>
+	// 					</div>
+	// 					{data?.customerType === "business" && (
+	// 						<div className="flex justify-between mb-4">
+	// 							<p className="text-sm text-[#687588]">CAC Number</p>
+	// 							<p className="text-sm text-[#111827] font-semibold">
+	// 								{data?.businessInfo?.cacNumber}
+	// 							</p>
+	// 						</div>
+	// 					)}
+	// 					{data?.customerType === "business" && (
+	// 						<div className="flex justify-between mb-4">
+	// 							<p className="text-sm text-[#687588]">Business Number</p>
+	// 							<p className="text-sm text-[#111827] font-semibold">
+	// 								{data?.businessInfo?.businessPhone}
+	// 							</p>
+	// 						</div>
+	// 					)}
+	// 					{data?.customerType !== "business" && (
+	// 						<div className="flex justify-between mb-4">
+	// 							<p className="text-sm text-[#687588]">Phone Number</p>
+	// 							<p className="text-sm text-[#111827] font-semibold">
+	// 								{data?.personalInfo?.phone}
+	// 							</p>
+	// 						</div>
+	// 					)}
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 		{/* <div className="border border-[#F1F2F4] rounded-[1rem] p-6">
+  //       <h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
+  //         Address
+  //       </h5>
+  //       <div className="flex gap-[4rem]">
+  //         <div>
+  //           <p className="text-sm text-[#687588] mb-4">Primary Address</p>
+  //           <p className="text-sm text-[#687588] mb-4">Shipping Address</p>
+  //           <p className="text-sm text-[#687588] mb-4">City</p>
+  //           <p className="text-sm text-[#687588] mb-4">State/Province</p>
+  //           <p className="text-sm text-[#687588] mb-4">Country</p>
+  //           <p className="text-sm text-[#687588] mb-4">Post Code</p>
+  //         </div>
+  //         {data?.addresses[0] &&  <div>
+  //           <p className="text-sm text-[#111827] font-semibold mb-4">
+  //           {data?.addresses[0]?.addressLine1}
+  //           </p>
+  //           <p className="text-sm text-[#111827] font-semibold mb-4">
+  //            {data?.addresses[0]?.addressLine2 ? data?.addresses[0]?.addressLine2 :data?.addresses[0]?.addressLine1}
+  //           </p>
+  //           <p className="text-sm text-[#111827] font-semibold mb-4">{data.addresses[0]?.city}</p>
+  //           <p className="text-sm text-[#111827] font-semibold mb-4">
+  //            {data?.addresses[0]?.stateProvince}
+  //           </p>
+  //           <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.country}</p>
+  //           <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.postalCode}</p>
+  //         </div>}
+     
+  //       </div>
+  //     </div> */}
+	// 		<div className="border border-[#F1F2F4] rounded-[1rem] p-6">
+	// 			<h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
+	// 				Address
+	// 			</h5>
+
+	// 			{data.addresses.length > 0 ? (
+	// 				<div className="flex gap-[4rem]">
+	// 					<div>
+	// 						<p className="text-sm text-[#687588] mb-4">Primary Address</p>
+	// 						<p className="text-sm text-[#687588] mb-4">Shipping Address</p>
+	// 						<p className="text-sm text-[#687588] mb-4">City</p>
+	// 						<p className="text-sm text-[#687588] mb-4">State/Province</p>
+	// 						<p className="text-sm text-[#687588] mb-4">Country</p>
+	// 						<p className="text-sm text-[#687588] mb-4">Post Code</p>
+	// 					</div>
+	// 					<div>
+	// 						<p className="text-sm text-[#111827] font-semibold mb-4">
+	// 							{data.addresses[0].addressLine1}
+	// 						</p>
+	// 						<p className="text-sm text-[#111827] font-semibold mb-4">
+	// 							{data.addresses[0].addressType}
+	// 						</p>
+	// 						<p className="text-sm text-[#111827] font-semibold mb-4">
+	// 							{data.addresses[0].city}
+	// 						</p>
+	// 						<p className="text-sm text-[#111827] font-semibold mb-4">
+	// 							{data.addresses[0].stateProvince}
+	// 						</p>
+	// 						<p className="text-sm text-[#111827] font-semibold mb-4">
+	// 							{data.addresses[0].country}
+	// 						</p>
+	// 						<p className="text-sm text-[#111827] font-semibold mb-4">
+	// 							{data.addresses[0].postalCode}
+	// 						</p>
+	// 					</div>
+	// 				</div>
+	// 			) : (
+	// 				<p className="text-sm text-[#687588]">
+	// 					No address information available.
+	// 				</p>
+	// 			)}
+	// 		</div>
+	// 	</>
+	// );
+
+  const address = data?.addresses?.find(addr => addr.isDefault) || data?.addresses?.[0];
+
+  return (
+    <>
+      {/* Personal Info Section (unchanged) */}
+      <div className="border border-[#F1F2F4] rounded-[1rem] p-6 mb-6">
+        <h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
+          Personal Info
+        </h5>
+        <div className="flex justify-between gap-[2rem]">
+          <div className="w-full">
+            <div className="flex justify-between mb-4">
+              <p className="text-sm text-[#687588]">Full Name</p>
+              <p className="text-sm text-[#111827] font-semibold">
+                {data?.personalInfo?.fullName}
+              </p>
+            </div>
+            <div className="flex justify-between mb-4">
+              <p className="text-sm text-[#687588]">Store Name</p>
+              <p className="text-sm text-[#111827] font-semibold">
+                {data?.businessInfo?.storeName}
+              </p>
+            </div>
+            <div className="flex justify-between mb-4">
+              <p className="text-sm text-[#687588]">Email</p>
+              <p className="text-sm text-[#111827] font-semibold">
+                {data?.personalInfo?.email || "----"}
+              </p>
+            </div>
+          </div>
+          <div className="w-full">
+            <div className="flex justify-between mb-4">
+              <p className="text-sm text-[#687588]">Gender</p>
+              <p className="text-sm text-[#111827] font-semibold">{data?.personalInfo?.gender}</p>
+            </div>
+            {data?.customerType === "business" && (
+              <div className="flex justify-between mb-4">
+                <p className="text-sm text-[#687588]">CAC Number</p>
+                <p className="text-sm text-[#111827] font-semibold">
+                 {data?.businessInfo?.cacNumber}
+                </p>
+              </div>
+            )}
+               {data?.customerType === "business" && (
+              <div className="flex justify-between mb-4">
+                <p className="text-sm text-[#687588]">Business Number</p>
+                <p className="text-sm text-[#111827] font-semibold">
+                {data?.businessInfo?.businessPhone}
+                </p>
+              </div>
+            )}
+               {data?.customerType !== "business" && (
+              <div className="flex justify-between mb-4">
+                <p className="text-sm text-[#687588]">Phone Number</p>
+                <p className="text-sm text-[#111827] font-semibold">
+                  {data?.personalInfo?.phone}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Fixed Address Section */}
+      <div className="border border-[#F1F2F4] rounded-[1rem] p-6">
         <h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
           Address
         </h5>
@@ -138,67 +277,39 @@ const General: React.FC<Customer> = ({ data }) => {
             <p className="text-sm text-[#687588] mb-4">Country</p>
             <p className="text-sm text-[#687588] mb-4">Post Code</p>
           </div>
-          {data?.addresses[0] &&  <div>
-            <p className="text-sm text-[#111827] font-semibold mb-4">
-            {data?.addresses[0]?.addressLine1}
-            </p>
-            <p className="text-sm text-[#111827] font-semibold mb-4">
-             {data?.addresses[0]?.addressLine2 ? data?.addresses[0]?.addressLine2 :data?.addresses[0]?.addressLine1}
-            </p>
-            <p className="text-sm text-[#111827] font-semibold mb-4">{data.addresses[0]?.city}</p>
-            <p className="text-sm text-[#111827] font-semibold mb-4">
-             {data?.addresses[0]?.stateProvince}
-            </p>
-            <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.country}</p>
-            <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.postalCode}</p>
-          </div>}
-     
+          
+          {address ? (
+            <div>
+              <p className="text-sm text-[#111827] font-semibold mb-4">
+                {address.addressLine1 || '----'}
+              </p>
+              <p className="text-sm text-[#111827] font-semibold mb-4">
+                {address.addressLine2 || '----'}
+              </p>
+              <p className="text-sm text-[#111827] font-semibold mb-4">
+                {address.city || '----'}
+              </p>
+              <p className="text-sm text-[#111827] font-semibold mb-4">
+                {address.stateProvince || '----'}
+              </p>
+              <p className="text-sm text-[#111827] font-semibold mb-4">
+                {address.country || '----'}
+              </p>
+              <p className="text-sm text-[#111827] font-semibold mb-4">
+                {address.postalCode || '----'}
+              </p>
+            </div>
+          ) : (
+            <div>
+              {[...Array(6)].map((_, i) => (
+                <p key={i} className="text-sm text-[#111827] font-semibold mb-4">----</p>
+              ))}
+            </div>
+          )}
         </div>
-      </div> */}
-			<div className="border border-[#F1F2F4] rounded-[1rem] p-6">
-				<h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
-					Address
-				</h5>
-
-				{data.addresses.length > 0 ? (
-					<div className="flex gap-[4rem]">
-						<div>
-							<p className="text-sm text-[#687588] mb-4">Primary Address</p>
-							<p className="text-sm text-[#687588] mb-4">Shipping Address</p>
-							<p className="text-sm text-[#687588] mb-4">City</p>
-							<p className="text-sm text-[#687588] mb-4">State/Province</p>
-							<p className="text-sm text-[#687588] mb-4">Country</p>
-							<p className="text-sm text-[#687588] mb-4">Post Code</p>
-						</div>
-						<div>
-							<p className="text-sm text-[#111827] font-semibold mb-4">
-								{data.addresses[0].addressLine1}
-							</p>
-							<p className="text-sm text-[#111827] font-semibold mb-4">
-								{data.addresses[0].addressType}
-							</p>
-							<p className="text-sm text-[#111827] font-semibold mb-4">
-								{data.addresses[0].city}
-							</p>
-							<p className="text-sm text-[#111827] font-semibold mb-4">
-								{data.addresses[0].stateProvince}
-							</p>
-							<p className="text-sm text-[#111827] font-semibold mb-4">
-								{data.addresses[0].country}
-							</p>
-							<p className="text-sm text-[#111827] font-semibold mb-4">
-								{data.addresses[0].postalCode}
-							</p>
-						</div>
-					</div>
-				) : (
-					<p className="text-sm text-[#687588]">
-						No address information available.
-					</p>
-				)}
-			</div>
-		</>
-	);
+      </div>
+    </>
+  );
 };
 
 export default General;
