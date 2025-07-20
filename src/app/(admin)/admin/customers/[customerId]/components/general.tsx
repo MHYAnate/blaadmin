@@ -137,7 +137,7 @@ const General: React.FC<Customer> = ({ data }) => {
             <p className="text-sm text-[#687588] mb-4">Country</p>
             <p className="text-sm text-[#687588] mb-4">Post Code</p>
           </div>
-          <div>
+          {/* <div>
             <p className="text-sm text-[#111827] font-semibold mb-4">
             {data?.addresses[0]?.addressLine1}
             </p>
@@ -150,7 +150,7 @@ const General: React.FC<Customer> = ({ data }) => {
             </p>
             <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.country}</p>
             <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.postalCode}</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
