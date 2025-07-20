@@ -28,6 +28,8 @@ const OrderHistory: React.FC<iProps> = ({ customerId }) => {
     refetchCustomerOrderHistoryInfo,
   } = useGetCustomerOrderHistory();
 
+  console.log("orderHistory", getCustomerOrderHistoryData)
+
   useEffect(() => {
     setCustomerOrderHistoryFilter(customerId);
   }, [customerId]);
