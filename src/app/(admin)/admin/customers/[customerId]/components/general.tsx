@@ -109,7 +109,7 @@ const General: React.FC<Customer> = ({ data }) => {
               <div className="flex justify-between mb-4">
                 <p className="text-sm text-[#687588]">Business Number</p>
                 <p className="text-sm text-[#111827] font-semibold">
-                {data.businessInfo.businessPhone}
+                {data?.businessInfo?.businessPhone}
                 </p>
               </div>
             )}
@@ -137,7 +137,7 @@ const General: React.FC<Customer> = ({ data }) => {
             <p className="text-sm text-[#687588] mb-4">Country</p>
             <p className="text-sm text-[#687588] mb-4">Post Code</p>
           </div>
-          {/* <div>
+          {data?.addresses[0] &&  <div>
             <p className="text-sm text-[#111827] font-semibold mb-4">
             {data?.addresses[0]?.addressLine1}
             </p>
@@ -150,7 +150,8 @@ const General: React.FC<Customer> = ({ data }) => {
             </p>
             <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.country}</p>
             <p className="text-sm text-[#111827] font-semibold mb-4">{data?.addresses[0]?.postalCode}</p>
-          </div> */}
+          </div>}
+     
         </div>
       </div>
     </>
