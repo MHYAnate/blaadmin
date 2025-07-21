@@ -111,6 +111,7 @@ const OrderHistory: React.FC<iProps> = ({ customerId }) => {
     getCustomerOrderHistoryData,
     setCustomerOrderHistoryFilter,
   } = useGetCustomerOrderHistory();
+    console.log("orderHistory", getCustomerOrderHistoryData)
 
   useEffect(() => {
     if (customerId) {
