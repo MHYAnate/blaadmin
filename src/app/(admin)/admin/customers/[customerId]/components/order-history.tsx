@@ -192,6 +192,8 @@ const OrderHistory: React.FC<iProps> = ({ customerId }) => {
             date: format(new Date(order.createdAt), "dd/MM/yy"),
             status: mapStatusToLabel(order.status),
             url: product?.image || "/images/logo.png", // fallback handled in component
+            quantity:order.items[0]?.quantity
+            .toLocaleString(),
           };
 
           return <OrderDetailsCard key={order.id} item={item} />;
