@@ -268,7 +268,7 @@ const General: React.FC<Customer> = ({ data }) => {
         <h5 className="pb-4 mb-4 border-b border-[#F1F2F4] text-[#111827] font-semibold">
           Address
         </h5>
-        <div className="flex gap-[4rem]">
+        <div className="flex gap-[4rem] align-top">
           <div>
             <p className="text-sm text-[#687588] mb-4">Primary Address</p>
             <p className="text-sm text-[#687588] mb-4">Shipping Address</p>
