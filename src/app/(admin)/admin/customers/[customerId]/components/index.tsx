@@ -77,7 +77,7 @@ export default function CustomerDetail({ customerId }: { customerId: string }) {
                     height={100}
                     width={100}
                     alt="Customer avatar"
-                    src="/images/user-avatar.jpg.jpg"
+                    src="/images/user-avatar.jpg"
                     className="w-[100px] h-[100px] rounded-full object-cover"
                   />
                 </div>
