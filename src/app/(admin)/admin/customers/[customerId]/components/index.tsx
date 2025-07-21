@@ -91,15 +91,15 @@ export default function CustomerDetail({ customerId }: { customerId: string }) {
                 <div className="flex justify-center">
                   <Badge
                     variant={
-                      status.toLowerCase() === "active"
+                      status?.toLowerCase() === "active"
                         ? "success"
-                        : status.toLowerCase() === "pending"
+                        : status?.toLowerCase() === "pending"
                         ? "tertiary"
                         : "warning"
                     }
                     className="py-1 px-[26px] font-medium"
                   >
-                    {status.toUpperCase()}
+                    {status?.toUpperCase()}
                   </Badge>
                 </div>
               </div>
