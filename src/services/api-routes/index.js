@@ -460,7 +460,7 @@ export const routes = {
     return `admin/orders/sales?${params}`;
   },
   getOrderInfo: (id) => `admin/orders/${id}`,
-  ordersSummary: () => "admin/orders/summary",
+  ordersSummary: () => "admin/summary",
   products: (data) => {
     const params = new URLSearchParams(data);
     return `admin/products?${params}`;
@@ -536,5 +536,9 @@ createManufacturer: () => 'admin/manufacturers',
 createAdminRole: () => 'admin/roles',
 updateManufacturer: (id) => `admin/manufacturers/${id}`,
 createProduct:()=>'admin/products',
-categories:()=> 'admin/categories'
+categories:()=> 'admin/categories',
+salesData: (year) => {
+  const base = "admin/orders/sales";
+  return year ? `${base}?year=${year}` : base;
+},
 };

@@ -23,6 +23,7 @@ import {
   useGetOrders,
   useGetOrdersAnalytics,
   useGetOrdersSummary,
+  useGetSalesData,
 } from "@/services/orders";
 import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -51,12 +52,21 @@ export default function Orders() {
     setOrdersSummaryFilter,
   } = useGetOrdersSummary();
 
+  const { salesData, isSalesLoading, salesError, salesYear } = useGetSalesData();
+
+  console.log(salesData, "sale Data sale")
+
   const {
     getOrdersAnalyticsData,
     getOrdersAnalyticsIsLoading,
     refetchOrdersAnalytics,
     setOrdersAnalyticsFilter,
   } = useGetOrdersAnalytics();
+
+
+  console.log(data, "orderData");
+  console.log( getOrdersSummaryData, "orderSummary");
+  console.log(getOrdersAnalyticsData, "orderAnalytic");
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("");

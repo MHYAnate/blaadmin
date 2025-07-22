@@ -71,3 +71,27 @@ export const useGetOrdersAnalytics = () => {
     setOrdersAnalyticsFilter: setFilter,
   };
 };
+
+export const useGetSalesData = ({ year, enabled = true } = {}) => {
+  const {
+    isLoading,
+    isFetching,
+    data,
+    error,
+    refetch,
+  } = useFetchItem({
+    queryKey: ["sales-data", year],
+    queryFn: () => httpService.getData(routes.salesData(year)),
+    enabled,
+    retry: 2,
+  });
+
+  return {
+    isSalesLoading: isLoading,
+    isFetchingSales: isFetching,
+    salesData: data?.data || [],
+    salesYear: data?.year,
+    salesError: ErrorHandler(error),
+    refetchSales: refetch,
+  };
+};
