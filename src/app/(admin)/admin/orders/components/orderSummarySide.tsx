@@ -310,6 +310,8 @@ export default function OrderSummary() {
     setOrdersSummaryFilter,
   } = useGetOrdersSummary()
 
+  console.log(getOrdersSummaryData, "checkSuMaRy")
+
     // Transform backend data
   // const transformedData =
   //   getOrdersSummaryData?.data?.map((item:any) => ({
