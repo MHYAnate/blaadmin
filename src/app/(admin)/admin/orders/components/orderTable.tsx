@@ -88,7 +88,7 @@ const OrderTrackingModal = ({ order, onClose }: {
   }).format(unitPrice);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-auto">
+    <div className="fixed top-0 right-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-auto">
       <div className="w-full max-w-4xl bg-white rounded-lg p-8 shadow-sm max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="mb-6">
