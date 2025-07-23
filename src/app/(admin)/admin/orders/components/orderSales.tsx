@@ -362,7 +362,7 @@ export default function SalesChart() {
                   domain={[0, "auto"]}
                 />
                 <Tooltip />
-                <Legend />
+                {/* <Legend /> */}
                 <Bar
                   dataKey="Individual"
                   fill="#065f46"
@@ -375,12 +375,12 @@ export default function SalesChart() {
                   radius={[4, 4, 0, 0]}
                   maxBarSize={40}
                 />
-                {compareMode && (
+                {/* {compareMode && (
                   <>
                  <Bar dataKey="Individual" fill="#8884d8" radius={[4, 4, 0, 0]} />
                  <Bar dataKey="Business Owner" fill="#82ca9d" radius={[4, 4, 0, 0]} />
                   </>
-                )}
+                )} */}
                 {avgLine()}
               </BarChart>
             </ResponsiveContainer>
