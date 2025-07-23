@@ -40,7 +40,7 @@ export const useGetOrderInfo = () => {
 export const useGetOrdersSummary = () => {
   const { isLoading, error, data, refetch, setFilter } = useFetchItem({
     queryKey: ["fetchOrdersSummary"],
-    queryFn: () => httpService.getData(routes.ordersSummary()),
+    queryFn: () => httpService.getData(routes.orderSummaryChart()),
     // enabled,
     retry: 2,
   });
