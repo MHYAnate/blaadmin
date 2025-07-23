@@ -38,6 +38,7 @@ import {
 } from "@/components/ui/dialog";
 import DatePickerWithRange from "@/components/ui/date-picker";
 import SalesChart from "./orderSales";
+import OrderSummary from "./orderSummarySide";
 
 export default function Orders() {
   const {
@@ -188,10 +189,17 @@ export default function Orders() {
               <OrderCard report={report} key={index} />
             ))}
           </div>
-          <div className="flex gap-5">
+          {/* <div className="flex gap-5">
          <SalesChart/>
-            {/* <LineGraphComponent /> */}
-          </div>
+         <OrderSummary/>
+           
+          </div> */}
+         <div className="min-h-screen bg-gray-50 p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        <SalesChart />
+        <OrderSummary />
+      </div>
+    </div>
           <div className="bg-white">
             <div className="p-6">
               <h6 className="font-semibold text-lg text-[#111827] mb-6">
