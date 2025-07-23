@@ -39,6 +39,7 @@ import {
 import DatePickerWithRange from "@/components/ui/date-picker";
 import SalesChart from "./orderSales";
 import OrderSummary from "./orderSummarySide";
+import DetailedOrderTable from "./orderTable";
 
 export default function Orders() {
   const {
@@ -226,7 +227,7 @@ export default function Orders() {
                   setToDate={setEndDate}
                 />
               </div>
-              <DataTable
+              {/* <DataTable
                 data={data?.data || []}
                 currentPage={currentPage}
                 onPageChange={onPageChange}
@@ -237,7 +238,8 @@ export default function Orders() {
                   setIsOpen(true);
                 }}
                 loading={getOrdersIsLoading}
-              />
+              /> */}
+              <DetailedOrderTable/>
             </div>
           </div>
         </CardContent>
