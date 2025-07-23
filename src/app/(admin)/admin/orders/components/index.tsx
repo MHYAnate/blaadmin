@@ -23,6 +23,7 @@ import {
   useGetOrders,
   useGetOrdersAnalytics,
   useGetOrdersSummary,
+  useGetOrderSummaryChart,
   useGetSalesData,
 } from "@/services/orders";
 import { InputFilter } from "@/app/(admin)/components/input-filter";
@@ -36,8 +37,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import DatePickerWithRange from "@/components/ui/date-picker";
+import SalesChart from "./orderSales";
 
 export default function Orders() {
+  const {
+    orderSummary,
+    orderSummarySummary,
+    isOrderSummaryLoading,
+    orderSummaryError
+  } = useGetOrderSummaryChart({ timeframe: '6m' });
   const {
     getOrdersData: data,
     getOrdersError,
@@ -55,6 +63,8 @@ export default function Orders() {
   const { salesData, isSalesLoading, salesError, salesYear } = useGetSalesData();
 
   console.log(salesData, "sale Data sale")
+
+  console.log(orderSummary, "orderSummaryies", orderSummarySummary, "againS")
 
   const {
     getOrdersAnalyticsData,
@@ -179,12 +189,7 @@ export default function Orders() {
             ))}
           </div>
           <div className="flex gap-5">
-            <OrderBarComponent
-              data={getOrdersAnalyticsData?.data || []}
-              setFilter={setFilterSales}
-              setStartDate={setStartDateSales}
-              setEndDate={setEndDateSales}
-            />
+         <SalesChart/>
             {/* <LineGraphComponent /> */}
           </div>
           <div className="bg-white">

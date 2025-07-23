@@ -95,3 +95,27 @@ export const useGetSalesData = ({ year, enabled = true } = {}) => {
     refetchSales: refetch,
   };
 };
+
+export const useGetOrderSummaryChart = ({ timeframe = '5m', enabled = true } = {}) => {
+  const {
+    data,
+    isLoading,
+    isFetching,
+    error,
+    refetch
+  } = useFetchItem({
+    queryKey: ['order-summary-chart', timeframe],
+    queryFn: () => httpService.getData(routes.orderSummaryChart(timeframe)),
+    enabled,
+    retry: 2,
+  });
+
+  return {
+    isOrderSummaryLoading: isLoading,
+    isFetchingOrderSummary: isFetching,
+    orderSummary: data?.data || [],
+    orderSummarySummary: data?.summary || {},
+    orderSummaryError: ErrorHandler(error),
+    refetchOrderSummary: refetch,
+  };
+};

@@ -541,4 +541,8 @@ salesData: (year) => {
   const base = "admin/orders/sales";
   return year ? `${base}?year=${year}` : base;
 },
+orderSummaryChart: (timeframe) => {
+  const base = "admin/orders/summary/chart";
+  return timeframe ? `${base}?timeframe=${timeframe}` : base;
+},
 };
