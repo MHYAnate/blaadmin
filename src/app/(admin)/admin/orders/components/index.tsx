@@ -194,8 +194,8 @@ export default function Orders() {
          <OrderSummary/>
            
           </div> */}
-         <div className="min-h-screen bg-gray-50 p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+         <div className="min-h-screen bg-gray-50">
+      <div className="flex align-middle justify-center">
         <SalesChart />
         <OrderSummary />
       </div>

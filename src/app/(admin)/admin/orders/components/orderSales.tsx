@@ -302,7 +302,7 @@ export default function SalesChart() {
 
   return (
     <div className="w-full min-h-screen">
-      <div className="bg-white rounded-lg p-8 shadow-sm">
+      <div className="bg-white rounded-lg shadow-sm">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-light text-gray-800">Sales</h1>
