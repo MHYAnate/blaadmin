@@ -265,11 +265,11 @@ const getTimelineEvents = (order: Order) => {
 
 
 // --- MAIN COMPONENT ---
-interface CustomerDashboardProps {
-    customerId: string | number;
-}
+// interface CustomerDashboardProps {
+//     customerId: string | number;
+// }
 
-export default function CustomerDashboard({ customerId }: CustomerDashboardProps) {
+export default function CustomerDashboard() {
   const { getCustomerOrderHistoryIsLoading, getCustomerOrderHistoryData, setCustomerOrderHistoryFilter } = useGetCustomerOrderHistory()
   const { getCustomerInfoIsLoading, getCustomerInfoData, setCustomerInfoFilter } = useGetCustomerInfo()
 
