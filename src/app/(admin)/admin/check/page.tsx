@@ -1,9 +1,5 @@
 "use client"
 
-import { usePathname } from "next/navigation";
-import { useHandlePush } from "@/hooks/use-handle-push";
-import { ROUTES } from "@/constant/routes";
-
 import {
   Table,
   TableBody,
@@ -315,23 +311,13 @@ export default function CustomerDashboard({ customerId }: CustomerDashboardProps
        }
      };
 
-  // const cid = "67"
-
-    const pathname = usePathname();
-    const cId = pathname.split("/").pop();
-    const { handlePush } = useHandlePush();
-   
-  
-    if (!cId) {
-      handlePush(ROUTES.ADMIN.SIDEBAR.ADMINS);
-      return null;
-    }
+  const cid = "67"
   useEffect(() => {
-    if (cId) {
-      setCustomerOrderHistoryFilter(cId)
-      setCustomerInfoFilter(cId)
+    if (cid) {
+      setCustomerOrderHistoryFilter(cid)
+      setCustomerInfoFilter(cid)
     }
-  }, [cId, setCustomerOrderHistoryFilter, setCustomerInfoFilter])
+  }, [cid, setCustomerOrderHistoryFilter, setCustomerInfoFilter])
 
   useEffect(() => {
     if (getCustomerOrderHistoryData?.orders && getCustomerOrderHistoryData.orders.length > 0 && !selectedOrder) {

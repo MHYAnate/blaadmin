@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Eye, Trash2, ChevronDown, ArrowLeft, Calendar } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetOrders } from "@/services/orders";
 import {
   CalendarIcon,
@@ -22,6 +22,8 @@ import {
   RepIcon,
   ViewIcon,
 } from "../../../../../../public/icons";
+import Link from "next/link";
+import { ROUTES } from "@/constant/routes";
 
 // ... (getStatusColor, getPaymentStatus, getStatusBadge functions remain the same)
 
@@ -318,6 +320,21 @@ export default function DetailedOrderTable() {
 
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
+  const [filterpage, setfilter] = useState("")
+  const [currentPage, setCurrentPage] = useState(1);
+
+    const onPageChange = (page: number) => {
+      setCurrentPage(page);
+    };
+    const payload = {
+      page:currentPage,
+     
+    };
+  
+    useEffect(() => {
+      setOrdersFilter(payload);
+    }, [currentPage]);
+
   if (getOrdersIsLoading) {
     return (
       <div className="w-full max-w-7xl mx-auto p-8 bg-gray-50">
@@ -358,6 +375,7 @@ export default function DetailedOrderTable() {
            <h1 className="text-xl font-semibold text-gray-800">
              Detailed Order Table
            </h1>
+           
          </div>
 
         {/* Table */}
@@ -401,9 +419,14 @@ export default function DetailedOrderTable() {
                          <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10" />
                        </div>
                        <div>
-                         <p className="font-medium text-gray-800">
+                       <Link
+          href={`${ROUTES.ADMIN.SIDEBAR.ORDERS}/${order.customer.id}`}
+          className="font-medium text-gray-800">
+          {order.customer.name}
+        </Link>
+                         {/* <p className="font-medium text-gray-800">
                            {order.customer.name}
-                         </p>
+                         </p> */}
                          <p className="text-sm text-gray-500">
                            {order.customer.email}
                          </p>
@@ -478,6 +501,9 @@ export default function DetailedOrderTable() {
             </TableBody>
           </Table>
         </div>
+        <div className="flex gap-3"><div className="border-2 border-slate-950 rounded-sm px-3" onClick={()=>onPageChange(1)}>page 1</div>
+           <div className="border-2 border-slate-950 rounded-sm px-3" onClick={()=>onPageChange(2)}>page 2</div>
+           <div className="border-2 border-slate-950 rounded-sm px-3" onClick={()=>onPageChange(3)}>page 3</div></div>
       </div>
     </div>
   );
