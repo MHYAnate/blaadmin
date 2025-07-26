@@ -1287,7 +1287,7 @@ export default function CustomerDashboard() {
                              <Badge
                                className={`${
                                  getStatusAppearance(order.status).color
-                               } text-[0.456rem] px-2 py-1 font-extrabold`}
+                               } text-xs px-2 py-1 font-extrabold`}
                              >
                                {order.status.toUpperCase()}
                              </Badge>
