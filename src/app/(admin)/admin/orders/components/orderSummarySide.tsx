@@ -172,7 +172,7 @@ export default function OrderSummary() {
   : []
 
   return (
-    <div className="w-full  bg-gray-50">
+    <div className="w-full">
       <div className="bg-white rounded-lg p-8 shadow-sm">
         {/* Header + Filters */}
         <div className="flex items-center justify-between mb-8">
@@ -205,7 +205,7 @@ export default function OrderSummary() {
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={transformedData}
-                margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
+                margin={{ top: 20, right: 5, left: 5, bottom: 20 }}
               >
                 <CartesianGrid
                   strokeDasharray="none"

@@ -301,7 +301,7 @@ export default function SalesChart() {
   }
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full">
       <div className="bg-white rounded-lg p-8 shadow-sm">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -336,7 +336,7 @@ export default function SalesChart() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={mainData}
-                margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
+                margin={{ top: 20, right: 10, left: 10, bottom: 20 }}
                 barCategoryGap="20%"
               >
                 <CartesianGrid
