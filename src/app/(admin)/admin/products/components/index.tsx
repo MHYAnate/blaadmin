@@ -363,15 +363,18 @@ export default function Products() {
 
   const { categories, pagination } = getAllCategoriesData;
 
-  const {
-    deleteProduct,
-    isLoading,
-    error: deleteProductError,
-    data: deleteProductPayload,
-  } = useDeleteProduct((res: any) => {
-    refetchProducts();
-    setOpen(false);
-  });
+   const {
+       deleteProduct,
+       isLoading,
+       error: deleteProductError,
+       data: deleteProductPayload,
+     } = useDeleteProduct({
+       onSuccess: (res: any) => {
+         refetchProducts();
+         setOpen(false);
+       },
+     });
+    
 
   const payload = {
     page: currentPage,
