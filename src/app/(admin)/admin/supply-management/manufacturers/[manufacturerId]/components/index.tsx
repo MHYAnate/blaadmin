@@ -69,36 +69,29 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
   
   const manufacturer = findManufacturerById(manufacturerId);
 
-  const { 
-    deleteProduct, 
-    isLoading: isDeletingProduct 
-  } = useDeleteProduct({
-    
-    onSuccess: () => {
-      toast.success("Product deleted successfully!");
-      showSuccessAlert("Product deleted successfully!");
-      refetchManufacturerProducts();
-      setOpen(false);
-    },
-    onError: (error: any) => {
-      console.error("Failed to delete product:", error);
-    }
-  });
-
-  const { 
-    deleteManufacturer, 
-    isLoading
-  } = useDeleteManufacturer({
-    onSuccess: () => {
-      toast.success("Manufacturer deleted successfully!");
-      // showSuccessAlert("Manufacturer deleted successfully!");
-      setOpen(false);
-      router.push('/admin/manufacturers');
-    },
-    onError: (error: any) => {
-      console.error("Failed to delete manufacturer:", error);
-    }
-  });
+     const {
+         deleteProduct,
+         isLoading: isDeletingProduct
+     } = useDeleteProduct({
+         onSuccess: () => {
+             toast.success("Product deleted successfully!");
+             refetchManufacturerProducts();
+             setOpen(false);
+         },
+     });
+ 
+     const {
+         deleteManufacturer,
+         isLoading: isDeletingManufacturer
+     } = useDeleteManufacturer({
+         onSuccess: () => {
+             toast.success("Manufacturer deleted successfully!");
+             setOpen(false);
+             setTimeout(() => {
+                 router.push('/admin/manufacturers');
+             }, 1000);
+         },
+     });
 
   const {
     getManufacturerInfoData: data,
@@ -183,7 +176,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
             handleClose={() => setOpen(false)}
             title={manufacturer?.name}
             handleClick={() => handleDelete(manufacturer)}
-            loading={isLoading}
+            loading={isDeletingManufacturer}
             warningMessage="Deleting this manufacturer will permanently remove it and all associated data. This action cannot be undone."
           />
         );
