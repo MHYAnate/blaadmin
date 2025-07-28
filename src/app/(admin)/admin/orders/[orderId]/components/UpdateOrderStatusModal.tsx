@@ -602,9 +602,11 @@ const useUpdateOrderStatus = ({ onSuccess }: { onSuccess?: () => void }) => {
 export function UpdateOrderStatusModal({
   order,
   currentStatus,
+  refetch,
 }: {
   order: any
   currentStatus: OrderStatus
+  refetch : ()=> void;
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>()
@@ -636,6 +638,7 @@ export function UpdateOrderStatusModal({
       carrier: formData.carrier,
       estimatedDelivery: date ? format(date, "yyyy-MM-dd") : undefined,
     })
+    refetch()
   }
 
   const allowedStatuses = validTransitions[currentStatus] || []
