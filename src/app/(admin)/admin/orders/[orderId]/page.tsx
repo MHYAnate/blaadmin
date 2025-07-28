@@ -634,7 +634,7 @@
 import { usePathname } from "next/navigation";
 import { useHandlePush } from "@/hooks/use-handle-push";
 import { ROUTES } from "@/constant/routes";
-
+import { UpdateOrderStatusModal } from "./components/UpdateOrderStatusModal";
 import {
   Table,
   TableBody,
@@ -964,6 +964,12 @@ export default function CustomerDashboard() {
 
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  
+
+  
+
   const handleProductClick = (order: Order) => {
     setSelectedOrder(order);
   };
@@ -1123,9 +1129,15 @@ export default function CustomerDashboard() {
                   <Button variant="outline" className="flex items-center gap-2 px-6 py-2 border-orange-200 text-gray-600 hover:bg-orange-50">
                     <RotateCcw className="w-4 h-4" /> Refund
                   </Button>
-                  <Button className="bg-orange-400 hover:bg-orange-500 text-white px-6 py-2 font-medium">Edit order</Button>
+                  <Button onClick={() => setIsOpen(!isOpen)} className="bg-orange-400 hover:bg-orange-500 text-white px-6 py-2 font-medium">Edit order</Button>
                 </div>
-              </div>
+              </div> 
+              {isOpen && (
+          <UpdateOrderStatusModal 
+            order={displayOrder} 
+            currentStatus={displayOrder.status} 
+          />
+        )}
               <div className="flex items-center text-sm text-gray-500 mb-8">
                 <span>Order</span><ChevronRight className="w-4 h-4 mx-1" />
                 <span>Order Details</span><ChevronRight className="w-4 h-4 mx-1" />
@@ -1160,6 +1172,7 @@ export default function CustomerDashboard() {
                 </div>
               </div>
             </div>
+           
 
             <div className="bg-white rounded-lg p-6 shadow-sm">
               <h2 className="text-xl font-semibold text-gray-800 mb-6">Order Timeline</h2>

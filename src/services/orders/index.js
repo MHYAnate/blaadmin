@@ -3,6 +3,8 @@ import { ErrorHandler } from "../errorHandler";
 import httpService from "../httpService";
 import useFetchItem from "../useFetchItem";
 import useMutateItem from "../useMutateItem";
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+
 
 export const useGetOrders = () => {
   const { isLoading, error, data, refetch, setFilter } = useFetchItem({
@@ -117,5 +119,48 @@ export const useGetOrderSummaryChart = ({ timeframe = '5m', enabled = true } = {
     orderSummarySummary: data?.summary || {},
     orderSummaryError: ErrorHandler(error),
     refetchOrderSummary: refetch,
+  };
+};
+
+export const useUpdateOrderStatus = ({ onSuccess }) => {
+  const queryClient = useQueryClient();
+  
+  const updateOrderStatusMutation = useMutation({
+    mutationFn: async ({ 
+      id, 
+      status,
+      notes,
+      trackingNumber,
+      carrier,
+      estimatedDelivery
+    }) => {
+      const response = await apiClient.patch(`/admin/orders/${id}/status`, {
+        status,
+        notes,
+        trackingNumber,
+        carrier,
+        estimatedDelivery
+      });
+      return response.data;
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["adminOrders"] });
+      queryClient.invalidateQueries({ 
+        queryKey: ["orderDetails", variables.id] 
+      });
+      toast.success(data.message || "Order status updated successfully");
+      onSuccess?.();
+    },
+    onError: (error) => {
+      const errorMessage = error.response?.data?.error || 
+                         error.response?.data?.message || 
+                         error.message;
+      toast.error(errorMessage || "Failed to update order status");
+    }
+  });
+
+  return {
+    updateOrderStatus: updateOrderStatusMutation.mutateAsync,
+    isUpdating: updateOrderStatusMutation.isPending,
   };
 };
