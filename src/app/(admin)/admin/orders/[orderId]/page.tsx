@@ -34,6 +34,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react"
+import BackButton from "./backbtn";
 
 // --- TYPE DEFINITIONS ---
 interface OrderItem {
@@ -622,12 +623,8 @@ export default function CustomerDashboard() {
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       
-      <button
-						className="mb-10 border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 rounded-md px-4 py-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            onClick={()=> handlePush(ROUTES.ADMIN.SIDEBAR.ORDERS)}
-					>
-						← Back
-					</button>
+     
+          <BackButton/>
       <div className="max-w-7xl mx-auto space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column */}
