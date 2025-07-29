@@ -2,7 +2,7 @@ import Orders from "./components";
 
 export default function OrdersPage() {
   return (
-    <section>
+    <section >
       <Orders />
     </section>
   );

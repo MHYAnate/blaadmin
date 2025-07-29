@@ -204,7 +204,7 @@ export default function Orders() {
       </div>
     </div>
           <div className="bg-white">
-            <div className="p-6">
+            <div >
               {/* <h6 className="font-semibold text-lg text-[#111827] mb-6">
                 Detailed Order Table
               </h6> */}
