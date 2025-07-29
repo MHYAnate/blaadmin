@@ -194,17 +194,7 @@ export default function Orders() {
               <OrderCard report={report} key={index} />
             ))}
           </div>
-          {/* <div className="flex gap-5">
-         <SalesChart/>
-         <OrderSummary/>
-           
-          </div> */}
-         {/* <div className="min-h-screen bg-gray-50">
-      <div className="flex align-middle justify-center">
-        <SalesChart />
-        <OrderSummary />
-      </div>
-    </div> */}
+      
      <div className="flex flex-col md:flex-row gap-6 w-full">
       <div className="w-full md:w-3/5">
         <SalesChart />
@@ -215,9 +205,9 @@ export default function Orders() {
     </div>
           <div className="bg-white">
             <div className="p-6">
-              <h6 className="font-semibold text-lg text-[#111827] mb-6">
+              {/* <h6 className="font-semibold text-lg text-[#111827] mb-6">
                 Detailed Order Table
-              </h6>
+              </h6> */}
 
               {/* <div className="flex items-center gap-4 mb-6">
                 <InputFilter
