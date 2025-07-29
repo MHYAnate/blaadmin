@@ -21,7 +21,7 @@ import {
 	PersonIcon,
 	RepIcon,
 	ViewIcon,
-} from "../../../../../../public/icons";
+} from "../../../../../public/icons";
 import Link from "next/link";
 import { ROUTES } from "@/constant/routes";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -371,9 +371,9 @@ const getStatusBadge = (status: string) => {
 	// );
 };
 
-export default function DetailedOrderTable() {
+export default function OngoingDetailedOrderTable() {
 	const [customerTypeFilter, setCustomerTypeFilter] = useState<string>("");
-  const [orderStatusFilter, setOrderStatusFilter] = useState<string>("");
+  const [orderStatusFilter, setOrderStatusFilter] = useState<string>("ONGOING");
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
 	const [pageSize, setPageSize] = useState<string>("10");
@@ -426,10 +426,9 @@ export default function DetailedOrderTable() {
 	const payload = {
 		page: currentPage,
 	};
-
-	useEffect(() => {
-		setOrdersFilter(payload);
-	}, [currentPage]);
+  useEffect(() => {
+		setOrderStatusFilter("ONGOING")
+	}, []);
 
 	if (getOrdersIsLoading) {
 		return (
@@ -456,20 +455,6 @@ export default function DetailedOrderTable() {
 	const orders = data?.data || [];
 
 
-  const customerTypeOptions = [
-    { value: "all", text: "All Types" },
-    { value: "INDIVIDUAL", text: "Individual" },
-    { value: "BUSINESS", text: "Business" },
-  ];
-
-  const statusOptions = [
-    { value: "all", text: "All Status" },
-    { value: "ONGOING", text: "Ongoing" },
-    { value: "DELIVERED", text: "Delivered" },
-    { value: "CANCELLED", text: "Cancelled" },
-    { value: "PENDING", text: "Pending" },
-  ];
-
 
 
 
@@ -487,18 +472,18 @@ export default function DetailedOrderTable() {
 			<div className="bg-white rounded-lg shadow-sm">
 				<div className="p-6 border-b border-gray-200">
 					<h1 className="text-xl font-semibold text-gray-800">
-						Detailed Order Table
+					Detailed OnGoing Order Table
 					</h1>
 				</div>
 
 				{/* Table */}
 				<div className="flex items-center p-7 mb-6">
               
-                <SelectFilter
+                {/* <SelectFilter
                   setFilter={setOrderStatusFilter}
                   placeholder="Order Status"
                   list={statusOptions}
-                />
+                /> */}
                
               </div>
 				<div className="overflow-x-auto">

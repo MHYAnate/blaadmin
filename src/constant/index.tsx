@@ -51,7 +51,25 @@ export const adminSidebarList = [
     id: 5,
     sidebar: "Orders",
     icon: <OrderIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.ORDERS,
+    // href: ROUTES.ADMIN.SIDEBAR.ORDERS,
+    child: [
+      {
+        sidebar: "Orders",
+        href: ROUTES.ADMIN.SIDEBAR.ORDERS,
+      },
+      {
+        sidebar: "Delivered",
+        href: ROUTES.ADMIN.SIDEBAR.DELIVERED,
+      },
+      {
+        sidebar: "Ongoing",
+        href: ROUTES.ADMIN.SIDEBAR.ONGOING,
+      },
+      {
+        sidebar: "Cancelled",
+        href: ROUTES.ADMIN.SIDEBAR.CANCELLED,
+      },
+    ],
   },
   {
     id: 6,

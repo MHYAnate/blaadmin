@@ -3,7 +3,6 @@
 import Header from "@/app/(admin)/components/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import DataTable from "./data-table";
 import {
   DeliveredIcon,
   ExportIcon,
@@ -14,11 +13,9 @@ import {
   PaymentRefundIcon,
   PendingPaymentIcon,
   PendingReviewIcon,
-} from "../../../../../../public/icons";
+} from "../../../../../public/icons";
 import { IOrderCard } from "@/types";
 import OrderCard from "@/components/widgets/order";
-import { OrderBarComponent } from "./order-bar-chart";
-import LineGraphComponent from "./line-graph";
 import {
   useGetOrders,
   useGetOrdersAnalytics,
@@ -26,8 +23,6 @@ import {
   useGetOrderSummaryChart,
   useGetSalesData,
 } from "@/services/orders";
-import { InputFilter } from "@/app/(admin)/components/input-filter";
-import { SelectFilter } from "@/app/(admin)/components/select-filter";
 import { useEffect, useState } from "react";
 import DeleteContent from "@/app/(admin)/components/delete-content";
 import {
@@ -36,10 +31,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import DatePickerWithRange from "@/components/ui/date-picker";
-import SalesChart from "./orderSales";
-import OrderSummary from "./orderSummarySide";
-import DetailedOrderTable from "./orderTable";
+import SalesChart from "../orders/components/orderSales";
+import OrderSummary from "../orders/components/orderSummarySide";
+import OngoingDetailedOrderTable from "./ongoingTable";
 
 export default function Orders() {
   const {
@@ -190,30 +184,12 @@ export default function Orders() {
               <OrderCard report={report} key={index} />
             ))}
           </div>
-          {/* <div className="flex gap-5">
-         <SalesChart/>
-         <OrderSummary/>
-           
-          </div> */}
-         {/* <div className="min-h-screen bg-gray-50">
-      <div className="flex align-middle justify-center">
-        <SalesChart />
-        <OrderSummary />
-      </div>
-    </div> */}
-     <div className="flex flex-col md:flex-row gap-6 w-full">
-      <div className="w-full md:w-3/5">
-        <SalesChart />
-      </div>
-      <div className="w-full md:w-2/5">
-        <OrderSummary />
-      </div>
-    </div>
+   
           <div className="bg-white">
             <div className="p-6">
-              <h6 className="font-semibold text-lg text-[#111827] mb-6">
-                Detailed Order Table
-              </h6>
+              {/* <h6 className="font-semibold text-lg text-[#111827] mb-6">
+                Detailed OnGoing Order Table
+              </h6> */}
 
               {/* <div className="flex items-center gap-4 mb-6">
                 <InputFilter
@@ -247,7 +223,7 @@ export default function Orders() {
                 }}
                 loading={getOrdersIsLoading}
               /> */}
-              <DetailedOrderTable/>
+              <OngoingDetailedOrderTable/>
             </div>
           </div>
         </CardContent>
