@@ -597,12 +597,12 @@ export default function OngoingDetailedOrderTable() {
 											{/* <Button size="sm" variant="destructive" className="p-2">
                         <DeleteIcon/>
                       </Button> */}
-											<div
+											{/* <div
 												onClick={() => {}}
 												className="bg-[#E03137] p-2.5 rounded-lg cursor-pointer"
 											>
 												<DeleteIcon />
-											</div>
+											</div> */}
 										</div>
 									</TableCell>
 								</TableRow>
