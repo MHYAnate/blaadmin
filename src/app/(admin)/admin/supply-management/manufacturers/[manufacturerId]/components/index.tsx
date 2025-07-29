@@ -231,7 +231,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
           </div>
 
           <div className="mb-6">
-            <SupplierManagementCard
+            {/* <SupplierManagementCard
               item={manufacturer}
               handleUpdateManufacturerStatus={handleToggle}
               showToggle={true}
@@ -239,7 +239,7 @@ const ManufacturerDetails: React.FC<iProps> = ({ manufacturerId }) => {
               setTab={setTab}
               setOpen={setOpen}
               loading={updateManufacturerStatusIsLoading || false}
-            />
+            /> */}
           </div>
 
           <div className="flex items-center gap-4 mb-6">
