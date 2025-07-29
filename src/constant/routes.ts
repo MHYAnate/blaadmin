@@ -13,6 +13,7 @@ export const ROUTES = {
       ONGOING: "/admin/order-ongoing",
       DELIVERED:"/admin/order-delivered",
       CANCELLED:"/admin/order-cancelled",
+      CATEGORIES: "/admin/categories",
       MANUFACTURERS: "/admin/manufacturers",
       CUSTOMERSREPORTS: "/admin/reports",
       BUSINNESREPORTS: "/admin/reports",
