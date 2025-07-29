@@ -462,13 +462,21 @@ export default function DetailedOrderTable() {
     { value: "BUSINESS", text: "Business" },
   ];
 
-  const statusOptions = [
-    { value: "all", text: "All Status" },
-    { value: "ONGOING", text: "Ongoing" },
-    { value: "DELIVERED", text: "Delivered" },
-    { value: "CANCELLED", text: "Cancelled" },
-    { value: "PENDING", text: "Pending" },
-  ];
+  // const statusOptions = [
+  //   { value: "", text: "All Status" },
+  //   { value: "ONGOING", text: "Ongoing" },
+  //   { value: "DELIVERED", text: "Delivered" },
+  //   { value: "CANCELLED", text: "Cancelled" },
+  //   { value: "PENDING", text: "Pending" },
+  // ];
+
+	const statusOptions = [
+		{ value: "all", text: "All Status" },
+		{ value: "ONGOING", text: "Ongoing" },
+		{ value: "DELIVERED", text: "Delivered" },
+		{ value: "CANCELLED", text: "Cancelled" },
+		{ value: "PENDING", text: "Pending" },
+	];
 
 
 

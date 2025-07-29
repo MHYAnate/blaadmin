@@ -35,9 +35,10 @@ export function SelectFilter({
 }: IProps) {
   return (
     <Select
-      onValueChange={async (value) => {
-        if (setFilter) await setFilter(value);
-      }}
+    onValueChange={async (value) => {
+      if (setFilter) await setFilter(value === "all" ? "" : value);
+    }}
+    
     >
       <SelectTrigger className={className}>
         <SelectValue placeholder={placeholder} />
@@ -45,7 +46,7 @@ export function SelectFilter({
       <SelectContent className="">
         <SelectGroup>
           {list?.map((list, index: number) => (
-            <SelectItem value={list?.value} key={index}>
+            <SelectItem value={list?.value ?? "ALL"} key={index}>
               {list?.text}
             </SelectItem>
           ))}
