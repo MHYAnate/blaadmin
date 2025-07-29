@@ -99,6 +99,49 @@ export default function Orders() {
     },
   ];
 
+  // const orderlist = [
+  //   // {
+  //   //   value: "405,689",
+  //   //   icon: <PaymentRefundIcon />,
+  //   //   title: "Payment Refund",
+  //   // },
+  //   {
+  //     value: getOrdersSummaryData?.data?.cancelled || 0,
+  //     icon: <OrderCancelIcon />,
+  //     title: "Order Cancelled",
+  //   },
+  //   {
+  //     value: 293,
+  //     icon: <OrderShippedIcon />,
+  //     title: "Order Shipped",
+  //   },
+  //   {
+  //     value: getOrdersSummaryData?.data?.processing || 0,
+  //     icon: <OrderDeliveringIcon />,
+  //     title: "Order Delivering",
+  //   },
+  //   {
+  //     value: getOrdersSummaryData?.data?.pending || 0,
+  //     icon: <PendingPaymentIcon />,
+  //     title: "Pending Orders",
+  //   },
+  //   {
+  //     value: getOrdersSummaryData?.data?.scheduled || 0,
+  //     icon: <PendingReviewIcon />,
+  //     title: "Order Scheduled",
+  //   },
+  //   {
+  //     value: 48,
+  //     icon: <DeliveredIcon />,
+  //     title: "Delivered",
+  //   },
+  //   {
+  //     value: getOrdersSummaryData?.data?.totalRevenue || 0,
+  //     icon: <PendingPaymentIcon />,
+  //     title: "Total Revenue",
+  //   },
+  // ];
+
   const orderlist = [
     // {
     //   value: "405,689",
@@ -106,39 +149,40 @@ export default function Orders() {
     //   title: "Payment Refund",
     // },
     {
-      value: getOrdersSummaryData?.data?.cancelled || 0,
-      icon: <OrderCancelIcon />,
-      title: "Order Cancelled",
+      value: null,
+      icon: <PaymentRefundIcon />,
+      title: "Payment Refund",
     },
     {
-      value: 293,
-      icon: <OrderShippedIcon />,
+      value: null,
+      icon: <OrderCancelIcon />,
+      title: "Order Cancel",
+    },
+    {
+      value: null,
+      icon: <OrderDeliveringIcon />,
       title: "Order Shipped",
     },
     {
-      value: getOrdersSummaryData?.data?.processing || 0,
-      icon: <OrderDeliveringIcon />,
-      title: "Order Delivering",
-    },
-    {
-      value: getOrdersSummaryData?.data?.pending || 0,
+      value: getOrdersSummaryData?.summary?.totalOrdered
+      - getOrdersSummaryData?.summary?.totalDelivered,
       icon: <PendingPaymentIcon />,
-      title: "Pending Orders",
+      title: "In Progress",
     },
     {
-      value: getOrdersSummaryData?.data?.scheduled || 0,
+      value: null,
       icon: <PendingReviewIcon />,
-      title: "Order Scheduled",
+      title: "Pending Review",
     },
     {
-      value: 48,
-      icon: <DeliveredIcon />,
-      title: "Delivered",
-    },
-    {
-      value: getOrdersSummaryData?.data?.totalRevenue || 0,
+      value: null,
       icon: <PendingPaymentIcon />,
-      title: "Total Revenue",
+      title: "Pending Payment",
+    },
+    {
+      value: getOrdersSummaryData?.summary?.totalDelivered,
+      icon:  <DeliveredIcon />,
+      title: "Delivered",
     },
   ];
 
