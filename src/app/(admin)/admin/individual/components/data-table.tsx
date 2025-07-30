@@ -201,7 +201,20 @@ const DataTable: React.FC<iProps> = ({
       </Badge>
     ),
     customerstatus: (item: CustomersData) => (
-      <div className="font-medium flex items-center gap-3">{item?.status}</div>
+      <Badge
+      variant={
+        item?.status?.toLocaleString().toLowerCase() === "active"
+          ? "success"
+          : item?.status?.toLocaleString().toLowerCase() === "Inactive"
+            ? "tertiary"
+            : item?.status?.toLocaleString().toLowerCase() === "flagged"
+              ? "destructive"
+              : "warning"
+      }
+      className="py-1 px-[26px] font-bold"
+    >
+      {item?.status?.toLocaleString().toUpperCase()}
+    </Badge>
     ),
 
     action: (item: CustomersData) => (
