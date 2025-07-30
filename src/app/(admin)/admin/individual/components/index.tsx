@@ -201,8 +201,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import { ChevronLeft } from "lucide-react";
-import CreateCustomer from "./create-customer";
 import { useGetCustomers } from "@/services/customers";
 import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -246,7 +244,11 @@ const Customers: React.FC = () => {
   useEffect(() => {
     setCustomersFilter(payload);
   }, [filter, type, status, pageSize, currentPage, kycStatus]);
+  useEffect(() => {
+    setType("individual");
+  }, []);
 
+  
   console.log("customers", data)
 
   const customerList = [
@@ -311,21 +313,14 @@ const Customers: React.FC = () => {
             </div>
 
           </div>
-          <div >
-            {/* {safeRolesData.map((role: RoleData) => (
-              <RoleCard key={role.id} role={role} />
-            ))} */}
+        <div >
             <CustomerStatsDashboard stats={data?.overallStats} />
-          </div>
+                 </div>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-1/2 me-auto">
               <InputFilter setQuery={setFilter} />
             </div>
-            <SelectFilter
-              setFilter={setType}
-              placeholder="Customer type"
-              list={customerList}
-            />
+         
             <SelectFilter
               setFilter={setkycStatus}
               list={kycList}

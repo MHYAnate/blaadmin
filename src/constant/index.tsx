@@ -33,7 +33,21 @@ export const adminSidebarList = [
     id: 2,
     sidebar: "Customers",
     icon: <UserIcon />,
-    href: ROUTES.ADMIN.SIDEBAR.CUSTOMERS,
+    child: [
+      {
+        sidebar: "Customers",
+        href: ROUTES.ADMIN.SIDEBAR.CUSTOMERS,
+      },
+      {
+        sidebar: "Business Owner",
+        href: ROUTES.ADMIN.SIDEBAR.BUSINNES,
+      },
+      {
+        sidebar: "Individual",
+        href: ROUTES.ADMIN.SIDEBAR.INDIVIDUALS,
+      },
+    ],
+    
   },
   {
     id: 3,

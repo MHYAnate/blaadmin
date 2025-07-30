@@ -201,8 +201,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import { ChevronLeft } from "lucide-react";
-import CreateCustomer from "./create-customer";
 import { useGetCustomers } from "@/services/customers";
 import { InputFilter } from "@/app/(admin)/components/input-filter";
 import { SelectFilter } from "@/app/(admin)/components/select-filter";
@@ -228,8 +226,6 @@ const Customers: React.FC = () => {
   const [pageSize, setPageSize] = useState<string>("10");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTab, setCurrentTab] = useState<string>("delete");
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -246,6 +242,10 @@ const Customers: React.FC = () => {
   useEffect(() => {
     setCustomersFilter(payload);
   }, [filter, type, status, pageSize, currentPage, kycStatus]);
+
+  useEffect(() => {
+    setType("business");
+  }, []);
 
   console.log("customers", data)
 
@@ -311,21 +311,18 @@ const Customers: React.FC = () => {
             </div>
 
           </div>
-          <div >
-            {/* {safeRolesData.map((role: RoleData) => (
-              <RoleCard key={role.id} role={role} />
-            ))} */}
-            <CustomerStatsDashboard stats={data?.overallStats} />
+          <div>
+           <CustomerStatsDashboard stats={data?.overallStats} />
           </div>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-1/2 me-auto">
               <InputFilter setQuery={setFilter} />
             </div>
-            <SelectFilter
+            {/* <SelectFilter
               setFilter={setType}
               placeholder="Customer type"
               list={customerList}
-            />
+            /> */}
             <SelectFilter
               setFilter={setkycStatus}
               list={kycList}
