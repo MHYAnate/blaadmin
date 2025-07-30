@@ -22,10 +22,18 @@ import { useSearchParams } from 'next/navigation';
 import { Storage } from "@/lib/utils";
 import { useEffect,useState } from "react";
 import SalesPerformance from "./dashboardTopChart";
+import { useGetSalesData } from "@/services/orders"
 
 const Dashboard: React.FC = () => {
 
   const[email, setEmail] = useState("");
+
+  const {
+    salesData,
+    isSalesLoading,
+    salesError,
+    salesYear,
+  } = useGetSalesData()
   
   const {
     isDashboardInfoLoading,
@@ -201,7 +209,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="flex-1 h-auto">
             {/* <LineGraphComponent data={data?.charts?.salesPerformance || []} /> */}
-            <SalesPerformance data={data}/>
+            <SalesPerformance data={salesData}/>
           </div>
         </CardContent>
       </Card>
