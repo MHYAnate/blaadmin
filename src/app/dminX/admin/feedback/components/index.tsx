@@ -52,11 +52,11 @@ const Feedbacks: React.FC = () => {
               list={roleList}
             />
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          {/* <div className="grid grid-cols-2 gap-6">
             {Array.from({ length: 6 }).map((_, index) => (
               <FeedbackCard key={index} onClick={() => setIsOpen(true)} />
             ))}
-          </div>
+          </div> */}
         </CardContent>
       </Card>
       <Dialog open={isOpen} onOpenChange={() => setIsOpen(!open)}>
