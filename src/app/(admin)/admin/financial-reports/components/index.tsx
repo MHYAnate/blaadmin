@@ -26,6 +26,8 @@ const FinancialReport: React.FC = () => {
 
 	const { reportsData, totalSales, averageAOV,refetch } = useGetFinancialReports({});
 
+	console.log(reportsData,"finacial", totalSales, "salesF", averageAOV, "avearage")
+
 	// Access data
 
 	const { dashboardData, isFetchingDashboard, error, refreshDashboard } =

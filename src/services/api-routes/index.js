@@ -244,5 +244,20 @@ orderSummaryChart: (timeframe) => {
 
 // File upload
 upload: () => "upload",
+getFeedbackByUser: (userId) => `admin/feedback/user/${userId}`,
+  getAllFeedback: (queryParams) => {
+    if (!queryParams) return 'admin/feedback';
+    
+    const params = new URLSearchParams();
+    Object.entries(queryParams).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== '') {
+        params.append(key, value);
+      }
+    });
+    
+    return `admin/feedback?${params.toString()}`;
+  }
 };
+
+
 
