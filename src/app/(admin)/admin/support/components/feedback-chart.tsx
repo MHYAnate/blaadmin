@@ -100,11 +100,11 @@ export function FeedbackBarComponent() {
 		},
 	];
 
-	const maxFeedbackValue = 50;
+	const maxFeedbackValue = 100;
 	const getBarHeight = (value: number) => (value / maxFeedbackValue) * 100;
 
 	return (
-		<div className="flex gap-6 p-6 bg-gray-50 min-h-screen">
+		<div className="flex gap-6 p-6 bg-gray-50 h-fit">
 			{/* Left Component - Feedback Status Distribution */}
 			<Card className="flex-[2] bg-white shadow-sm border border-gray-200">
 				<CardHeader className="pb-4">

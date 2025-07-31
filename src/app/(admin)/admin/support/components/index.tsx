@@ -3,6 +3,7 @@
 import Header from "@/app/(admin)/components/header";
 import DataTable from "./data-table";
 import { Card, CardContent } from "@/components/ui/card";
+import { FeedbackBarComponent } from "./feedback-chart";
 
 const Support: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Support: React.FC = () => {
               subtext="View and manage customer feedback to improve service and address concerns effectively."
             />
           </div>
+          <FeedbackBarComponent/>
           <DataTable />
         </CardContent>
       </Card>
