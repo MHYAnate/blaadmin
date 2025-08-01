@@ -115,38 +115,43 @@ export default function Orders() {
     //   title: "Payment Refund",
     // },
     {
-      value: null,
+      value: getOrdersSummaryData?.data?.paymentRefund
+      ,
       icon: <PaymentRefundIcon />,
       title: "Payment Refund",
     },
     {
-      value: null,
+      value:getOrdersSummaryData?.data?.orderCancel
+      ,
       icon: <OrderCancelIcon />,
       title: "Order Cancel",
     },
     {
-      value: null,
+      value: getOrdersSummaryData?.data?.orderShipped,
       icon: <OrderDeliveringIcon />,
       title: "Order Shipped",
     },
     {
-      value: getOrdersSummaryData?.summary?.totalOrdered
-      - getOrdersSummaryData?.summary?.totalDelivered,
+      value: getOrdersSummaryData?.data?.inProgress
+      ,
       icon: <PendingPaymentIcon />,
       title: "In Progress",
     },
     {
-      value: null,
+      value:getOrdersSummaryData?.data?.
+      pendingReview,
       icon: <PendingReviewIcon />,
       title: "Pending Review",
     },
     {
-      value: null,
+      value:getOrdersSummaryData?.data?.pendingPayment
+      ,
       icon: <PendingPaymentIcon />,
       title: "Pending Payment",
     },
     {
-      value: getOrdersSummaryData?.summary?.totalDelivered,
+      value: getOrdersSummaryData?.data?.
+      delivered,
       icon:  <DeliveredIcon />,
       title: "Delivered",
     },

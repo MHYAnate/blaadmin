@@ -73,7 +73,7 @@ export function TopCustomersChart({ data }: iProps) {
                     {formatNumber(totalSpent || 0.0)}
                   </tspan>
                   <tspan x={cx} y={cy + 24} className="fill-[#A0AEC0] text-xs">
-                    Total Customers
+                    Total Spents
                   </tspan>
                 </text>
               )}
@@ -90,10 +90,10 @@ export function TopCustomersChart({ data }: iProps) {
               style={{ backgroundColor: data.fill }}
             ></div>
             <p className="text-[#687588] text-xs font-medium me-auto">
-              {data.orderCount || 0}
+            {data.email.split('@')[0]} 
             </p>
             <h6 className="font-bold text-sm text-[#111827]">
-              {data.totalSpent}
+            {formatNumber(data.totalSpent)}
             </h6>
           </div>
         ))}

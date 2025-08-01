@@ -241,6 +241,7 @@ orderSummaryChart: (timeframe) => {
   const base = "admin/orders/summary/chart";
   return timeframe ? `${base}?timeframe=${timeframe}` : base;
 },
+orderSummary:()=> "admin/orders/summary",
 
 // File upload
 upload: () => "upload",

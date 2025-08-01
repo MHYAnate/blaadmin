@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
     dashboardData: data,
   } = useGetDashboardInfo({ enabled: true });
 
-  console.log( data, "compareData")
+  console.log( data, "dashboardData", salesData, "saledate")
   
   const userEmail = Storage.get("userEmail");
 
@@ -73,9 +73,9 @@ const Dashboard: React.FC = () => {
             <div className="p-6 bg-[#FFCEDB] flex flex-col h-full">
               <DashboardTotalRevenueIcon />
               <h1 className="mt-1 mb-3 font-bold 2xl:text-[2rem] text-[1.5rem] text-[#111827] break-words w-full">
-                {data?.metrics?.revenue?.total
-                  ? formatNumber(Number(data?.metrics?.revenue?.total))
-                  : "0.00"}
+              {data?.metrics?.revenue?.total
+                  ? formatNumber(Math.round(Number(data?.metrics?.revenue?.total)))
+                  : "0"}
               </h1>
               <div className="mt-auto mb-1">
                 <div
@@ -91,10 +91,8 @@ const Dashboard: React.FC = () => {
                     <ProgressIcon />
                   )}
                   <p>
-                    {data?.metrics?.revenue?.changePercentage
-                      ? formatNumber(
-                          Number(data?.metrics?.revenue?.changePercentage)
-                        )
+                  {data?.metrics?.revenue?.changePercentage
+                      ? Math.round(Number(data?.metrics?.revenue?.changePercentage))
                       : "0.00"}
                     %
                   </p>
@@ -107,8 +105,8 @@ const Dashboard: React.FC = () => {
             <div className="p-6 bg-[#FFE2B3] flex flex-col h-full">
               <DashboardTotalProductsIcon />
               <h1 className="mt-1 mb-3 font-bold 2xl:text-[2rem] text-[1.5rem] text-[#111827] break-words w-full">
-                {data?.metrics?.profits?.total
-                  ? formatNumber(Number(data?.metrics?.profits?.total))
+              {data?.metrics?.profits?.total
+                  ? formatNumber(Math.round(Number(data?.metrics?.profits?.total)))
                   : "0.00"}
               </h1>
               <div className="mt-auto mb-1">
@@ -125,10 +123,8 @@ const Dashboard: React.FC = () => {
                     <ProgressIcon />
                   )}
                   <p>
-                    {data?.metrics?.profits?.changePercentage
-                      ? formatNumber(
-                          Number(data?.metrics?.profits?.changePercentage)
-                        )
+                  {data?.metrics?.profits?.changePercentage
+                      ? Math.round(Number(data?.metrics?.profits?.changePercentage))
                       : "0.00"}
                     %
                   </p>
@@ -141,8 +137,8 @@ const Dashboard: React.FC = () => {
             <div className="p-6 bg-[#ABFFD5] flex flex-col h-full">
               <DashboardTotalOrderIcon />
               <h1 className="mt-1 mb-3 font-bold 2xl:text-[2rem] text-[1.5rem] text-[#111827] break-words w-full">
-                {data?.metrics?.orders?.total
-                  ? formatNumber(Number(data?.metrics?.orders?.total))
+              {data?.metrics?.orders?.total
+                  ? formatNumber(Math.round(Number(data?.metrics?.orders?.total)))
                   : "0.00"}
               </h1>
               <div className="mt-auto mb-1">
@@ -159,10 +155,8 @@ const Dashboard: React.FC = () => {
                     <ProgressIcon />
                   )}
                   <p>
-                    {data?.metrics?.orders?.changePercentage
-                      ? formatNumber(
-                          Number(data?.orders?.revenue?.changePercentage)
-                        )
+                  {data?.metrics?.orders?.changePercentage
+                      ? Math.round(Number(data?.metrics?.orders?.changePercentage))
                       : "0.00"}
                     %
                   </p>
@@ -175,8 +169,8 @@ const Dashboard: React.FC = () => {
             <div className="p-6 bg-[#B59BFD] flex flex-col h-full">
               <DashboardTotalCustomersIcon />
               <h1 className="mt-1 mb-3 font-bold 2xl:text-[2rem] text-[1.5rem] text-[#111827] break-words w-full">
-                {data?.metrics?.customers?.total
-                  ? formatNumber(Number(data?.metrics?.customers?.total))
+              {data?.metrics?.customers?.total
+                  ? formatNumber(Math.round(Number(data?.metrics?.customers?.total)))
                   : "0.00"}
               </h1>
               <div className="mt-auto mb-1">
@@ -193,10 +187,8 @@ const Dashboard: React.FC = () => {
                     <ProgressIcon />
                   )}
                   <p>
-                    {data?.metrics?.customers?.changePercentage
-                      ? formatNumber(
-                          Number(data?.metrics?.customers?.changePercentage)
-                        )
+                  {data?.metrics?.customers?.changePercentage
+                      ? Math.round(Number(data?.metrics?.customers?.changePercentage))
                       : "0.00"}
                     %
                   </p>
