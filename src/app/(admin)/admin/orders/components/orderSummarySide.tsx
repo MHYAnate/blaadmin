@@ -418,7 +418,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { useGetOrdersSummary } from "@/services/orders";
+import { useGetOrdersSummary, useGetOrderSummaryChart } from "@/services/orders";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -460,13 +460,20 @@ export default function OrderSummary() {
     setOrdersSummaryFilter,
   } = useGetOrdersSummary();
 
+    const {
+      orderSummary,
+      orderSummarySummary,
+      isOrderSummaryLoading,
+      orderSummaryError
+    } = useGetOrderSummaryChart({ timeframe: '6m' });
+
   const handleTimeframeChange = (value: "3m" | "6m" | "12m") => {
     setTimeframe(value);
     setOrdersSummaryFilter({ timeframe: value });
   };
 
-  const transformedData = Array.isArray(getOrdersSummaryData?.data)
-    ? getOrdersSummaryData.data.map((item: any) => ({
+  const transformedData = Array.isArray( orderSummary?.data)
+    ?  orderSummary.data.map((item: any) => ({
         month: item.month,
         Ordered: item.ordered,
         Delivered: item.delivered,
